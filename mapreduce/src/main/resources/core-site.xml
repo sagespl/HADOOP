@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+<configuration>
+    <property>
+        <name>fs.default.name</name>
+        <value>hdfs://sandbox:8020</value>
+        <description>The nam of the default file system.  Either the
+            literal string "local" or a host:port for NDFS.
+        </description>
+        <final>true</final>
+    </property>
+</configuration>

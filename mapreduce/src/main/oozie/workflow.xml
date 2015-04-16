@@ -1,0 +1,80 @@
+<workflow-app name='wordcount-wf' xmlns="uri:oozie:workflow:0.4">
+    <start to='mr-node'/>
+    <action name='mr-node'>
+        <map-reduce>
+            <job-tracker>${jobTracker}</job-tracker>
+            <name-node>${nameNode}</name-node>
+            <prepare>
+                <delete path="${outputDir}"/>
+            </prepare>
+            <configuration>
+                <property>
+                    <name>mapred.mapper.new-api</name>
+                    <value>true</value>
+                </property>
+                <property>
+                    <name>mapred.reducer.new-api</name>
+                    <value>true</value>
+                </property>
+                <property>
+                    <name>mapreduce.map.class</name>
+                    <value>pl.com.sages.hadoop.mapreduce.WordCount$Map</value>
+                </property>
+                <property>
+                    <name>mapreduce.reduce.class</name>
+                    <value>pl.com.sages.hadoop.mapreduce.WordCount$Reduce</value>
+                </property>
+                <property>
+                    <name>mapred.output.key.class</name>
+                    <value>org.apache.hadoop.io.Text</value>
+                </property>
+                <property>
+                    <name>mapred.output.value.class</name>
+                    <value>org.apache.hadoop.io.IntWritable</value>
+                </property>
+                <property>
+                    <name>mapred.input.dir</name>
+                    <value>${inputDir}</value>
+                </property>
+                <property>
+                    <name>mapred.output.dir</name>
+                    <value>${outputDir}/mr-out</value>
+                </property>
+            </configuration>
+        </map-reduce>
+        <ok to='pig-node'/>
+        <error to='end'/>
+    </action>
+    <action name="pig-node">
+        <pig>
+            <job-tracker>${jobTracker}</job-tracker>
+            <name-node>${nameNode}</name-node>
+            <prepare>
+                <delete path="${outputDir}/pig-out"/>
+            </prepare>
+            <script>script.pig</script>
+            <param>INPUT=${outputDir}/mr-out</param>
+            <param>OUTPUT=${outputDir}/pig-out</param>
+        </pig>
+        <ok to="hive-node"/>
+        <error to="kill"/>
+    </action>
+    <action name="hive-node">
+        <hive xmlns="uri:oozie:hive-action:0.2">
+            <job-tracker>${jobTracker}</job-tracker>
+            <name-node>${nameNode}</name-node>
+            <prepare>
+                <delete path="${outputDir}/hive-out"/>
+            </prepare>
+            <script>script.sql</script>
+            <param>INPUT=${outputDir}/pig-out</param>
+            <param>OUTPUT=${outputDir}/hive-out</param>
+        </hive>
+        <ok to="end"/>
+        <error to="kill"/>
+    </action>
+    <kill name='kill'>
+        <message>Something went wrong: ${wf:errorCode('wordcount')}</message>
+    </kill>
+    <end name='end'/>
+</workflow-app>

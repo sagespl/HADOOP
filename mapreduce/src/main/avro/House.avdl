@@ -1,0 +1,15 @@
+@namespace("com.big.data.course.avro")
+protocol House {
+    record HouseKey {
+      string type;
+      string hood;
+    }
+
+    record HouseValue {
+      long count;
+      int landArea;
+      int grossArea;
+      int yearBuilt;
+      int salePrice;
+    }
+}
