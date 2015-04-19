@@ -12,71 +12,54 @@
 
     <artifactId>cascading</artifactId>
 
-    <properties>
-        <maven.compiler.source>1.7</maven.compiler.source>
-        <maven.compiler.target>1.7</maven.compiler.target>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <hadoop.version>2.3.0</hadoop.version>
-        <cascading.version>1.2.3</cascading.version>
-    </properties>
-
-
-    <!--<repositories>-->
-        <!--<repository>-->
-            <!--<id>conjars.org</id>-->
-            <!--<url>http://conjars.org/repo</url>-->
-        <!--</repository>-->
-    <!--</repositories>-->
     <dependencies>
         <dependency>
             <groupId>cascading</groupId>
             <artifactId>cascading-local</artifactId>
-            <version>3.0.0-wip-60</version>
         </dependency>
         <dependency>
             <groupId>cascading</groupId>
             <artifactId>cascading-hadoop2-mr1</artifactId>
-            <version>3.0.0-wip-60</version>
         </dependency>
         <dependency>
             <groupId>org.apache.hadoop</groupId>
             <artifactId>hadoop-client</artifactId>
-            <version>2.3.0</version>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-simple</artifactId>
-            <version>1.7.5</version>
         </dependency>
     </dependencies>
 
     <build>
-    <plugins>
-        <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-jar-plugin</artifactId>
-            <version>2.2</version>
-            <!-- nothing here -->
-        </plugin>
-
-        <plugin>
-            <artifactId>maven-assembly-plugin</artifactId>
-            <configuration>
-                <descriptorRefs>
-                    <descriptorRef>jar-with-dependencies</descriptorRef>
-                </descriptorRefs>
-            </configuration>
-            <executions>
-                <execution>
-                    <id>make-assembly</id>
-                    <phase>package</phase>
-                    <goals>
-                        <goal>single</goal>
-                    </goals>
-                </execution>
-            </executions>
-        </plugin>
-    </plugins>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>2.2</version>
+                <!-- nothing here -->
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <configuration>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
     </build>
 </project>
