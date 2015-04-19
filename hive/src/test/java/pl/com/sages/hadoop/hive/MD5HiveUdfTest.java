@@ -1,4 +1,4 @@
-package pl.com.sages.hadoop.mapreduce.hive;
+package pl.com.sages.hadoop.hive;
 
 import org.apache.hadoop.io.Text;
 import org.junit.Test;

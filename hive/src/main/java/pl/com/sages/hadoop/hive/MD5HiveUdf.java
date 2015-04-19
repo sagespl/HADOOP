@@ -1,4 +1,4 @@
-package pl.com.sages.hadoop.mapreduce.hive;
+package pl.com.sages.hadoop.hive;
 
 import org.apache.hadoop.hive.ql.exec.Description;
 import org.apache.hadoop.hive.ql.exec.UDF;
@@ -8,7 +8,9 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 /**
- * Created by jsnow_000 on 2014-11-28.
+ * Hive UDF example.
+ *
+ * @author Jakub Nowacki
  */
 @Description (
         name="MD5HiveUDF",

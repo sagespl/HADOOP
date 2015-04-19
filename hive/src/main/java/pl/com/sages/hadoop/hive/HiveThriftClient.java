@@ -1,4 +1,4 @@
-package pl.com.sages.hadoop.mapreduce.hive;
+package pl.com.sages.hadoop.hive;
 
 import org.apache.hadoop.hive.service.HiveClient;
 import org.apache.thrift.TException;

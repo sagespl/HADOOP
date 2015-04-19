@@ -1,4 +1,4 @@
-package pl.com.sages.hadoop.mapreduce.hive;
+package pl.com.sages.hadoop.hive;
 
 import java.sql.SQLException;
 import java.sql.Connection;
@@ -37,10 +37,7 @@ public class HiveServer2JdbcClient {
     }
 
     public boolean isConnected() throws SQLException {
-        if (connection == null || connection.isClosed()) {
-            return false;
-        }
-        return true;
+        return !(connection == null || connection.isClosed());
     }
 
     public ResultSet executeQuery(String sql) throws SQLException {

@@ -12,6 +12,7 @@
     <modules>
         <module>mapreduce</module>
         <module>cascading</module>
+        <module>hive</module>
     </modules>
 
     <repositories>
@@ -32,7 +33,10 @@
         <hive.version>0.14.0</hive.version>
         <pig.version>0.14.0</pig.version>
         <oozie.version>4.1.0</oozie.version>
-        <cascading.version>1.2.3</cascading.version>
+        <cascading.version>3.0.0-wip-60</cascading.version>
+        <mrunit.version>1.1.0</mrunit.version>
+        <junit.version>4.1.5</junit.version>
+        <slf4j.version>1.7.5</slf4j.version>
         <!-- Java 7 -->
         <maven.compiler.source>1.7</maven.compiler.source>
         <maven.compiler.target>1.7</maven.compiler.target>
@@ -103,25 +107,32 @@
             <dependency>
                 <groupId>org.apache.mrunit</groupId>
                 <artifactId>mrunit</artifactId>
-                <version>1.1.0</version>
+                <version>${mrunit.version}</version>
                 <classifier>hadoop2</classifier>
                 <scope>test</scope>
             </dependency>
+            <!-- jUnit -->
+            <!--<dependency>-->
+                <!--<groupId>junit</groupId>-->
+                <!--<artifactId>junit</artifactId>-->
+                <!--<version>${junit.version}</version>-->
+                <!--<scope>test</scope>-->
+            <!--</dependency>-->
             <!-- Cascading -->
             <dependency>
                 <groupId>cascading</groupId>
                 <artifactId>cascading-local</artifactId>
-                <version>3.0.0-wip-60</version>
+                <version>${cascading.version}</version>
             </dependency>
             <dependency>
                 <groupId>cascading</groupId>
                 <artifactId>cascading-hadoop2-mr1</artifactId>
-                <version>3.0.0-wip-60</version>
+                <version>${cascading.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-simple</artifactId>
-                <version>1.7.5</version>
+                <version>${slf4j.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
