@@ -10,9 +10,10 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>mapreduce</module>
         <module>cascading</module>
         <module>hive</module>
+        <module>mapreduce</module>
+        <module>oozie</module>
         <module>pig</module>
     </modules>
 

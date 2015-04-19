@@ -1,4 +1,4 @@
-package pl.com.sages.hadoop.mapreduce.oozie;
+package pl.com.sages.hadoop.oozie;
 
 import org.apache.oozie.client.OozieClient;
 import org.apache.oozie.client.OozieClientException;

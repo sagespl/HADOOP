@@ -31,11 +31,6 @@
             <groupId>org.apache.avro</groupId>
             <artifactId>avro-mapred</artifactId>
         </dependency>
-        <!--Oozie-->
-        <dependency>
-            <groupId>org.apache.oozie</groupId>
-            <artifactId>oozie-client</artifactId>
-        </dependency>
         <!-- MRUnit -->
         <dependency>
             <groupId>org.apache.mrunit</groupId>
