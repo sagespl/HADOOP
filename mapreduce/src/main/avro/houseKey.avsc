@@ -1,0 +1,8 @@
+{"namespace": "com.big.data.course.avro",
+  "type": "record",
+  "name": "HouseKey",
+  "fields": [
+    {"name": "type", "type": "string"},
+    {"name": "hood",  "type": "string"}
+  ]
+}

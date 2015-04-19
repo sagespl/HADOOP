@@ -1,0 +1,15 @@
+@namespace("pl.com.sages.hadoop.mapreduce.avro")
+protocol House {
+    record HouseKey {
+      string type;
+      string hood;
+    }
+
+    record HouseValue {
+      long count;
+      int landArea;
+      int grossArea;
+      int yearBuilt;
+      int salePrice;
+    }
+}

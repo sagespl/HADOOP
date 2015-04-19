@@ -1,0 +1,11 @@
+{"namespace": "com.big.data.course.avro",
+  "type": "record",
+  "name": "HouseValue",
+  "fields": [
+    {"name": "count", "type": "long"},
+    {"name": "landArea",  "type": "int"},
+    {"name": "grossArea",  "type": "int"},
+    {"name": "yearBuilt",  "type": "int"},
+    {"name": "salesPrice",  "type": "int"}
+  ]
+}
