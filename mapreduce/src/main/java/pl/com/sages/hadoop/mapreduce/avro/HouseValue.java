@@ -3,11 +3,11 @@
  * 
  * DO NOT EDIT DIRECTLY
  */
-package pl.com.sages.hadoop.mapreduce.avro;
+package pl.com.sages.hadoop.mapreduce.avro;  
 @SuppressWarnings("all")
 @org.apache.avro.specific.AvroGenerated
 public class HouseValue extends org.apache.avro.specific.SpecificRecordBase implements org.apache.avro.specific.SpecificRecord {
-  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"HouseValue\",\"namespace\":\"com.big.data.course.avro\",\"fields\":[{\"name\":\"count\",\"type\":\"long\"},{\"name\":\"landArea\",\"type\":\"int\"},{\"name\":\"grossArea\",\"type\":\"int\"},{\"name\":\"yearBuilt\",\"type\":\"int\"},{\"name\":\"salePrice\",\"type\":\"int\"}]}");
+  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"HouseValue\",\"namespace\":\"pl.com.sages.hadoop.mapreduce.avro\",\"fields\":[{\"name\":\"count\",\"type\":\"long\"},{\"name\":\"landArea\",\"type\":\"int\"},{\"name\":\"grossArea\",\"type\":\"int\"},{\"name\":\"yearBuilt\",\"type\":\"int\"},{\"name\":\"salePrice\",\"type\":\"int\"}]}");
   public static org.apache.avro.Schema getClassSchema() { return SCHEMA$; }
   @Deprecated public long count;
   @Deprecated public int landArea;
@@ -134,18 +134,18 @@ public class HouseValue extends org.apache.avro.specific.SpecificRecordBase impl
   }
 
   /** Creates a new HouseValue RecordBuilder */
-  public static HouseValue.Builder newBuilder() {
-    return new HouseValue.Builder();
+  public static pl.com.sages.hadoop.mapreduce.avro.HouseValue.Builder newBuilder() {
+    return new pl.com.sages.hadoop.mapreduce.avro.HouseValue.Builder();
   }
   
   /** Creates a new HouseValue RecordBuilder by copying an existing Builder */
-  public static HouseValue.Builder newBuilder(HouseValue.Builder other) {
-    return new HouseValue.Builder(other);
+  public static pl.com.sages.hadoop.mapreduce.avro.HouseValue.Builder newBuilder(pl.com.sages.hadoop.mapreduce.avro.HouseValue.Builder other) {
+    return new pl.com.sages.hadoop.mapreduce.avro.HouseValue.Builder(other);
   }
   
   /** Creates a new HouseValue RecordBuilder by copying an existing HouseValue instance */
-  public static HouseValue.Builder newBuilder(HouseValue other) {
-    return new HouseValue.Builder(other);
+  public static pl.com.sages.hadoop.mapreduce.avro.HouseValue.Builder newBuilder(pl.com.sages.hadoop.mapreduce.avro.HouseValue other) {
+    return new pl.com.sages.hadoop.mapreduce.avro.HouseValue.Builder(other);
   }
   
   /**
@@ -162,11 +162,11 @@ public class HouseValue extends org.apache.avro.specific.SpecificRecordBase impl
 
     /** Creates a new Builder */
     private Builder() {
-      super(HouseValue.SCHEMA$);
+      super(pl.com.sages.hadoop.mapreduce.avro.HouseValue.SCHEMA$);
     }
     
     /** Creates a Builder by copying an existing Builder */
-    private Builder(HouseValue.Builder other) {
+    private Builder(pl.com.sages.hadoop.mapreduce.avro.HouseValue.Builder other) {
       super(other);
       if (isValidValue(fields()[0], other.count)) {
         this.count = data().deepCopy(fields()[0].schema(), other.count);
@@ -191,8 +191,8 @@ public class HouseValue extends org.apache.avro.specific.SpecificRecordBase impl
     }
     
     /** Creates a Builder by copying an existing HouseValue instance */
-    private Builder(HouseValue other) {
-            super(HouseValue.SCHEMA$);
+    private Builder(pl.com.sages.hadoop.mapreduce.avro.HouseValue other) {
+            super(pl.com.sages.hadoop.mapreduce.avro.HouseValue.SCHEMA$);
       if (isValidValue(fields()[0], other.count)) {
         this.count = data().deepCopy(fields()[0].schema(), other.count);
         fieldSetFlags()[0] = true;
@@ -221,7 +221,7 @@ public class HouseValue extends org.apache.avro.specific.SpecificRecordBase impl
     }
     
     /** Sets the value of the 'count' field */
-    public HouseValue.Builder setCount(long value) {
+    public pl.com.sages.hadoop.mapreduce.avro.HouseValue.Builder setCount(long value) {
       validate(fields()[0], value);
       this.count = value;
       fieldSetFlags()[0] = true;
@@ -234,7 +234,7 @@ public class HouseValue extends org.apache.avro.specific.SpecificRecordBase impl
     }
     
     /** Clears the value of the 'count' field */
-    public HouseValue.Builder clearCount() {
+    public pl.com.sages.hadoop.mapreduce.avro.HouseValue.Builder clearCount() {
       fieldSetFlags()[0] = false;
       return this;
     }
@@ -245,7 +245,7 @@ public class HouseValue extends org.apache.avro.specific.SpecificRecordBase impl
     }
     
     /** Sets the value of the 'landArea' field */
-    public HouseValue.Builder setLandArea(int value) {
+    public pl.com.sages.hadoop.mapreduce.avro.HouseValue.Builder setLandArea(int value) {
       validate(fields()[1], value);
       this.landArea = value;
       fieldSetFlags()[1] = true;
@@ -258,7 +258,7 @@ public class HouseValue extends org.apache.avro.specific.SpecificRecordBase impl
     }
     
     /** Clears the value of the 'landArea' field */
-    public HouseValue.Builder clearLandArea() {
+    public pl.com.sages.hadoop.mapreduce.avro.HouseValue.Builder clearLandArea() {
       fieldSetFlags()[1] = false;
       return this;
     }
@@ -269,7 +269,7 @@ public class HouseValue extends org.apache.avro.specific.SpecificRecordBase impl
     }
     
     /** Sets the value of the 'grossArea' field */
-    public HouseValue.Builder setGrossArea(int value) {
+    public pl.com.sages.hadoop.mapreduce.avro.HouseValue.Builder setGrossArea(int value) {
       validate(fields()[2], value);
       this.grossArea = value;
       fieldSetFlags()[2] = true;
@@ -282,7 +282,7 @@ public class HouseValue extends org.apache.avro.specific.SpecificRecordBase impl
     }
     
     /** Clears the value of the 'grossArea' field */
-    public HouseValue.Builder clearGrossArea() {
+    public pl.com.sages.hadoop.mapreduce.avro.HouseValue.Builder clearGrossArea() {
       fieldSetFlags()[2] = false;
       return this;
     }
@@ -293,7 +293,7 @@ public class HouseValue extends org.apache.avro.specific.SpecificRecordBase impl
     }
     
     /** Sets the value of the 'yearBuilt' field */
-    public HouseValue.Builder setYearBuilt(int value) {
+    public pl.com.sages.hadoop.mapreduce.avro.HouseValue.Builder setYearBuilt(int value) {
       validate(fields()[3], value);
       this.yearBuilt = value;
       fieldSetFlags()[3] = true;
@@ -306,7 +306,7 @@ public class HouseValue extends org.apache.avro.specific.SpecificRecordBase impl
     }
     
     /** Clears the value of the 'yearBuilt' field */
-    public HouseValue.Builder clearYearBuilt() {
+    public pl.com.sages.hadoop.mapreduce.avro.HouseValue.Builder clearYearBuilt() {
       fieldSetFlags()[3] = false;
       return this;
     }
@@ -317,7 +317,7 @@ public class HouseValue extends org.apache.avro.specific.SpecificRecordBase impl
     }
     
     /** Sets the value of the 'salePrice' field */
-    public HouseValue.Builder setSalePrice(int value) {
+    public pl.com.sages.hadoop.mapreduce.avro.HouseValue.Builder setSalePrice(int value) {
       validate(fields()[4], value);
       this.salePrice = value;
       fieldSetFlags()[4] = true;
@@ -330,7 +330,7 @@ public class HouseValue extends org.apache.avro.specific.SpecificRecordBase impl
     }
     
     /** Clears the value of the 'salePrice' field */
-    public HouseValue.Builder clearSalePrice() {
+    public pl.com.sages.hadoop.mapreduce.avro.HouseValue.Builder clearSalePrice() {
       fieldSetFlags()[4] = false;
       return this;
     }

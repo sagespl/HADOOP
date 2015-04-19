@@ -3,11 +3,11 @@
  * 
  * DO NOT EDIT DIRECTLY
  */
-package pl.com.sages.hadoop.mapreduce.avro;
+package pl.com.sages.hadoop.mapreduce.avro;  
 @SuppressWarnings("all")
 @org.apache.avro.specific.AvroGenerated
 public class HouseKey extends org.apache.avro.specific.SpecificRecordBase implements org.apache.avro.specific.SpecificRecord {
-  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"HouseKey\",\"namespace\":\"com.big.data.course.avro\",\"fields\":[{\"name\":\"type\",\"type\":\"string\"},{\"name\":\"hood\",\"type\":\"string\"}]}");
+  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"HouseKey\",\"namespace\":\"pl.com.sages.hadoop.mapreduce.avro\",\"fields\":[{\"name\":\"type\",\"type\":\"string\"},{\"name\":\"hood\",\"type\":\"string\"}]}");
   public static org.apache.avro.Schema getClassSchema() { return SCHEMA$; }
   @Deprecated public java.lang.CharSequence type;
   @Deprecated public java.lang.CharSequence hood;
@@ -77,18 +77,18 @@ public class HouseKey extends org.apache.avro.specific.SpecificRecordBase implem
   }
 
   /** Creates a new HouseKey RecordBuilder */
-  public static HouseKey.Builder newBuilder() {
-    return new HouseKey.Builder();
+  public static pl.com.sages.hadoop.mapreduce.avro.HouseKey.Builder newBuilder() {
+    return new pl.com.sages.hadoop.mapreduce.avro.HouseKey.Builder();
   }
   
   /** Creates a new HouseKey RecordBuilder by copying an existing Builder */
-  public static HouseKey.Builder newBuilder(HouseKey.Builder other) {
-    return new HouseKey.Builder(other);
+  public static pl.com.sages.hadoop.mapreduce.avro.HouseKey.Builder newBuilder(pl.com.sages.hadoop.mapreduce.avro.HouseKey.Builder other) {
+    return new pl.com.sages.hadoop.mapreduce.avro.HouseKey.Builder(other);
   }
   
   /** Creates a new HouseKey RecordBuilder by copying an existing HouseKey instance */
-  public static HouseKey.Builder newBuilder(HouseKey other) {
-    return new HouseKey.Builder(other);
+  public static pl.com.sages.hadoop.mapreduce.avro.HouseKey.Builder newBuilder(pl.com.sages.hadoop.mapreduce.avro.HouseKey other) {
+    return new pl.com.sages.hadoop.mapreduce.avro.HouseKey.Builder(other);
   }
   
   /**
@@ -102,11 +102,11 @@ public class HouseKey extends org.apache.avro.specific.SpecificRecordBase implem
 
     /** Creates a new Builder */
     private Builder() {
-      super(HouseKey.SCHEMA$);
+      super(pl.com.sages.hadoop.mapreduce.avro.HouseKey.SCHEMA$);
     }
     
     /** Creates a Builder by copying an existing Builder */
-    private Builder(HouseKey.Builder other) {
+    private Builder(pl.com.sages.hadoop.mapreduce.avro.HouseKey.Builder other) {
       super(other);
       if (isValidValue(fields()[0], other.type)) {
         this.type = data().deepCopy(fields()[0].schema(), other.type);
@@ -119,8 +119,8 @@ public class HouseKey extends org.apache.avro.specific.SpecificRecordBase implem
     }
     
     /** Creates a Builder by copying an existing HouseKey instance */
-    private Builder(HouseKey other) {
-            super(HouseKey.SCHEMA$);
+    private Builder(pl.com.sages.hadoop.mapreduce.avro.HouseKey other) {
+            super(pl.com.sages.hadoop.mapreduce.avro.HouseKey.SCHEMA$);
       if (isValidValue(fields()[0], other.type)) {
         this.type = data().deepCopy(fields()[0].schema(), other.type);
         fieldSetFlags()[0] = true;
@@ -137,7 +137,7 @@ public class HouseKey extends org.apache.avro.specific.SpecificRecordBase implem
     }
     
     /** Sets the value of the 'type' field */
-    public HouseKey.Builder setType(java.lang.CharSequence value) {
+    public pl.com.sages.hadoop.mapreduce.avro.HouseKey.Builder setType(java.lang.CharSequence value) {
       validate(fields()[0], value);
       this.type = value;
       fieldSetFlags()[0] = true;
@@ -150,7 +150,7 @@ public class HouseKey extends org.apache.avro.specific.SpecificRecordBase implem
     }
     
     /** Clears the value of the 'type' field */
-    public HouseKey.Builder clearType() {
+    public pl.com.sages.hadoop.mapreduce.avro.HouseKey.Builder clearType() {
       type = null;
       fieldSetFlags()[0] = false;
       return this;
@@ -162,7 +162,7 @@ public class HouseKey extends org.apache.avro.specific.SpecificRecordBase implem
     }
     
     /** Sets the value of the 'hood' field */
-    public HouseKey.Builder setHood(java.lang.CharSequence value) {
+    public pl.com.sages.hadoop.mapreduce.avro.HouseKey.Builder setHood(java.lang.CharSequence value) {
       validate(fields()[1], value);
       this.hood = value;
       fieldSetFlags()[1] = true;
@@ -175,7 +175,7 @@ public class HouseKey extends org.apache.avro.specific.SpecificRecordBase implem
     }
     
     /** Clears the value of the 'hood' field */
-    public HouseKey.Builder clearHood() {
+    public pl.com.sages.hadoop.mapreduce.avro.HouseKey.Builder clearHood() {
       hood = null;
       fieldSetFlags()[1] = false;
       return this;

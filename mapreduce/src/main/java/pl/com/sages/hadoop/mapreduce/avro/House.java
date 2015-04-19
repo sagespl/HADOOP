@@ -8,10 +8,10 @@ package pl.com.sages.hadoop.mapreduce.avro;
 @SuppressWarnings("all")
 @org.apache.avro.specific.AvroGenerated
 public interface House {
-  public static final org.apache.avro.Protocol PROTOCOL = org.apache.avro.Protocol.parse("{\"protocol\":\"House\",\"namespace\":\"com.big.data.course.avro\",\"types\":[{\"type\":\"record\",\"name\":\"HouseKey\",\"fields\":[{\"name\":\"type\",\"type\":\"string\"},{\"name\":\"hood\",\"type\":\"string\"}]},{\"type\":\"record\",\"name\":\"HouseValue\",\"fields\":[{\"name\":\"count\",\"type\":\"long\"},{\"name\":\"landArea\",\"type\":\"int\"},{\"name\":\"grossArea\",\"type\":\"int\"},{\"name\":\"yearBuilt\",\"type\":\"int\"},{\"name\":\"salePrice\",\"type\":\"int\"}]}],\"messages\":{}}");
+  public static final org.apache.avro.Protocol PROTOCOL = org.apache.avro.Protocol.parse("{\"protocol\":\"House\",\"namespace\":\"pl.com.sages.hadoop.mapreduce.avro\",\"types\":[{\"type\":\"record\",\"name\":\"HouseKey\",\"fields\":[{\"name\":\"type\",\"type\":\"string\"},{\"name\":\"hood\",\"type\":\"string\"}]},{\"type\":\"record\",\"name\":\"HouseValue\",\"fields\":[{\"name\":\"count\",\"type\":\"long\"},{\"name\":\"landArea\",\"type\":\"int\"},{\"name\":\"grossArea\",\"type\":\"int\"},{\"name\":\"yearBuilt\",\"type\":\"int\"},{\"name\":\"salePrice\",\"type\":\"int\"}]}],\"messages\":{}}");
 
   @SuppressWarnings("all")
   public interface Callback extends House {
-    public static final org.apache.avro.Protocol PROTOCOL = House.PROTOCOL;
+    public static final org.apache.avro.Protocol PROTOCOL = pl.com.sages.hadoop.mapreduce.avro.House.PROTOCOL;
   }
 }

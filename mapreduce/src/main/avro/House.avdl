@@ -1,4 +1,4 @@
-@namespace("com.big.data.course.avro")
+@namespace("pl.com.sages.hadoop.mapreduce.avro")
 protocol House {
     record HouseKey {
       string type;

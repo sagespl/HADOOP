@@ -105,8 +105,8 @@
                             <!--<goal>protocol</goal>-->
                         </goals>
                         <configuration>
-                            <sourceDirectory>${project.basedir}/src/main/avro/</sourceDirectory>
-                            <outputDirectory>${project.basedir}/src/main/java/</outputDirectory>
+                            <sourceDirectory>src/main/avro/</sourceDirectory>
+                            <outputDirectory>src/main/java/</outputDirectory>
                         </configuration>
                     </execution>
                 </executions>
