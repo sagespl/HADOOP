@@ -1,4 +1,4 @@
-package pl.com.sages.hadoop.mapreduce.pig;
+package pl.com.sages.hadoop.pig;
 
 import org.apache.pig.EvalFunc;
 import org.apache.pig.data.DataByteArray;

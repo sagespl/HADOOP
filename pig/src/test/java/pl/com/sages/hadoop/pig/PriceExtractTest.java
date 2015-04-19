@@ -1,4 +1,4 @@
-package pl.com.sages.hadoop.mapreduce.pig;
+package pl.com.sages.hadoop.pig;
 
 import org.apache.pig.data.DataByteArray;
 import org.apache.pig.data.DefaultTuple;
@@ -16,7 +16,7 @@ public class PriceExtractTest {
         Tuple inTuple = new DefaultTuple();
         inTuple.append(priceIn);
 
-        Integer priceOut = new Integer (1000000);
+        Integer priceOut = 1000000;
         assertEquals(priceOut, utf.exec(inTuple));
 
         DataByteArray d = new DataByteArray();

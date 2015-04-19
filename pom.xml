@@ -13,6 +13,7 @@
         <module>mapreduce</module>
         <module>cascading</module>
         <module>hive</module>
+        <module>pig</module>
     </modules>
 
     <repositories>
