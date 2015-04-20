@@ -7,11 +7,11 @@ def reduce(lines):
     sum = 0
     for line in lines:
         key, value = line.split("<>")
-        sum += int(value)
         if key != lastKey:
             print("{0},{1}".format(key, sum))
             sum = 0
 
+        sum += int(value)
         lastKey = key
 
 if __name__ == "__main__":
