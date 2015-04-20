@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://java.sun.com/xml/ns/persistence
+        http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd" version="2.0">
+
+    <!-- JDO Sages "unit" -->
+    <persistence-unit name="Sages">
+
+        <class>pl.com.sages.hbase.jdo.datanucleus.Inventory</class>
+        <class>pl.com.sages.hbase.jdo.datanucleus.Product</class>
+        <class>pl.com.sages.hbase.jdo.datanucleus.User</class>
+
+        <exclude-unlisted-classes/>
+
+        <properties>
+
+            <property name="javax.jdo.option.ConnectionURL" value="hbase:localhost:2181"/>
+            <property name="datanucleus.autoCreateSchema" value="false"/>
+            <property name="datanucleus.validateTables" value="false"/>
+            <property name="datanucleus.Optimistic" value="false"/>
+            <property name="datanucleus.validateConstraints" value="false"/>
+
+        </properties>
+    </persistence-unit>
+
+</persistence>
