@@ -1,0 +1,23 @@
+<persistence xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://java.sun.com/xml/ns/persistence
+    http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
+             version="2.0">
+
+    <persistence-unit name="sages">
+        <provider>com.impetus.kundera.KunderaPersistence</provider>
+        <properties>
+
+            <property name="kundera.nodes" value="localhost"/>
+            <property name="kundera.port" value="2181"/>
+            <property name="kundera.keyspace" value="jpa_users"/>
+            <property name="kundera.dialect" value="hbase"/>
+            <property name="kundera.client.lookup.class" value="com.impetus.client.hbase.HBaseClientFactory"/>
+
+            <property name="kundera.client.property" value="hbase-kundera.xml"/>
+
+            <property name="kundera.ddl.auto.prepare" value="create" />
+
+        </properties>
+    </persistence-unit>
+
+</persistence>
