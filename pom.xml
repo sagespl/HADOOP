@@ -30,7 +30,7 @@
 
     <properties>
         <!-- dependency versions -->
-        <hadoop.version>2.6.0</hadoop.version>
+        <hadoop.version>2.3.0</hadoop.version>
         <avro.version>1.7.7</avro.version>
         <hive.version>0.14.0</hive.version>
         <pig.version>0.14.0</pig.version>
@@ -72,6 +72,7 @@
                 <groupId>org.apache.avro</groupId>
                 <artifactId>avro-mapred</artifactId>
                 <version>${avro.version}</version>
+                <classifier>hadoop2</classifier>
             </dependency>
             <!-- Hive-->
             <dependency>
