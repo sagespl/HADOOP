@@ -27,11 +27,11 @@ public class EmbededPigServer {
     }
 
     public static void main(String[] args) throws IOException {
-        //EmbededPigServer server = new EmbededPigServer("local");
-        //server.runTest("../data/rollingsales_bronx.csv");
+        EmbededPigServer server = new EmbededPigServer("local");
+        server.runTest("data/rollingsales_bronx.csv");
 
-        EmbededPigServer server = new EmbededPigServer(ExecType.MAPREDUCE);
-        server.runTest("/user/root/rollingsales_bronx.csv");
+        //EmbededPigServer server = new EmbededPigServer(ExecType.MAPREDUCE);
+        //server.runTest("/user/sages/rollingsales_bronx.csv");
 
         System.getProperty("user.name");
     }
