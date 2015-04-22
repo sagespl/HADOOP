@@ -5,10 +5,10 @@ DROP TABLE IF EXISTS sales_bronx;
 -- CREATE EXTERNAL TABLE sales_bronx_raw (lines string)
 -- ROW FORMAT DELIMITED LINES TERMINATED BY '\n'
 -- STORED AS TEXTFILE
--- LOCATION '/user/sages/rollingsales_bronx.csv';
+-- LOCATION '/user/sages/rollingsales/';
 
 CREATE EXTERNAL TABLE sales_bronx_raw (lines string)
-LOCATION '/user/sages/rollingsales_bronx.csv';
+LOCATION '/user/sages/rollingsales/';
 
 SELECT * FROM sales_bronx_raw LIMIT 10;
 
