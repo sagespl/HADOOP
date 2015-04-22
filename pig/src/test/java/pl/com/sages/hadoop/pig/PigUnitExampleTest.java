@@ -2,6 +2,7 @@ package pl.com.sages.hadoop.pig;
 
 import org.apache.pig.pigunit.PigTest;
 import org.apache.pig.tools.parameters.ParseException;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -12,6 +13,7 @@ import java.io.IOException;
 
 public class PigUnitExampleTest {
 
+    @Ignore
     @Test
     public void houseByTypeTest() throws IOException, ParseException {
 
