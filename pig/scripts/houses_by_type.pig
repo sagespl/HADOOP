@@ -1,4 +1,4 @@
-raw = LOAD '$in_file';
+raw = LOAD '$in_file' USING PigStorage(',');
 by_type = GROUP raw BY $2;
 DUMP by_type;
 count_by_type = FOREACH by_type GENERATE COUNT(raw) AS tot, group;

@@ -124,8 +124,9 @@ public class HiveServer2JdbcClient {
         if (!client.hasDriver()){
             System.out.printf("Driver %s not present", client.DRIVER_NAME);
         }
+        client.connect("jdbc:hive2://sandbox:10000/default", "hive", "");
         //client.connect("jdbc:hive2://sandbox:10000/default;auth=noSasl", "hive", "");
-        client.connect("jdbc:hive2://", "hive", "");
+        //client.connect("jdbc:hive2://", "hive", "");
         client.runTest();
         client.disconnect();
     }
