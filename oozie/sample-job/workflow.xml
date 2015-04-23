@@ -66,7 +66,7 @@
             <prepare>
                 <delete path="${outputDir}/hive-out"/>
             </prepare>
-            <script>script.sql</script>
+            <script>script.hql</script>
             <param>INPUT=${outputDir}/pig-out</param>
             <param>OUTPUT=${outputDir}/hive-out</param>
         </hive>
