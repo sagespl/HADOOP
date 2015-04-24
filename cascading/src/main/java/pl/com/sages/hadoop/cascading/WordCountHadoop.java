@@ -78,8 +78,6 @@ public class WordCountHadoop implements Serializable {
 			.addSource(docPipe, docTap)
 			.addTailSink(wcPipe, wcTap);
 
-		//j.s.nowacki@gmail.com
-
 		Properties properties = AppProps.appProps()
 				.setJarClass(WordCountHadoop.class)
 				.setName("word-count-cascading")
