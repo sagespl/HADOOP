@@ -10,36 +10,30 @@ import org.apache.hadoop.hbase.util.Bytes;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.output.NullOutputFormat;
 import org.junit.Test;
-import pl.com.sages.hbase.api.dao.UsersDao;
-import pl.com.sages.hbase.api.loader.TableFactory;
-import pl.com.sages.hbase.api.loader.UserDataFactory;
+import pl.com.sages.hbase.api.loader.LoadMovieData;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class CountUsersTest {
+public class CountMoviesExternalTest {
 
     @Test
-    public void shouldRunMapReduce() throws Exception {
-        //given
+    public void shouldCountMovies() throws Exception {
         Configuration configuration = HBaseConfiguration.create();
 
-        TableFactory.recreateTable(configuration, Bytes.toString(UsersDao.TABLE_NAME), Bytes.toString(UsersDao.FAMILY_NAME));
-        UserDataFactory.insertTestData();
-
         // map reduce
-        Job job = new Job(configuration, "Count Users");
-        job.setJarByClass(CountUsersMapper.class);
+        Job job = new Job(configuration, "Count Movies");
+        job.setJarByClass(CountMoviesMapper.class);
 
         Scan scan = new Scan();
         scan.setCaching(500);        // 1 is the default in Scan, which will be bad for MapReduce jobs
         scan.setCacheBlocks(false); // don't set to true for MR jobs
-        scan.addColumn(UsersDao.FAMILY_NAME, UsersDao.FORENAME_COL);
+        scan.addColumn(Bytes.toBytes(LoadMovieData.FAMILY_NAME), Bytes.toBytes(LoadMovieData.GENRES));
 
         // mapper
         TableMapReduceUtil.initTableMapperJob(
-                Bytes.toString(UsersDao.TABLE_NAME),
+                LoadMovieData.TABLE_NAME,
                 scan,
-                CountUsersMapper.class,
+                CountMoviesMapper.class,
                 ImmutableBytesWritable.class,
                 Result.class,
                 job);
@@ -51,7 +45,7 @@ public class CountUsersTest {
 
         //then
         assertThat(succeeded).isTrue();
-        assertThat(job.getCounters().findCounter(CountUsersMapper.Counters.USER_COUNT).getValue()).isGreaterThan(99);
+        assertThat(job.getCounters().findCounter(CountMoviesMapper.Counters.MOVIE_COUNT).getValue()).isEqualTo(5339);
     }
 
 }

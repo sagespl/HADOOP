@@ -10,7 +10,7 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class HbaseJpaKunderaTest {
+public class HbaseJpaKunderaExternalTest {
 
     @Test
     public void shouldSaveEntity() throws Exception {

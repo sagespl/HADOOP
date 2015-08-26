@@ -20,7 +20,7 @@ import java.io.IOException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class AverageRatingToFileTest {
+public class AverageRatingToFileExternalTest {
 
     public static final String TABLE_NAME = "ratingaverage";
     public static final String FAMILY_NAME = "ratingaverage";

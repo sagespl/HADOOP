@@ -6,7 +6,7 @@ import org.junit.Test;
 
 import static pl.com.sages.hbase.api.conf.HbaseConfigurationFactory.getConfiguration;
 
-public class HbaseConfigurationFactoryTest {
+public class HbaseConfigurationFactoryExternalTest {
 
     @Test
     public void shouldCreateConfiguration() throws Exception {

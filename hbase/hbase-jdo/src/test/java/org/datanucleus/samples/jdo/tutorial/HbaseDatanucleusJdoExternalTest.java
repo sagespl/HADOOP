@@ -18,7 +18,7 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import static pl.com.sages.hbase.api.conf.HbaseConfigurationFactory.getConfiguration;
 
-public class HbaseDatanucleusJdoTest {
+public class HbaseDatanucleusJdoExternalTest {
 
     @Before
     public void before() throws IOException {

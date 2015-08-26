@@ -14,7 +14,7 @@ import org.junit.Test;
 
 import static pl.com.sages.hbase.api.conf.HbaseConfigurationFactory.getConfiguration;
 
-public class HbaseApiTest {
+public class HbaseApiExternalTest {
 
     public static final String TABLE_NAME = "test_" + System.currentTimeMillis();
     public static final String FAMILY_NAME = "info";

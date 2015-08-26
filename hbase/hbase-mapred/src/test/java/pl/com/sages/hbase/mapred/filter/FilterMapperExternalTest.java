@@ -15,7 +15,7 @@ import java.io.IOException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class FilterMapperTest {
+public class FilterMapperExternalTest {
 
     public static final String TABLE_NAME = "somemovies";
     public static final String FAMILY_NAME = "movies";

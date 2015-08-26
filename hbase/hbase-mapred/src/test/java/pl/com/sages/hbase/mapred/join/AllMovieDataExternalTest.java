@@ -21,7 +21,7 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class AllMovieDataTest {
+public class AllMovieDataExternalTest {
 
     public static final String TABLE_NAME = AllMovieDataMapper.TABLE_NAME;
     public static final String FAMILY_NAME = AllMovieDataMapper.FAMILY_NAME;

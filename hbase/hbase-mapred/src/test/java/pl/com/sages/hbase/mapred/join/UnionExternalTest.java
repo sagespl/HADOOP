@@ -22,7 +22,7 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class UnionTest {
+public class UnionExternalTest {
 
     public static final String TABLE_NAME = "movies_with_rating";
     public static final String FAMILY_NAME = "movies_with_rating";

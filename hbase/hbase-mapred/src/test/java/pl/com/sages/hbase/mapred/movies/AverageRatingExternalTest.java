@@ -17,7 +17,7 @@ import java.io.IOException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class AverageRatingTest {
+public class AverageRatingExternalTest {
 
     public static final String TABLE_NAME = "ratingaverage";
     public static final String FAMILY_NAME = "ratingaverage";

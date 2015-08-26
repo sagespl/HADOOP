@@ -15,7 +15,7 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import static pl.com.sages.hbase.api.conf.HbaseConfigurationFactory.getConfiguration;
 
-public class UsersDaoTest {
+public class UsersDaoTestExternalTest {
 
     public static final String EMAIL = "jan@kowalski.pl";
     public static final String FORENAME = "Jan";
