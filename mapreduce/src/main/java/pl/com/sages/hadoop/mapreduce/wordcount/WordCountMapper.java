@@ -9,11 +9,13 @@ import java.util.StringTokenizer;
 
 public class WordCountMapper extends Mapper<Object, Text, Text, IntWritable> {
 
+    public static final String DELIMITERS = " \t\n\r\f,.:;![]()'*\"„”";
+
     private final static IntWritable one = new IntWritable(1);
     private Text word = new Text();
 
     public void map(Object key, Text value, Context context) throws IOException, InterruptedException {
-        StringTokenizer itr = new StringTokenizer(value.toString());
+        StringTokenizer itr = new StringTokenizer(value.toString().toLowerCase().trim(), DELIMITERS);
         while (itr.hasMoreTokens()) {
             word.set(itr.nextToken());
             context.write(word, one);
