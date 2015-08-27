@@ -11,6 +11,7 @@
 
     <modules>
         <module>cascading</module>
+        <module>flume</module>
         <module>hbase</module>
         <module>hdfs</module>
         <module>hive</module>
