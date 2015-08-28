@@ -31,10 +31,10 @@ public class WordCountRunnerMRTest {
     @Test
     public void testMapper() throws IOException {
         mapDriver.withInput(new LongWritable(), new Text("Ala ma kota Ela ma psa"));
-        mapDriver.withOutput(new Text("Ala"), new IntWritable(1));
+        mapDriver.withOutput(new Text("ala"), new IntWritable(1));
         mapDriver.withOutput(new Text("ma"), new IntWritable(1));
         mapDriver.withOutput(new Text("kota"), new IntWritable(1));
-        mapDriver.withOutput(new Text("Ela"), new IntWritable(1));
+        mapDriver.withOutput(new Text("ela"), new IntWritable(1));
         mapDriver.withOutput(new Text("ma"), new IntWritable(1));
         mapDriver.withOutput(new Text("psa"), new IntWritable(1));
         mapDriver.runTest();
@@ -53,8 +53,8 @@ public class WordCountRunnerMRTest {
     @Test
     public void testMapReduce() throws IOException {
         mapReduceDriver.withInput(new LongWritable(), new Text("Ala ma kota Ela ma psa"));
-        mapReduceDriver.withOutput(new Text("Ala"), new IntWritable(1));
-        mapReduceDriver.withOutput(new Text("Ela"), new IntWritable(1));
+        mapReduceDriver.withOutput(new Text("ala"), new IntWritable(1));
+        mapReduceDriver.withOutput(new Text("ela"), new IntWritable(1));
         mapReduceDriver.withOutput(new Text("kota"), new IntWritable(1));
         mapReduceDriver.withOutput(new Text("ma"), new IntWritable(2));
         mapReduceDriver.withOutput(new Text("psa"), new IntWritable(1));
