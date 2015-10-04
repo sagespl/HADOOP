@@ -9,7 +9,7 @@ public class HbaseConfigurationFactory {
         Configuration configuration = HBaseConfiguration.create();
 
 //        configuration.set("hbase.zookeeper.quorum", "127.0.0.1");
-////      configuration.set("hbase.zookeeper.quorum", "10.1.41.105");
+//        configuration.set("hbase.zookeeper.quorum", "hdpmaster1");
 //        configuration.set("hbase.zookeeper.property.clientport", "2181");
 //        configuration.set("zookeeper.znode.parent", "/hbase-unsecure");
 

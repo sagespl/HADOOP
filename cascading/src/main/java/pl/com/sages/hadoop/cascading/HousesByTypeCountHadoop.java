@@ -79,8 +79,6 @@ public class HousesByTypeCountHadoop implements Serializable {
 			.addSource(docPipe, docTap)
 			.addTailSink(wcPipe, wcTap);
 
-		//j.s.nowacki@gmail.com
-
 		Properties properties = AppProps.appProps()
 				.setJarClass(HousesByTypeCountHadoop.class)
 				.setName("house-count-by-type-cascading")
