@@ -3,7 +3,7 @@
 <configuration>
     <property>
         <name>fs.default.name</name>
-        <!--<value>hdfs://sandbox:8020</value>-->
+        <!--<value>hdfs://hdpmaster1:8020</value>-->
         <value>file:///</value>
         <description>The nam of the default file system.  Either the
             literal string "local" or a host:port for NDFS.

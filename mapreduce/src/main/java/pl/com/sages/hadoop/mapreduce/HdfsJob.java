@@ -8,7 +8,7 @@ import java.io.*;
 import java.security.PrivilegedExceptionAction;
 import java.util.Date;
 
-import static pl.com.sages.hadoop.mapreduce.conf.HadoopConfFactory.HADOOP_USER;
+import static pl.com.sages.hadoop.mapreduce.conf.HadoopConfBuilder.HADOOP_USER;
 
 /**
  * HDFS job
@@ -19,7 +19,7 @@ public class HdfsJob {
 	public int run() throws IOException {
 		//Configuration conf = getConfiguration();
 		Configuration conf = new Configuration();
-		conf.set("fs.defaultFS", "hdfs://sandbox:8020");
+		//conf.set("fs.defaultFS", "hdfs://hdpmaster:8020");
 		conf.set("hadoop.job.ugi", HADOOP_USER);
 
 		Path filePath = new Path(String.format("/user/%s/%s", HADOOP_USER, TEST_FILE_NAME));
