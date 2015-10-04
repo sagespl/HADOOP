@@ -8,7 +8,7 @@
 
     <property>
         <name>hbase.zookeeper.quorum</name>
-        <value>sandbox.hortonworks.com</value>
+        <value>localhost</value>
     </property>
 
     <property>
