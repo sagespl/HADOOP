@@ -18,6 +18,7 @@
         <module>hbase-mapred</module>
         <!--<module>hbase-jdo</module>-->
         <module>hbase-jpa-kundera</module>
+        <module>phoenix</module>
     </modules>
 
 </project>
