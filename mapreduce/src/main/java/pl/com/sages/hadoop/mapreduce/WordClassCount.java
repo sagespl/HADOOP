@@ -27,7 +27,7 @@ import java.util.StringTokenizer;
  */
 public class WordClassCount extends Configured implements Tool {
 
-    public static enum WORD_CLASS {
+    public enum WORD_CLASS {
         STARTS_WITH_A,
         NOT_STARTS_WITH_A
     }
@@ -63,8 +63,8 @@ public class WordClassCount extends Configured implements Tool {
         job.setMapperClass(WordClassCount.Map.class);
 
         // Specify key / value
-        job.setOutputKeyClass(Text.class);
-        job.setOutputValueClass(IntWritable.class);
+//        job.setOutputKeyClass(Text.class);
+//        job.setOutputValueClass(IntWritable.class);
 
         // Input
         FileInputFormat.addInputPath(job, new Path(args[0]));

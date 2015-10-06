@@ -1,28 +1,27 @@
 DROP TABLE IF EXISTS data_text;
 DROP TABLE IF EXISTS item_text;
-DROP TABLE IF EXISTS user_text;
+DROP TABLE IF EXISTS users_text;
 
 DROP TABLE IF EXISTS data;
 DROP TABLE IF EXISTS item;
-DROP TABLE IF EXISTS user;
+DROP TABLE IF EXISTS users;
 
 CREATE EXTERNAL TABLE data_text (
-    user_id INT,
-    item_id INT,
-    rating INT,
-    timestamp BIGINT
-    ) STORED AS TEXTFILE
-    LOCATION '/user/sages/ml-100k/u.data';
+     user_id INT,
+     item_id INT,
+     rating INT,
+     tstamp BIGINT
+     ) ROW FORMAT DELIMITED FIELDS TERMINATED BY '|'
+     STORED AS TEXTFILE;
 
---LOAD DATA INPATH '/user/sages/ml-100k/u.data' OVERWRITE INTO TABLE data;
+LOAD DATA LOCAL INPATH 'ml-100k/u.data' OVERWRITE INTO TABLE data_text;
 
-CREATE TABLE data AS
-    SELECT * FROM data_text
-    STORED AS ORC;
+CREATE TABLE data STORED AS ORC AS
+    SELECT * FROM data_text;
 
 DROP TABLE data_text;
 
-CREATE EXTERNAL TABLE item_text (
+CREATE TABLE item_text (
     movie_id INT,
     movie_title STRING,
     release_date STRING,
@@ -47,30 +46,28 @@ CREATE EXTERNAL TABLE item_text (
     thriller INT,
     war INT,
     western INT
-    ) STORED AS TEXTFILE
-    LOCATION '/user/sages/ml-100k/u.item';
+    ) ROW FORMAT DELIMITED FIELDS TERMINATED BY '|'
+     STORED AS TEXTFILE;
 
--- LOAD DATA INPATH '/user/sages/ml-100k/u.item' OVERWRITE INTO TABLE item;
+LOAD DATA LOCAL INPATH 'ml-100k/u.item' OVERWRITE INTO TABLE item_text;
 
-CREATE TABLE item AS
-    SELECT * FROM item_text
-    STORED AS ORC;
+CREATE TABLE item STORED AS ORC AS
+    SELECT * FROM item_text;
 
 DROP TABLE item_text;
 
-CREATE EXTERNAL TABLE user (
+CREATE TABLE users_text (
     user_id INT,
     age INT,
     gender STRING,
     occupation STRING,
     zipcode STRING
-    ) STORED AS TEXTFILE
-    LOCATION '/user/sages/ml-100k/u.user';
+    )  ROW FORMAT DELIMITED FIELDS TERMINATED BY '\t'
+    STORED AS TEXTFILE;
 
--- LOAD DATA INPATH '/user/sages/ml-100k/u.user' OVERWRITE INTO TABLE user;
+LOAD DATA LOCAL INPATH 'ml-100k/u.user' OVERWRITE INTO TABLE users_text;
 
-CREATE TABLE user AS
-    SELECT * FROM user_text
-    STORED AS ORC;
+CREATE TABLE users STORED AS ORC AS
+    SELECT * FROM users_text;
 
-DROP TABLE user_text;
+DROP TABLE users_text;
