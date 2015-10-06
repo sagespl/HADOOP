@@ -22,7 +22,7 @@ public class PhoenixJdbcClient {
             return;
         }
 
-        conn =  DriverManager.getConnection("jdbc:phoenix:localhost:/hbase-unsecure");
+        conn =  DriverManager.getConnection("jdbc:phoenix:hdpmaster1:/hbase-unsecure");
         System.out.println("Got Phoenix connection");
 
         // Table name

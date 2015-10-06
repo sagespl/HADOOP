@@ -19,7 +19,7 @@ public class HdfsJob {
 	public int run() throws IOException {
 		//Configuration conf = getConfiguration();
 		Configuration conf = new Configuration();
-		//conf.set("fs.defaultFS", "hdfs://hdpmaster:8020");
+		conf.set("fs.defaultFS", "hdfs://hdpmaster1:8020");
 		conf.set("hadoop.job.ugi", HADOOP_USER);
 
 		Path filePath = new Path(String.format("/user/%s/%s", HADOOP_USER, TEST_FILE_NAME));

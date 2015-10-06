@@ -1,11 +1,11 @@
-data = LOAD 'u.data' USING PigStorage('\t') AS (
+data = LOAD '/data/ml-100k/u.data' USING PigStorage('\t') AS (
     user_id:int,
     item_id:int,
     rating:int,
     timestamp:long
 );
 
-item = LOAD 'u.item' USING PigStorage('\t') AS (
+item = LOAD '/data/ml-100k/u.item' USING PigStorage('\t') AS (
     movie_id:int,
     movie_title:chararray,
     release_date:chararray,
@@ -32,7 +32,7 @@ item = LOAD 'u.item' USING PigStorage('\t') AS (
     western:int
 );
 
-user = LOAD 'u.user' USING PigStorage('\t') AS (
+user = LOAD '/data/ml-100k/u.user' USING PigStorage('\t') AS (
     user_id:int,
     age:int,
     gender:int,
@@ -43,3 +43,8 @@ user = LOAD 'u.user' USING PigStorage('\t') AS (
 user_limit = LIMIT user 10;
 
 DUMP user_limit;
+
+-- Hints:
+-- pig -useHCatalog
+-- A = LOAD 'tablename' USING org.apache.hcatalog.pig.HCatLoader();
+-- STORE my_processed_data INTO 'tablename' USING org.apache.hcatalog.pig.HCatStorer();
