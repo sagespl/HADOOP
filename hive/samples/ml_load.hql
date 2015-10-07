@@ -6,7 +6,7 @@ DROP TABLE IF EXISTS data;
 DROP TABLE IF EXISTS item;
 DROP TABLE IF EXISTS users;
 
-CREATE EXTERNAL TABLE data_text (
+CREATE TABLE data_text (
      user_id INT,
      item_id INT,
      rating INT,
