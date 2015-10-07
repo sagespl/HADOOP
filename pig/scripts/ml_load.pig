@@ -46,5 +46,5 @@ DUMP user_limit;
 
 -- Hints:
 -- pig -useHCatalog
--- A = LOAD 'tablename' USING org.apache.hcatalog.pig.HCatLoader();
--- STORE my_processed_data INTO 'tablename' USING org.apache.hcatalog.pig.HCatStorer();
+-- A = LOAD 'tablename' USING org.apache.hive.hcatalog.pig.HCatLoader();
+-- STORE my_processed_data INTO 'tablename' USING org.apache.hive.hcatalog.pig.HCatStorer();
