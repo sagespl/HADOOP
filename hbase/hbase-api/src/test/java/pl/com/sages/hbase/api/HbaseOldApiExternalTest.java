@@ -3,8 +3,10 @@ package pl.com.sages.hbase.api;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hbase.HColumnDescriptor;
 import org.apache.hadoop.hbase.HTableDescriptor;
-import org.apache.hadoop.hbase.TableName;
-import org.apache.hadoop.hbase.client.*;
+import org.apache.hadoop.hbase.client.HBaseAdmin;
+import org.apache.hadoop.hbase.client.HTable;
+import org.apache.hadoop.hbase.client.HTableInterface;
+import org.apache.hadoop.hbase.client.Put;
 import org.apache.hadoop.hbase.util.Bytes;
 import org.junit.After;
 import org.junit.Before;
@@ -12,22 +14,20 @@ import org.junit.Test;
 
 import static pl.com.sages.hbase.api.conf.HbaseConfigurationFactory.getConfiguration;
 
-public class HbaseApiExternalTest {
+public class HbaseOldApiExternalTest {
 
-    public static final TableName TEST_TABLE_NAME = TableName.valueOf("test_" + System.currentTimeMillis());
+    public static final String TEST_TABLE_NAME = "test_" + System.currentTimeMillis();
     public static final String TEST_FAMILY_NAME = "info";
 
-    private Admin admin;
-    private Connection connection;
+    private HBaseAdmin admin;
+    private Configuration configuration;
 
     @Before
     public void createTestTable() throws Exception {
-        Configuration  configuration = getConfiguration();
-        connection = ConnectionFactory.createConnection(configuration);
-        admin = connection.getAdmin();
+        configuration = getConfiguration();
+        admin = new HBaseAdmin(configuration);
 
         HTableDescriptor table = new HTableDescriptor(TEST_TABLE_NAME);
-
         HColumnDescriptor columnFamily = new HColumnDescriptor(TEST_FAMILY_NAME);
         columnFamily.setMaxVersions(1);
         table.addFamily(columnFamily);
@@ -37,24 +37,18 @@ public class HbaseApiExternalTest {
 
     @After
     public void deleteTable() throws Exception {
-        if (admin != null ) {
-            admin.disableTable(TEST_TABLE_NAME);
-            admin.deleteTable(TEST_TABLE_NAME);
-            admin.close();
-        }
-        if (connection != null) {
-            connection.close();
-        }
+        admin.disableTable(TEST_TABLE_NAME);
+        admin.deleteTable(TEST_TABLE_NAME);
     }
 
     @Test
     public void shouldPutDataOnHbase() throws Exception {
         //given
-        Table users = connection.getTable(TEST_TABLE_NAME);
+        HTableInterface users = new HTable(configuration, TEST_TABLE_NAME);
         Put put = new Put(Bytes.toBytes("id"));
-        put.addColumn(Bytes.toBytes(TEST_FAMILY_NAME),
-                      Bytes.toBytes("cell"),
-                      Bytes.toBytes("nasza testowa wartość"));
+        put.add(Bytes.toBytes(TEST_FAMILY_NAME),
+                Bytes.toBytes("cell"),
+                Bytes.toBytes("nasza testowa wartość"));
 
         //when
         users.put(put);
