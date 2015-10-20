@@ -18,6 +18,7 @@
         <module>mapreduce</module>
         <module>oozie</module>
         <module>pig</module>
+        <module>mahout</module>
     </modules>
 
     <repositories>
@@ -44,6 +45,7 @@
         <mrunit.version>1.1.0</mrunit.version>
         <junit.version>4.10</junit.version>
         <slf4j.version>1.7.5</slf4j.version>
+        <mahout.version>0.9</mahout.version>
         <!-- Java 7 -->
         <maven.compiler.source>1.7</maven.compiler.source>
         <maven.compiler.target>1.7</maven.compiler.target>
@@ -163,6 +165,12 @@
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-simple</artifactId>
                 <version>${slf4j.version}</version>
+            </dependency>
+            <!--Mahout-->
+            <dependency>
+                <groupId>org.apache.mahout</groupId>
+                <artifactId>mahout-core</artifactId>
+                <version>${mahout.version}</version>
             </dependency>
             <!-- Tests -->
             <dependency>
