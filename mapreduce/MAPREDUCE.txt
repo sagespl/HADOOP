@@ -1,5 +1,5 @@
 
-WordCount
+Instrukcja uruchomienia projektu na klastrze Apache Hadoop
 
 1. Wrzucamy nasze dane na hdfs'a
 
@@ -11,13 +11,12 @@ hdfs dfs -copyFromLocal /home/sages/Sages/dane/lektury-one-file/ /user/sages/dan
 
 2. Uruchomienie projektu
 
-#hadoop jar /home/sages/Sages/sages-hadoop/mapreduce/target/mapreduce-1.0-SNAPSHOT-jar-with-dependencies.jar wordcount /user/sages/dane/lektury /user/sages/wyniki/lektury-wordcount-output
-hadoop jar /home/sages/Sages/sages-hadoop/mapreduce/target/mapreduce-1.0-SNAPSHOT-jar-with-dependencies.jar wordcount /user/sages/dane/lektury-100 /user/sages/wyniki/lektury-100-wordcount-output
-hadoop jar /home/sages/Sages/sages-hadoop/mapreduce/target/mapreduce-1.0-SNAPSHOT-jar-with-dependencies.jar wordcount /user/sages/dane/lektury-one-file /user/sages/wyniki/lektury-one-file-wordcount-output
+hadoop jar /home/sages/Sages/HADOOP/mapreduce/target/mapreduce-1.0-SNAPSHOT-job.jar pl.com.sages.hadoop.mapreduce.wordcount.WordCountRunner /user/sages/dane/lektury /user/sages/wyniki/lektury-wordcount-output
+hadoop jar /home/sages/Sages/HADOOP/mapreduce/target/mapreduce-1.0-SNAPSHOT-job.jar pl.com.sages.hadoop.mapreduce.wordcount.WordCountRunner /user/sages/dane/lektury-100 /user/sages/wyniki/lektury-100-wordcount-output
+hadoop jar /home/sages/Sages/HADOOP/mapreduce/target/mapreduce-1.0-SNAPSHOT-job.jar pl.com.sages.hadoop.mapreduce.wordcount.WordCountRunner /user/sages/dane/lektury-one-file /user/sages/wyniki/lektury-one-file-wordcount-output
 
-hadoop jar /home/sages/Sages/sages-hadoop/mapreduce/target/mapreduce-1.0-SNAPSHOT-jar-with-dependencies.jar invertedindex /user/sages/dane/lektury-100 /user/sages/wyniki/lektury-100-invertedindex-output
-hadoop jar /home/sages/Sages/sages-hadoop/mapreduce/target/mapreduce-1.0-SNAPSHOT-jar-with-dependencies.jar invertedindex /user/sages/dane/lektury-one-file /user/sages/wyniki/lektury-one-file-invertedindex-output
-
+hadoop jar /home/sages/Sages/HADOOP/mapreduce/target/mapreduce-1.0-SNAPSHOT-job.jar pl.com.sages.hadoop.mapreduce.invertedindex.InvertedIndexRunner /user/sages/dane/lektury-100 /user/sages/wyniki/lektury-100-invertedindex-output
+hadoop jar /home/sages/Sages/HADOOP/mapreduce/target/mapreduce-1.0-SNAPSHOT-job.jar pl.com.sages.hadoop.mapreduce.invertedindex.InvertedIndexRunner /user/sages/dane/lektury-one-file /user/sages/wyniki/lektury-one-file-invertedindex-output
 
 3 Jesli chcemy usunąć to co wcześniej wrzuciliśmy (dane plus wyniki)
 
