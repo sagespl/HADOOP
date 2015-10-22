@@ -22,6 +22,7 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+@org.junit.Ignore
 public class UnionExternalTest {
 
     public static final String TABLE_NAME = "movies_with_rating";

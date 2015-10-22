@@ -2,6 +2,7 @@ package pl.com.sages.hbase.mapred.filter;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hbase.HBaseConfiguration;
+import org.apache.hadoop.hbase.TableName;
 import org.apache.hadoop.hbase.client.*;
 import org.apache.hadoop.hbase.mapreduce.TableMapReduceUtil;
 import org.apache.hadoop.hbase.util.Bytes;
@@ -57,8 +58,8 @@ public class FilterMapperExternalTest {
         //then
         assertThat(succeeded).isTrue();
 
-        HTableInterface filteredTable = new HTable(configuration, TABLE_NAME);
-
+        Connection connection = ConnectionFactory.createConnection(configuration);
+        Table filteredTable = connection.getTable(TableName.valueOf(TABLE_NAME));
         scan = new Scan();
         scan.addFamily(Bytes.toBytes(FAMILY_NAME));
 
