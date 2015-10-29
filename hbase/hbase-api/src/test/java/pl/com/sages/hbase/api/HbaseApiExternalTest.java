@@ -15,7 +15,7 @@ import static pl.com.sages.hbase.api.conf.HbaseConfigurationFactory.getConfigura
 
 public class HbaseApiExternalTest {
 
-    public static final TableName TEST_TABLE_NAME = TableName.valueOf("test_" + System.currentTimeMillis());
+    public static final TableName TEST_TABLE_NAME = TableName.valueOf("test_users_" + System.currentTimeMillis());
     public static final String TEST_FAMILY_NAME = "info";
 
     private Admin admin;
@@ -96,6 +96,41 @@ public class HbaseApiExternalTest {
         List<Cell> columnCells = result.getColumnCells(Bytes.toBytes(TEST_FAMILY_NAME), Bytes.toBytes(column));
         assertThat(value2).isEqualToIgnoringCase(Bytes.toString(CellUtil.cloneValue(columnCells.get(0))));
         assertThat(value1).isEqualToIgnoringCase(Bytes.toString(CellUtil.cloneValue(columnCells.get(1))));
+    }
+
+    @Test
+    public void shouldDeleteDataFromHbase() throws Exception {
+        //given
+        Table users = connection.getTable(TEST_TABLE_NAME);
+
+        String id = "id";
+        String column = "cell";
+        String value1 = "nasza testowa wartość";
+        String value2 = "nasza testowa wartość 2";
+
+        Put put = new Put(Bytes.toBytes(id));
+        put.addColumn(Bytes.toBytes(TEST_FAMILY_NAME),
+                Bytes.toBytes(column),
+                Bytes.toBytes(value1));
+        users.put(put);
+
+        put = new Put(Bytes.toBytes(id));
+        put.addColumn(Bytes.toBytes(TEST_FAMILY_NAME),
+                Bytes.toBytes(column),
+                Bytes.toBytes(value2));
+        users.put(put);
+
+        //when
+        Delete delete = new Delete(Bytes.toBytes(id));
+        delete.addColumn(Bytes.toBytes(TEST_FAMILY_NAME), Bytes.toBytes(column));
+        users.delete(delete);
+
+        //then
+        Get get = new Get(Bytes.toBytes(id));
+        get.setMaxVersions(10);
+        Result result = users.get(get);
+
+        assertThat(value1).isEqualToIgnoringCase(Bytes.toString(result.getValue(Bytes.toBytes(TEST_FAMILY_NAME), Bytes.toBytes(column))));
     }
 
 }
