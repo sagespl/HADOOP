@@ -2,10 +2,13 @@ package pl.com.sages.hbase.api.loader;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hbase.HBaseConfiguration;
-import org.apache.hadoop.hbase.client.HTable;
-import org.apache.hadoop.hbase.client.HTableInterface;
+import org.apache.hadoop.hbase.TableName;
+import org.apache.hadoop.hbase.client.Connection;
+import org.apache.hadoop.hbase.client.ConnectionFactory;
 import org.apache.hadoop.hbase.client.Put;
+import org.apache.hadoop.hbase.client.Table;
 import org.apache.hadoop.hbase.util.Bytes;
+import pl.com.sages.hbase.api.util.HBaseUtil;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -27,11 +30,12 @@ public class LoadMovieRatingData {
 
     public void run() throws IOException {
         Configuration configuration = HBaseConfiguration.create();
+        Connection connection = ConnectionFactory.createConnection(configuration);
 
-        TableFactory.recreateTable(configuration, TABLE_NAME, FAMILY_NAME);
+        HBaseUtil.recreateTable(TABLE_NAME, FAMILY_NAME);
 
         // wrzucanie danych do HBase
-        HTableInterface ratings = new HTable(configuration, TABLE_NAME);
+        Table ratings = connection.getTable(TableName.valueOf(TABLE_NAME));
 
         BufferedReader br = new BufferedReader(new FileReader(new File(RATING_DATA)));
         String line = "";

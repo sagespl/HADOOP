@@ -5,10 +5,11 @@ import org.apache.hadoop.hbase.client.Put;
 import org.apache.hadoop.hbase.client.Result;
 import org.apache.hadoop.hbase.io.ImmutableBytesWritable;
 import org.apache.hadoop.hbase.mapreduce.TableMapper;
-import org.apache.hadoop.hbase.util.Bytes;
-import pl.com.sages.hbase.api.loader.LoadMovieData;
+import pl.com.sages.hbase.api.model.Movie;
 
 import java.io.IOException;
+
+import static pl.com.sages.hbase.api.dao.MovieDao.createMovie;
 
 public class FilterMapper extends TableMapper<ImmutableBytesWritable, Put> {
 
@@ -19,14 +20,11 @@ public class FilterMapper extends TableMapper<ImmutableBytesWritable, Put> {
         }
     }
 
-    private static Put resultToPut(ImmutableBytesWritable key, Result result) throws IOException {
+    private Put resultToPut(ImmutableBytesWritable key, Result result) throws IOException {
 
-        String movieId = Bytes.toString(result.getRow());
-        String title = Bytes.toString(result.getValue(Bytes.toBytes(LoadMovieData.FAMILY_NAME), Bytes.toBytes(LoadMovieData.TITLE)));
-        String generes = Bytes.toString(result.getValue(Bytes.toBytes(LoadMovieData.FAMILY_NAME), Bytes.toBytes(LoadMovieData.GENRES)));
-        System.out.println(movieId + "::" + title + "::" + generes);
+        Movie movie = createMovie(result);
 
-        if (generes.contains("|")) {
+        if (movie.getGenres().contains("|")) {
             Put put = new Put(key.get());
             Cell[] cells = result.rawCells();
             for (Cell cell : cells) {

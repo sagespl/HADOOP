@@ -7,6 +7,7 @@ import org.apache.hadoop.hbase.util.Bytes;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
+import pl.com.sages.hbase.api.dao.MovieDao;
 import pl.com.sages.hbase.api.loader.LoadMovieData;
 
 public class CountMoviesMapper extends TableMapper<Text, LongWritable> {
@@ -18,7 +19,7 @@ public class CountMoviesMapper extends TableMapper<Text, LongWritable> {
     @Override
     protected void map(ImmutableBytesWritable rowkey, Result result, Mapper.Context context) {
 
-        String genres = Bytes.toString(result.getValue(Bytes.toBytes(LoadMovieData.FAMILY_NAME), Bytes.toBytes(LoadMovieData.GENRES)));
+        String genres = Bytes.toString(result.getValue(MovieDao.CF, MovieDao.GENRES));
 
         if (genres.toUpperCase().contains("Drama".toUpperCase())) {
             context.getCounter(Counters.MOVIE_COUNT).increment(1);

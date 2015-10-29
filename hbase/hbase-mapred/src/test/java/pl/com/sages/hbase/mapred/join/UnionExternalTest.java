@@ -11,6 +11,7 @@ import org.apache.hadoop.hbase.util.Bytes;
 import org.apache.hadoop.mapreduce.Job;
 import org.junit.Before;
 import org.junit.Test;
+import pl.com.sages.hbase.api.dao.MovieDao;
 import pl.com.sages.hbase.api.loader.LoadMovieData;
 import pl.com.sages.hbase.api.loader.LoadMovieRatingData;
 import pl.com.sages.hbase.mapred.filter.FilterMapper;
@@ -43,7 +44,7 @@ public class UnionExternalTest {
         // tworzenie tabeli HBase
         HTableDescriptor table = new HTableDescriptor(TABLE_NAME);
         table.addFamily(new HColumnDescriptor(FAMILY_NAME));
-        table.addFamily(new HColumnDescriptor(LoadMovieData.FAMILY_NAME));
+        table.addFamily(new HColumnDescriptor(MovieDao.CF));
         table.addFamily(new HColumnDescriptor(LoadMovieRatingData.FAMILY_NAME));
 
         admin.createTable(table);
@@ -59,7 +60,7 @@ public class UnionExternalTest {
         List<Scan> scans = new ArrayList<>();
 
         Scan scan1 = new Scan();
-        scan1.setAttribute(Scan.SCAN_ATTRIBUTES_TABLE_NAME, Bytes.toBytes(LoadMovieData.TABLE_NAME));
+        scan1.setAttribute(Scan.SCAN_ATTRIBUTES_TABLE_NAME, MovieDao.TABLE.toBytes());
         scans.add(scan1);
 
         Scan scan2 = new Scan();

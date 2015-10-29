@@ -13,7 +13,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class PhoenixJdbcClientTest {
 
-    private String tableName = String.format("my_table_%d", Thread.currentThread().getId());
+    private String tableName = "phoenix_test_table";
     private Connection conn;
 
     @Before

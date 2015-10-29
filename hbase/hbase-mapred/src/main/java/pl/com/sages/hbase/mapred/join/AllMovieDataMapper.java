@@ -7,6 +7,7 @@ import org.apache.hadoop.hbase.client.Result;
 import org.apache.hadoop.hbase.io.ImmutableBytesWritable;
 import org.apache.hadoop.hbase.mapreduce.TableMapper;
 import org.apache.hadoop.hbase.util.Bytes;
+import pl.com.sages.hbase.api.dao.MovieDao;
 import pl.com.sages.hbase.api.loader.LoadMovieData;
 import pl.com.sages.hbase.api.loader.LoadMovieRatingData;
 import pl.com.sages.hbase.mapred.movies.AverageRatingReducer;
@@ -43,16 +44,16 @@ public class AllMovieDataMapper extends TableMapper<ImmutableBytesWritable, Put>
             String column = Bytes.toString(CellUtil.cloneQualifier(cell));
             System.out.println(family + ":" + column);
 
-            if (family.equals(LoadMovieData.FAMILY_NAME)) {
+            if (family.equals(Bytes.toString(MovieDao.CF))) {
 
                 movieId = Bytes.toString(cell.getRow());
 
-                if (LoadMovieData.TITLE.equals(column)) {
+                if (column.equals(Bytes.toString(MovieDao.TITLE))) {
 
                     movieTitle = Bytes.toString(CellUtil.cloneValue(cell));
                     System.out.println(movieId + "::" + movieTitle);
 
-                } else if (LoadMovieData.GENRES.equals(column)) {
+                } else if (column.equals(Bytes.toString(MovieDao.GENRES))) {
                     movieGenres = Bytes.toString(CellUtil.cloneValue(cell));
                     System.out.println(movieId + "::" + movieGenres);
                 }
@@ -76,11 +77,11 @@ public class AllMovieDataMapper extends TableMapper<ImmutableBytesWritable, Put>
 
         if (movieTitle != null) {
             put = new Put(Bytes.toBytes(movieId));
-            put.add(Bytes.toBytes(FAMILY_NAME), Bytes.toBytes(LoadMovieData.TITLE), Bytes.toBytes(movieTitle));
-            put.add(Bytes.toBytes(FAMILY_NAME), Bytes.toBytes(LoadMovieData.GENRES), Bytes.toBytes(movieGenres));
+            put.addColumn(Bytes.toBytes(FAMILY_NAME), MovieDao.TITLE, Bytes.toBytes(movieTitle));
+            put.addColumn(Bytes.toBytes(FAMILY_NAME), MovieDao.GENRES, Bytes.toBytes(movieGenres));
         } else if (movieRating != null) {
             put = new Put(Bytes.toBytes(movieId));
-            put.add(Bytes.toBytes(FAMILY_NAME), Bytes.toBytes(LoadMovieRatingData.RATING), Bytes.toBytes(movieRating));
+            put.addColumn(Bytes.toBytes(FAMILY_NAME), Bytes.toBytes(LoadMovieRatingData.RATING), Bytes.toBytes(movieRating));
         }
 
         return put;

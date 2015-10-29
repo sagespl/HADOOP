@@ -11,7 +11,7 @@ import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.output.NullOutputFormat;
 import org.junit.Test;
 import pl.com.sages.hbase.api.dao.UsersDao;
-import pl.com.sages.hbase.api.loader.TableFactory;
+import pl.com.sages.hbase.api.util.HBaseUtil;
 import pl.com.sages.hbase.api.loader.UserDataFactory;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -23,7 +23,7 @@ public class CountUsersExternalTest {
         //given
         Configuration configuration = HBaseConfiguration.create();
 
-        TableFactory.recreateTable(configuration, Bytes.toString(UsersDao.TABLE_NAME), Bytes.toString(UsersDao.FAMILY_NAME));
+        HBaseUtil.recreateTable(UsersDao.TABLE, Bytes.toString(UsersDao.CF));
         UserDataFactory.insertTestData();
 
         // map reduce
@@ -33,11 +33,11 @@ public class CountUsersExternalTest {
         Scan scan = new Scan();
         scan.setCaching(500);        // 1 is the default in Scan, which will be bad for MapReduce jobs
         scan.setCacheBlocks(false); // don't set to true for MR jobs
-        scan.addColumn(UsersDao.FAMILY_NAME, UsersDao.FORENAME_COL);
+        scan.addColumn(UsersDao.CF, UsersDao.FORENAME);
 
         // mapper
         TableMapReduceUtil.initTableMapperJob(
-                Bytes.toString(UsersDao.TABLE_NAME),
+                UsersDao.TABLE,
                 scan,
                 CountUsersMapper.class,
                 ImmutableBytesWritable.class,

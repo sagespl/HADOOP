@@ -11,7 +11,7 @@ import org.apache.hadoop.mapreduce.Job;
 import org.junit.Before;
 import org.junit.Test;
 import pl.com.sages.hbase.api.loader.LoadMovieRatingData;
-import pl.com.sages.hbase.api.loader.TableFactory;
+import pl.com.sages.hbase.api.util.HBaseUtil;
 
 import java.io.IOException;
 
@@ -26,7 +26,7 @@ public class AverageRatingExternalTest {
 
     @Before
     public void before() throws IOException {
-        TableFactory.recreateTable(configuration, TABLE_NAME, FAMILY_NAME);
+        HBaseUtil.recreateTable( TABLE_NAME, FAMILY_NAME);
     }
 
     @Test

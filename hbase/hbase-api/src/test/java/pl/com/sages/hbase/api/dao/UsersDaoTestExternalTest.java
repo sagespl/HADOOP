@@ -1,11 +1,10 @@
 package pl.com.sages.hbase.api.dao;
 
 import org.apache.hadoop.conf.Configuration;
-import org.apache.hadoop.hbase.client.HTablePool;
 import org.apache.hadoop.hbase.util.Bytes;
 import org.junit.Before;
 import org.junit.Test;
-import pl.com.sages.hbase.api.loader.TableFactory;
+import pl.com.sages.hbase.api.util.HBaseUtil;
 import pl.com.sages.hbase.api.loader.UserDataFactory;
 import pl.com.sages.hbase.api.model.User;
 
@@ -13,7 +12,7 @@ import java.io.IOException;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static pl.com.sages.hbase.api.conf.HbaseConfigurationFactory.getConfiguration;
+import static pl.com.sages.hbase.api.util.HbaseConfigurationFactory.getConfiguration;
 
 public class UsersDaoTestExternalTest {
 
@@ -27,10 +26,9 @@ public class UsersDaoTestExternalTest {
     @Before
     public void before() throws IOException {
         Configuration configuration = getConfiguration();
-        HTablePool pool = new HTablePool(configuration, 10);
-        usersDao = new UsersDao(pool);
+        usersDao = new UsersDao();
 
-        TableFactory.recreateTable(configuration, Bytes.toString(UsersDao.TABLE_NAME), Bytes.toString(UsersDao.FAMILY_NAME));
+        HBaseUtil.recreateTable(UsersDao.TABLE, Bytes.toString(UsersDao.CF));
 
         UserDataFactory.insertTestData();
     }
@@ -44,12 +42,12 @@ public class UsersDaoTestExternalTest {
         usersDao.save(user);
 
         //then
-        User findedUser = usersDao.findByEmail(EMAIL);
-        assertThat(findedUser).isNotNull();
-        assertThat(findedUser.getEmail()).isEqualTo(EMAIL);
-        assertThat(findedUser.getForename()).isEqualTo(FORENAME);
-        assertThat(findedUser.getSurname()).isEqualTo(SURNAME);
-        assertThat(findedUser.getPassword()).isEqualTo(PASSWORD);
+        User resultUser = usersDao.findByEmail(EMAIL);
+        assertThat(resultUser).isNotNull();
+        assertThat(resultUser.getEmail()).isEqualTo(EMAIL);
+        assertThat(resultUser.getForename()).isEqualTo(FORENAME);
+        assertThat(resultUser.getSurname()).isEqualTo(SURNAME);
+        assertThat(resultUser.getPassword()).isEqualTo(PASSWORD);
     }
 
     @Test

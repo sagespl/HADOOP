@@ -11,7 +11,7 @@ import org.junit.Test;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static pl.com.sages.hbase.api.conf.HbaseConfigurationFactory.getConfiguration;
+import static pl.com.sages.hbase.api.util.HbaseConfigurationFactory.getConfiguration;
 
 public class HbaseApiExternalTest {
 

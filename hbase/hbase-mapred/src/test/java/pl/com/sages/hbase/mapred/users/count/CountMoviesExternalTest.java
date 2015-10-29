@@ -10,6 +10,7 @@ import org.apache.hadoop.hbase.util.Bytes;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.output.NullOutputFormat;
 import org.junit.Test;
+import pl.com.sages.hbase.api.dao.MovieDao;
 import pl.com.sages.hbase.api.loader.LoadMovieData;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -27,11 +28,11 @@ public class CountMoviesExternalTest {
         Scan scan = new Scan();
         scan.setCaching(500);        // 1 is the default in Scan, which will be bad for MapReduce jobs
         scan.setCacheBlocks(false); // don't set to true for MR jobs
-        scan.addColumn(Bytes.toBytes(LoadMovieData.FAMILY_NAME), Bytes.toBytes(LoadMovieData.GENRES));
+        scan.addColumn(MovieDao.CF, MovieDao.GENRES);
 
         // mapper
         TableMapReduceUtil.initTableMapperJob(
-                LoadMovieData.TABLE_NAME,
+                MovieDao.TABLE,
                 scan,
                 CountMoviesMapper.class,
                 ImmutableBytesWritable.class,

@@ -1,9 +1,11 @@
 package pl.com.sages.hbase.api.dao;
 
 
+import org.apache.hadoop.hbase.TableName;
 import org.apache.hadoop.hbase.client.*;
 import org.apache.hadoop.hbase.util.Bytes;
 import pl.com.sages.hbase.api.model.User;
+import pl.com.sages.hbase.api.util.ConnectionHandler;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -11,41 +13,34 @@ import java.util.List;
 
 public class UsersDao {
 
-    public static final byte[] TABLE_NAME = Bytes.toBytes("users");
-    public static final byte[] FAMILY_NAME = Bytes.toBytes("users");
+    public static final TableName TABLE = TableName.valueOf("users");
+    public static final byte[] CF = Bytes.toBytes("users");
 
-    public static final byte[] FORENAME_COL = Bytes.toBytes("forename");
-    public static final byte[] SURNAME_COL = Bytes.toBytes("surname");
-    public static final byte[] PASSWORD_COL = Bytes.toBytes("password");
-
-    private HTablePool pool;
-
-    public UsersDao(HTablePool pool) {
-        this.pool = pool;
-    }
+    public static final byte[] FORENAME = Bytes.toBytes("forename");
+    public static final byte[] SURNAME = Bytes.toBytes("surname");
+    public static final byte[] PASSWORD = Bytes.toBytes("password");
 
     public void save(User user) throws IOException {
         save(user.getForename(), user.getSurname(), user.getEmail(), user.getPassword());
     }
 
     public void save(String forename, String surname, String email, String password) throws IOException {
-
-        HTableInterface users = pool.getTable(TABLE_NAME);
+        Table users = ConnectionHandler.getConnection().getTable(TABLE);
 
         Put put = new Put(Bytes.toBytes(email));
-        put.add(FAMILY_NAME, FORENAME_COL, Bytes.toBytes(forename));
-        put.add(FAMILY_NAME, SURNAME_COL, Bytes.toBytes(surname));
-        put.add(FAMILY_NAME, PASSWORD_COL, Bytes.toBytes(password));
+        put.addColumn(CF, FORENAME, Bytes.toBytes(forename));
+        put.addColumn(CF, SURNAME, Bytes.toBytes(surname));
+        put.addColumn(CF, PASSWORD, Bytes.toBytes(password));
 
         users.put(put);
         users.close();
     }
 
     public User findByEmail(String email) throws IOException {
-        HTableInterface users = pool.getTable(TABLE_NAME);
+        Table users = ConnectionHandler.getConnection().getTable(TABLE);
 
         Get get = new Get(Bytes.toBytes(email));
-        get.addFamily(FAMILY_NAME);
+        get.addFamily(CF);
 
         Result result = users.get(get);
 
@@ -63,7 +58,7 @@ public class UsersDao {
     }
 
     public void deleteByEmail(String email) throws IOException {
-        HTableInterface users = pool.getTable(TABLE_NAME);
+        Table users = ConnectionHandler.getConnection().getTable(TABLE);
 
         Delete delete = new Delete(Bytes.toBytes(email));
         users.delete(delete);
@@ -72,10 +67,10 @@ public class UsersDao {
     }
 
     public List<User> findAll() throws IOException {
-        HTableInterface users = pool.getTable(TABLE_NAME);
+        Table users = ConnectionHandler.getConnection().getTable(TABLE);
 
         Scan scan = new Scan();
-        scan.addFamily(FAMILY_NAME);
+        scan.addFamily(CF);
 
         ResultScanner results = users.getScanner(scan);
         ArrayList<User> list = new ArrayList<>();
@@ -90,9 +85,9 @@ public class UsersDao {
     private User createUser(Result result) {
 
         byte[] email = result.getRow();
-        byte[] forename = result.getValue(FAMILY_NAME, FORENAME_COL);
-        byte[] surname = result.getValue(FAMILY_NAME, SURNAME_COL);
-        byte[] password = result.getValue(FAMILY_NAME, PASSWORD_COL);
+        byte[] forename = result.getValue(CF, FORENAME);
+        byte[] surname = result.getValue(CF, SURNAME);
+        byte[] password = result.getValue(CF, PASSWORD);
 
         return new User(forename, surname, email, password);
     }

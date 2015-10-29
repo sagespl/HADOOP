@@ -9,8 +9,9 @@ import org.apache.hadoop.hbase.util.Bytes;
 import org.apache.hadoop.mapreduce.Job;
 import org.junit.Before;
 import org.junit.Test;
+import pl.com.sages.hbase.api.dao.MovieDao;
 import pl.com.sages.hbase.api.loader.LoadMovieData;
-import pl.com.sages.hbase.api.loader.TableFactory;
+import pl.com.sages.hbase.api.util.HBaseUtil;
 
 import java.io.IOException;
 
@@ -25,7 +26,7 @@ public class FilterMapperExternalTest {
 
     @Before
     public void before() throws IOException {
-        TableFactory.recreateTable(configuration, TABLE_NAME, FAMILY_NAME);
+        HBaseUtil.recreateTable( TABLE_NAME, FAMILY_NAME);
     }
 
     @Test
@@ -37,10 +38,10 @@ public class FilterMapperExternalTest {
         Scan scan = new Scan();
         scan.setCaching(500);
         scan.setCacheBlocks(false);
-        scan.addFamily(Bytes.toBytes(LoadMovieData.FAMILY_NAME));
+        scan.addFamily(MovieDao.CF);
 
         TableMapReduceUtil.initTableMapperJob(
-                LoadMovieData.TABLE_NAME,
+                MovieDao.TABLE,
                 scan,
                 FilterMapper.class,
                 null,
@@ -67,7 +68,7 @@ public class FilterMapperExternalTest {
         ResultScanner results = filteredTable.getScanner(scan);
         for (Result result : results) {
             byte[] id = result.getRow();
-            byte[] title = result.getValue(Bytes.toBytes(FAMILY_NAME), Bytes.toBytes(LoadMovieData.TITLE));
+            byte[] title = result.getValue(Bytes.toBytes(FAMILY_NAME), MovieDao.TITLE);
 //            System.out.println(Bytes.toString(id) + " " + Bytes.toString(title));
             count++;
         }
