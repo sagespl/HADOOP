@@ -24,7 +24,7 @@ public class RatingDao {
         save(rating.getUserId(), rating.getMovieId(), rating.getRating(), rating.getTimestamp());
     }
 
-    public void save(int userId, int movieId, double rating, long timestamp) throws IOException {
+    public void save(int userId, int movieId, double rating, int timestamp) throws IOException {
         Table ratings = ConnectionHandler.getConnection().getTable(TABLE);
 
         Put put = new Put(Bytes.toBytes(timestamp));
@@ -43,7 +43,7 @@ public class RatingDao {
         byte[] movieId = result.getValue(CF, MOVIE_ID);
         byte[] rating = result.getValue(CF, RATING);
 
-        return new Rating(Bytes.toInt(userId), Bytes.toInt(movieId), Bytes.toDouble(rating), Bytes.toLong(timestamp));
+        return new Rating(Bytes.toInt(userId), Bytes.toInt(movieId), Bytes.toDouble(rating), Bytes.toInt(timestamp));
     }
 
 }

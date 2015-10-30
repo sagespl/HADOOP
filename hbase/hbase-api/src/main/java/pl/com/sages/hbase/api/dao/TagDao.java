@@ -13,8 +13,8 @@ import java.io.IOException;
 
 public class TagDao {
 
-    public static final TableName TABLE = TableName.valueOf("ratings");
-    public static final byte[] CF = Bytes.toBytes("ratings");
+    public static final TableName TABLE = TableName.valueOf("tags");
+    public static final byte[] CF = Bytes.toBytes("tags");
 
     public static final byte[] USER_ID = Bytes.toBytes("userId");
     public static final byte[] MOVIE_ID = Bytes.toBytes("movieId");
@@ -24,7 +24,7 @@ public class TagDao {
         save(tag.getUserId(), tag.getMovieId(), tag.getTag(), tag.getTimestamp());
     }
 
-    public void save(int userId, int movieId, String tag, long timestamp) throws IOException {
+    public void save(int userId, int movieId, String tag, int timestamp) throws IOException {
         Table ratings = ConnectionHandler.getConnection().getTable(TABLE);
 
         Put put = new Put(Bytes.toBytes(timestamp));
@@ -43,7 +43,7 @@ public class TagDao {
         byte[] movieId = result.getValue(CF, MOVIE_ID);
         byte[] tag = result.getValue(CF, TAG);
 
-        return new Tag(Bytes.toInt(userId), Bytes.toInt(movieId), Bytes.toString(tag), Bytes.toLong(timestamp));
+        return new Tag(Bytes.toInt(userId), Bytes.toInt(movieId), Bytes.toString(tag), Bytes.toInt(timestamp));
     }
 
 }

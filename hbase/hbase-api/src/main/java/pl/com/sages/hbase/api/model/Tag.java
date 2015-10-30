@@ -5,9 +5,9 @@ public class Tag {
     private int userId;
     private int movieId;
     private String tag;
-    private long timestamp;
+    private int timestamp;
 
-    public Tag(int userId, int movieId, String tag, long timestamp) {
+    public Tag(int userId, int movieId, String tag, int timestamp) {
         this.userId = userId;
         this.movieId = movieId;
         this.tag = tag;
@@ -38,11 +38,11 @@ public class Tag {
         this.tag = tag;
     }
 
-    public long getTimestamp() {
+    public int getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(long timestamp) {
+    public void setTimestamp(int timestamp) {
         this.timestamp = timestamp;
     }
 

@@ -33,7 +33,7 @@ public class LoadMovieRatingData {
             int userId = Integer.parseInt(data[0]);
             int movieId = Integer.parseInt(data[1]);
             Double rating = Double.parseDouble(data[2]);
-            long timestamp = Long.parseLong(data[3]);
+            int timestamp = Integer.parseInt(data[3]);
 
             count++;
             if (count % 1000 == 0) {
