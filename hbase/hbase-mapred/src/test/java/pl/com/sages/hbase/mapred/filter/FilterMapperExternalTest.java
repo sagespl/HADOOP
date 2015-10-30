@@ -18,8 +18,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class FilterMapperExternalTest {
 
-    public static final String TABLE_NAME = "somemovies";
-    public static final String FAMILY_NAME = "movies";
+    public static final String TABLE_NAME = "movies_comedy";
+    public static final String FAMILY_NAME = Bytes.toString(MovieDao.CF);
 
     private Configuration configuration = HBaseConfiguration.create();
 
@@ -31,7 +31,7 @@ public class FilterMapperExternalTest {
     @Test
     public void shouldRunMapReduce() throws Exception {
         //given
-        Job job = new Job(configuration, "Movie Copy");
+        Job job = Job.getInstance(configuration, "Movie Copy");
         job.setJarByClass(FilterMapper.class);
 
         Scan scan = new Scan();
@@ -68,7 +68,8 @@ public class FilterMapperExternalTest {
         for (Result result : results) {
             byte[] id = result.getRow();
             byte[] title = result.getValue(Bytes.toBytes(FAMILY_NAME), MovieDao.TITLE);
-//            System.out.println(Bytes.toString(id) + " " + Bytes.toString(title));
+            byte[] genres = result.getValue(Bytes.toBytes(FAMILY_NAME), MovieDao.GENRES);
+            System.out.println(Bytes.toString(id) + " " + Bytes.toString(title) + " " + Bytes.toString(genres));
             count++;
         }
 

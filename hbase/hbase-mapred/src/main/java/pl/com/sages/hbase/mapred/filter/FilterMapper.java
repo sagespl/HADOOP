@@ -13,26 +13,18 @@ import static pl.com.sages.hbase.api.dao.MovieDao.createMovie;
 
 public class FilterMapper extends TableMapper<ImmutableBytesWritable, Put> {
 
-    public void map(ImmutableBytesWritable row, Result value, Context context) throws IOException, InterruptedException {
-        Put put = resultToPut(row, value);
-        if (put != null) {
-            context.write(row, put);
-        }
-    }
+    public void map(ImmutableBytesWritable key, Result value, Context context) throws IOException, InterruptedException {
 
-    private Put resultToPut(ImmutableBytesWritable key, Result result) throws IOException {
+        Movie movie = createMovie(value);
 
-        Movie movie = createMovie(result);
-
-        if (movie.getGenres().contains("|")) {
+        if (movie.getGenres().contains("Comedy")) {
             Put put = new Put(key.get());
-            Cell[] cells = result.rawCells();
+            Cell[] cells = value.rawCells();
             for (Cell cell : cells) {
                 put.add(cell);
             }
-            return put;
+            context.write(key, put);
         }
-        return null;
     }
 
 }

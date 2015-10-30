@@ -6,6 +6,7 @@ import org.apache.hadoop.hbase.client.*;
 import org.apache.hadoop.hbase.mapreduce.TableMapReduceUtil;
 import org.apache.hadoop.hbase.util.Bytes;
 import org.apache.hadoop.io.DoubleWritable;
+import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
 import org.junit.Before;
@@ -19,8 +20,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class AverageRatingExternalTest {
 
-    public static final String TABLE_NAME = "ratingaverage";
-    public static final String FAMILY_NAME = "ratingaverage";
+    public static final String TABLE_NAME = "ratings_average";
+    public static final String FAMILY_NAME = "ratings_average";
 
     private Configuration configuration = HBaseConfiguration.create();
 
@@ -32,7 +33,7 @@ public class AverageRatingExternalTest {
     @Test
     public void shouldRunMapReduce() throws Exception {
         //given
-        Job job = new Job(configuration, "Average Rating");
+        Job job = Job.getInstance(configuration, "Average Rating");
         job.setJarByClass(AverageRatingMapper.class);
 
         job.setMapperClass(AverageRatingMapper.class);
@@ -46,7 +47,7 @@ public class AverageRatingExternalTest {
                 RatingDao.TABLE,
                 scan,
                 AverageRatingMapper.class,
-                Text.class,
+                IntWritable.class,
                 DoubleWritable.class,
                 job);
         TableMapReduceUtil.initTableReducerJob(

@@ -6,35 +6,24 @@ import org.apache.hadoop.hbase.HBaseConfiguration;
 import org.apache.hadoop.hbase.client.Scan;
 import org.apache.hadoop.hbase.mapreduce.TableMapReduceUtil;
 import org.apache.hadoop.io.DoubleWritable;
+import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
-import org.junit.Before;
 import org.junit.Test;
 import pl.com.sages.hbase.api.dao.RatingDao;
-import pl.com.sages.hbase.api.util.HBaseUtil;
 import pl.com.sages.hbase.mapred.file.RatingExportReducer;
-
-import java.io.IOException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class AverageRatingToFileExternalTest {
 
-    public static final String TABLE_NAME = "ratingaverage";
-    public static final String FAMILY_NAME = "ratingaverage";
-
     private Configuration configuration = HBaseConfiguration.create();
-
-    @Before
-    public void before() throws IOException {
-        HBaseUtil.recreateTable(TABLE_NAME, FAMILY_NAME);
-    }
 
     @Test
     public void shouldRunMapReduce() throws Exception {
         //given
-        Job job = new Job(configuration, "Average Rating");
+        Job job = Job.getInstance(configuration, "Average Rating");
         job.setJarByClass(AverageRatingMapper.class);
 
         Scan scan = new Scan();
@@ -46,7 +35,7 @@ public class AverageRatingToFileExternalTest {
                 RatingDao.TABLE,
                 scan,
                 AverageRatingMapper.class,
-                Text.class,
+                IntWritable.class,
                 DoubleWritable.class,
                 job);
         job.setReducerClass(RatingExportReducer.class);
