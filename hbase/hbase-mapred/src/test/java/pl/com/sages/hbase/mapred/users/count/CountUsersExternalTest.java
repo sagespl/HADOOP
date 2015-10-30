@@ -11,8 +11,8 @@ import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.output.NullOutputFormat;
 import org.junit.Test;
 import pl.com.sages.hbase.api.dao.UsersDao;
-import pl.com.sages.hbase.api.util.HBaseUtil;
 import pl.com.sages.hbase.api.loader.UserDataFactory;
+import pl.com.sages.hbase.api.util.HBaseUtil;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

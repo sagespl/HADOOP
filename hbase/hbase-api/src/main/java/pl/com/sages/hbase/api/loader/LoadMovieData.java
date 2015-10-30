@@ -29,11 +29,10 @@ public class LoadMovieData {
         int count = 0;
         while ((line = br.readLine()) != null) {
 
-            String[] movieData = line.split(delimeter);
-            int movieId = Integer.parseInt(movieData[0]);
-            String title = movieData[1];
-            String genres = movieData[2];
-            //System.out.println(movieId + "::" + title + "::" + genres);
+            String[] data = line.split(delimeter);
+            int movieId = Integer.parseInt(data[0]);
+            String title = data[1];
+            String genres = data[2];
 
             count++;
             if (count % 1000 == 0) {

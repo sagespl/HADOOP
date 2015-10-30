@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Properties;
 
 /**
  * Phoenix JDBC Client
@@ -22,16 +21,16 @@ public class PhoenixJdbcClient {
             return;
         }
 
-        conn =  DriverManager.getConnection("jdbc:phoenix:hdpmaster1:/hbase-unsecure");
+        conn = DriverManager.getConnection("jdbc:phoenix:hdpmaster1:/hbase-unsecure");
         System.out.println("Got Phoenix connection");
 
         // Table name
         final String tableName = String.format("my_table_%d", Thread.currentThread().getId());
 
         // Create table
-        String query  = "DROP TABLE IF EXIST %s";
+        String query = "DROP TABLE IF EXIST %s";
         conn.createStatement().execute(String.format(query, tableName));
-        query = "CREATE TABLE %s "+
+        query = "CREATE TABLE %s " +
                 "(count INT not null, " +
                 "name CHAR(50) not null, " +
                 "comment VARCHAR, " +

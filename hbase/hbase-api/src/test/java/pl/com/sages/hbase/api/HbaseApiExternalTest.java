@@ -23,7 +23,7 @@ public class HbaseApiExternalTest {
 
     @Before
     public void createTestTable() throws Exception {
-        Configuration  configuration = getConfiguration();
+        Configuration configuration = getConfiguration();
         connection = ConnectionFactory.createConnection(configuration);
         admin = connection.getAdmin();
 
@@ -38,7 +38,7 @@ public class HbaseApiExternalTest {
 
     @After
     public void deleteTable() throws Exception {
-        if (admin != null ) {
+        if (admin != null) {
             admin.disableTable(TEST_TABLE_NAME);
             admin.deleteTable(TEST_TABLE_NAME);
             admin.close();
@@ -54,8 +54,8 @@ public class HbaseApiExternalTest {
         Table users = connection.getTable(TEST_TABLE_NAME);
         Put put = new Put(Bytes.toBytes("id"));
         put.addColumn(Bytes.toBytes(TEST_FAMILY_NAME),
-                      Bytes.toBytes("cell"),
-                      Bytes.toBytes("nasza testowa wartość"));
+                Bytes.toBytes("cell"),
+                Bytes.toBytes("nasza testowa wartość"));
 
         //when
         users.put(put);

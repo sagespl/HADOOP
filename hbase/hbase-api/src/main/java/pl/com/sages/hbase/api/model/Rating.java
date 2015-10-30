@@ -7,6 +7,13 @@ public class Rating {
     private double rating;
     private long timestamp;
 
+    public Rating(int userId, int movieId, double rating, long timestamp) {
+        this.userId = userId;
+        this.movieId = movieId;
+        this.rating = rating;
+        this.timestamp = timestamp;
+    }
+
     public int getUserId() {
         return userId;
     }

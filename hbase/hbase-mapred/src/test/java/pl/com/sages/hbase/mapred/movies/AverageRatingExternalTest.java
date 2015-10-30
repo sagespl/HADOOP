@@ -10,7 +10,7 @@ import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
 import org.junit.Before;
 import org.junit.Test;
-import pl.com.sages.hbase.api.loader.LoadMovieRatingData;
+import pl.com.sages.hbase.api.dao.RatingDao;
 import pl.com.sages.hbase.api.util.HBaseUtil;
 
 import java.io.IOException;
@@ -26,7 +26,7 @@ public class AverageRatingExternalTest {
 
     @Before
     public void before() throws IOException {
-        HBaseUtil.recreateTable( TABLE_NAME, FAMILY_NAME);
+        HBaseUtil.recreateTable(TABLE_NAME, FAMILY_NAME);
     }
 
     @Test
@@ -40,10 +40,10 @@ public class AverageRatingExternalTest {
         Scan scan = new Scan();
         scan.setCaching(500);
         scan.setCacheBlocks(false);
-        scan.addFamily(Bytes.toBytes(LoadMovieRatingData.FAMILY_NAME));
+        scan.addFamily(RatingDao.CF);
 
         TableMapReduceUtil.initTableMapperJob(
-                LoadMovieRatingData.TABLE_NAME,
+                RatingDao.TABLE,
                 scan,
                 AverageRatingMapper.class,
                 Text.class,

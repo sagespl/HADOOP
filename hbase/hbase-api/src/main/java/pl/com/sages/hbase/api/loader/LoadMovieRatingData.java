@@ -1,13 +1,6 @@
 package pl.com.sages.hbase.api.loader;
 
-import org.apache.hadoop.conf.Configuration;
-import org.apache.hadoop.hbase.HBaseConfiguration;
-import org.apache.hadoop.hbase.TableName;
-import org.apache.hadoop.hbase.client.Connection;
-import org.apache.hadoop.hbase.client.ConnectionFactory;
-import org.apache.hadoop.hbase.client.Put;
-import org.apache.hadoop.hbase.client.Table;
-import org.apache.hadoop.hbase.util.Bytes;
+import pl.com.sages.hbase.api.dao.RatingDao;
 import pl.com.sages.hbase.api.util.HBaseUtil;
 
 import java.io.BufferedReader;
@@ -19,52 +12,39 @@ public class LoadMovieRatingData {
 
     public static final String RATING_DATA = "/home/sages/Sages/dane/ml-10M100K/ratings.dat";
 
-    public static final String TABLE_NAME = "ratings";
-    public static final String FAMILY_NAME = "ratings";
-    public static final String MOVIE_ID = "movieId";
-    public static final String RATING = "rating";
-
     public static void main(String[] args) throws IOException {
         new LoadMovieRatingData().run();
     }
 
     public void run() throws IOException {
-        Configuration configuration = HBaseConfiguration.create();
-        Connection connection = ConnectionFactory.createConnection(configuration);
+        HBaseUtil.recreateTable(RatingDao.TABLE, RatingDao.CF);
 
-        HBaseUtil.recreateTable(TABLE_NAME, FAMILY_NAME);
+        RatingDao ratingDao = new RatingDao();
 
-        // wrzucanie danych do HBase
-        Table ratings = connection.getTable(TableName.valueOf(TABLE_NAME));
-
+        //UserID::MovieID::Rating::Timestamp
         BufferedReader br = new BufferedReader(new FileReader(new File(RATING_DATA)));
         String line = "";
         String delimeter = "::";
 
-        //UserID::MovieID::Rating::Timestamp
-        int ratingId = 1;
+        int count = 0;
         while ((line = br.readLine()) != null) {
 
-            String[] movieData = line.split(delimeter);
-            String userId = movieData[0];
-            String movieId = movieData[1];
-            Double rating = Double.parseDouble(movieData[2]);
-            String timestamp = movieData[3];
+            String[] data = line.split(delimeter);
+            int userId = Integer.parseInt(data[0]);
+            int movieId = Integer.parseInt(data[1]);
+            Double rating = Double.parseDouble(data[2]);
+            long timestamp = Long.parseLong(data[3]);
 
-//            System.out.println(ratingId + " -> " + userId + "::" + movieId + "::" + rating);
-            if (ratingId % 1000 == 0) {
-                System.out.println("Wczytano " + ratingId + " wierszy");
+            count++;
+            if (count % 1000 == 0) {
+                System.out.println("Wczytano " + count + " wierszy");
             }
 
-            if (ratingId > 10000) {
+            if (count > 10000) {
                 break; // wczytujemy tylko pierwsze 10 tys wierszy
             }
 
-            Put put = new Put(Bytes.toBytes(ratingId++));
-            put.add(Bytes.toBytes(FAMILY_NAME), Bytes.toBytes(MOVIE_ID), Bytes.toBytes(movieId));
-            put.add(Bytes.toBytes(FAMILY_NAME), Bytes.toBytes(RATING), Bytes.toBytes(rating));
-
-            ratings.put(put);
+            ratingDao.save(userId, movieId, rating, timestamp);
         }
 
         br.close();

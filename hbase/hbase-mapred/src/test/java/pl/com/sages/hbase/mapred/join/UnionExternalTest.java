@@ -7,13 +7,11 @@ import org.apache.hadoop.hbase.HTableDescriptor;
 import org.apache.hadoop.hbase.client.HBaseAdmin;
 import org.apache.hadoop.hbase.client.Scan;
 import org.apache.hadoop.hbase.mapreduce.TableMapReduceUtil;
-import org.apache.hadoop.hbase.util.Bytes;
 import org.apache.hadoop.mapreduce.Job;
 import org.junit.Before;
 import org.junit.Test;
 import pl.com.sages.hbase.api.dao.MovieDao;
-import pl.com.sages.hbase.api.loader.LoadMovieData;
-import pl.com.sages.hbase.api.loader.LoadMovieRatingData;
+import pl.com.sages.hbase.api.dao.RatingDao;
 import pl.com.sages.hbase.mapred.filter.FilterMapper;
 import pl.com.sages.hbase.mapred.movies.AverageRatingMapper;
 
@@ -45,7 +43,7 @@ public class UnionExternalTest {
         HTableDescriptor table = new HTableDescriptor(TABLE_NAME);
         table.addFamily(new HColumnDescriptor(FAMILY_NAME));
         table.addFamily(new HColumnDescriptor(MovieDao.CF));
-        table.addFamily(new HColumnDescriptor(LoadMovieRatingData.FAMILY_NAME));
+        table.addFamily(new HColumnDescriptor(RatingDao.CF));
 
         admin.createTable(table);
     }
@@ -64,7 +62,7 @@ public class UnionExternalTest {
         scans.add(scan1);
 
         Scan scan2 = new Scan();
-        scan2.setAttribute(Scan.SCAN_ATTRIBUTES_TABLE_NAME, Bytes.toBytes(LoadMovieRatingData.TABLE_NAME));
+        scan2.setAttribute(Scan.SCAN_ATTRIBUTES_TABLE_NAME, RatingDao.TABLE.toBytes());
         scans.add(scan2);
 
         TableMapReduceUtil.initTableMapperJob(scans,

@@ -12,8 +12,7 @@ import org.apache.hadoop.mapreduce.Job;
 import org.junit.Before;
 import org.junit.Test;
 import pl.com.sages.hbase.api.dao.MovieDao;
-import pl.com.sages.hbase.api.loader.LoadMovieData;
-import pl.com.sages.hbase.api.loader.LoadMovieRatingData;
+import pl.com.sages.hbase.api.dao.RatingDao;
 import pl.com.sages.hbase.mapred.movies.AverageRatingMapper;
 
 import java.io.IOException;
@@ -43,7 +42,7 @@ public class AllMovieDataExternalTest {
         HTableDescriptor table = new HTableDescriptor(TABLE_NAME);
         table.addFamily(new HColumnDescriptor(FAMILY_NAME));
         table.addFamily(new HColumnDescriptor(MovieDao.CF));
-        table.addFamily(new HColumnDescriptor(LoadMovieRatingData.FAMILY_NAME));
+        table.addFamily(new HColumnDescriptor(RatingDao.CF));
 
         admin.createTable(table);
     }

@@ -5,14 +5,13 @@ import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.hbase.HBaseConfiguration;
 import org.apache.hadoop.hbase.client.Scan;
 import org.apache.hadoop.hbase.mapreduce.TableMapReduceUtil;
-import org.apache.hadoop.hbase.util.Bytes;
 import org.apache.hadoop.io.DoubleWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.junit.Before;
 import org.junit.Test;
-import pl.com.sages.hbase.api.loader.LoadMovieRatingData;
+import pl.com.sages.hbase.api.dao.RatingDao;
 import pl.com.sages.hbase.api.util.HBaseUtil;
 import pl.com.sages.hbase.mapred.file.RatingExportReducer;
 
@@ -29,7 +28,7 @@ public class AverageRatingToFileExternalTest {
 
     @Before
     public void before() throws IOException {
-        HBaseUtil.recreateTable( TABLE_NAME, FAMILY_NAME);
+        HBaseUtil.recreateTable(TABLE_NAME, FAMILY_NAME);
     }
 
     @Test
@@ -41,10 +40,10 @@ public class AverageRatingToFileExternalTest {
         Scan scan = new Scan();
         scan.setCaching(500);
         scan.setCacheBlocks(false);
-        scan.addFamily(Bytes.toBytes(LoadMovieRatingData.FAMILY_NAME));
+        scan.addFamily(RatingDao.CF);
 
         TableMapReduceUtil.initTableMapperJob(
-                LoadMovieRatingData.TABLE_NAME,
+                RatingDao.TABLE,
                 scan,
                 AverageRatingMapper.class,
                 Text.class,

@@ -8,7 +8,6 @@ import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
 import pl.com.sages.hbase.api.dao.MovieDao;
-import pl.com.sages.hbase.api.loader.LoadMovieData;
 
 public class CountMoviesMapper extends TableMapper<Text, LongWritable> {
 

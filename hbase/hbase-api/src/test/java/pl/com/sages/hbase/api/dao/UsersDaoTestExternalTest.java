@@ -4,9 +4,9 @@ import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hbase.util.Bytes;
 import org.junit.Before;
 import org.junit.Test;
-import pl.com.sages.hbase.api.util.HBaseUtil;
 import pl.com.sages.hbase.api.loader.UserDataFactory;
 import pl.com.sages.hbase.api.model.User;
+import pl.com.sages.hbase.api.util.HBaseUtil;
 
 import java.io.IOException;
 import java.util.List;

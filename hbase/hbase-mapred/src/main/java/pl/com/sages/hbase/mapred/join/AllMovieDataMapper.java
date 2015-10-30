@@ -8,9 +8,7 @@ import org.apache.hadoop.hbase.io.ImmutableBytesWritable;
 import org.apache.hadoop.hbase.mapreduce.TableMapper;
 import org.apache.hadoop.hbase.util.Bytes;
 import pl.com.sages.hbase.api.dao.MovieDao;
-import pl.com.sages.hbase.api.loader.LoadMovieData;
-import pl.com.sages.hbase.api.loader.LoadMovieRatingData;
-import pl.com.sages.hbase.mapred.movies.AverageRatingReducer;
+import pl.com.sages.hbase.api.dao.RatingDao;
 
 import java.io.IOException;
 
@@ -81,7 +79,7 @@ public class AllMovieDataMapper extends TableMapper<ImmutableBytesWritable, Put>
             put.addColumn(Bytes.toBytes(FAMILY_NAME), MovieDao.GENRES, Bytes.toBytes(movieGenres));
         } else if (movieRating != null) {
             put = new Put(Bytes.toBytes(movieId));
-            put.addColumn(Bytes.toBytes(FAMILY_NAME), Bytes.toBytes(LoadMovieRatingData.RATING), Bytes.toBytes(movieRating));
+            put.addColumn(Bytes.toBytes(FAMILY_NAME), RatingDao.RATING, Bytes.toBytes(movieRating));
         }
 
         return put;

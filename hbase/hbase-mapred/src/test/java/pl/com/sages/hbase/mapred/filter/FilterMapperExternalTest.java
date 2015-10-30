@@ -10,7 +10,6 @@ import org.apache.hadoop.mapreduce.Job;
 import org.junit.Before;
 import org.junit.Test;
 import pl.com.sages.hbase.api.dao.MovieDao;
-import pl.com.sages.hbase.api.loader.LoadMovieData;
 import pl.com.sages.hbase.api.util.HBaseUtil;
 
 import java.io.IOException;
@@ -26,7 +25,7 @@ public class FilterMapperExternalTest {
 
     @Before
     public void before() throws IOException {
-        HBaseUtil.recreateTable( TABLE_NAME, FAMILY_NAME);
+        HBaseUtil.recreateTable(TABLE_NAME, FAMILY_NAME);
     }
 
     @Test
