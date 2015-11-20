@@ -71,7 +71,7 @@ public class AverageRatingExternalTest {
         for (Result result : results) {
             byte[] id = result.getRow();
             byte[] average = result.getValue(Bytes.toBytes(FAMILY_NAME), AverageRatingReducer.AVERAGE);
-            System.out.println(Bytes.toString(id) + " " + Bytes.toDouble(average));
+            System.out.println(Bytes.toInt(id) + " " + Bytes.toDouble(average));
             count++;
         }
 

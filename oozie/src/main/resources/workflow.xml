@@ -1,0 +1,143 @@
+<workflow-app xmlns="uri:oozie:workflow:0.2" name="sages-oozie">
+
+    <start to="wordcount"/>
+
+    <action name="wordcount">
+        <map-reduce>
+            <job-tracker>${jobTracker}</job-tracker>
+            <name-node>${nameNode}</name-node>
+            <prepare>
+                <delete path="${nameNode}${wordcountOutputPath}"/>
+            </prepare>
+            <configuration>
+
+                <property>
+                    <name>mapred.job.queue.name</name>
+                    <value>${queueName}</value>
+                </property>
+
+                <property>
+                    <name>mapred.mapper.new-api</name>
+                    <value>true</value>
+                </property>
+                <property>
+                    <name>mapred.reducer.new-api</name>
+                    <value>true</value>
+                </property>
+
+                <property>
+                    <name>mapreduce.map.class</name>
+                    <value>pl.com.sages.hadoop.mapreduce.wordcount.WordCountMapper</value>
+                </property>
+                <property>
+                    <name>mapreduce.reduce.class</name>
+                    <value>pl.com.sages.hadoop.mapreduce.wordcount.WordCountReducer</value>
+                </property>
+
+                <property>
+                    <name>mapred.output.key.class</name>
+                    <value>org.apache.hadoop.io.Text</value>
+                </property>
+                <property>
+                    <name>mapred.output.value.class</name>
+                    <value>org.apache.hadoop.io.IntWritable</value>
+                </property>
+
+                <property>
+                    <name>mapred.map.tasks</name>
+                    <value>1</value>
+                </property>
+                <property>
+                    <name>mapred.input.dir</name>
+                    <value>${wordcountInputPath}</value>
+                </property>
+                <property>
+                    <name>mapred.output.dir</name>
+                    <value>${wordcountOutputPath}</value>
+                </property>
+            </configuration>
+        </map-reduce>
+        <ok to="invertedindex"/>
+        <error to="fail"/>
+    </action>
+
+    <action name="invertedindex">
+        <map-reduce>
+            <job-tracker>${jobTracker}</job-tracker>
+            <name-node>${nameNode}</name-node>
+            <prepare>
+                <delete path="${nameNode}${invertedindexOutputPath}"/>
+            </prepare>
+            <configuration>
+
+                <property>
+                    <name>mapred.job.queue.name</name>
+                    <value>${queueName}</value>
+                </property>
+
+                <property>
+                    <name>mapred.mapper.new-api</name>
+                    <value>true</value>
+                </property>
+                <property>
+                    <name>mapred.reducer.new-api</name>
+                    <value>true</value>
+                </property>
+
+                <property>
+                    <name>mapreduce.map.class</name>
+                    <value>pl.com.sages.hadoop.mapreduce.invertedindex.InvertedIndexMapper</value>
+                </property>
+                <property>
+                    <name>mapreduce.reduce.class</name>
+                    <value>pl.com.sages.hadoop.mapreduce.invertedindex.InvertedIndexReducer</value>
+                </property>
+
+                <property>
+                    <name>mapred.output.key.class</name>
+                    <value>org.apache.hadoop.io.Text</value>
+                </property>
+                <property>
+                    <name>mapred.output.value.class</name>
+                    <value>org.apache.hadoop.io.Text</value>
+                </property>
+
+                <property>
+                    <name>mapred.map.tasks</name>
+                    <value>1</value>
+                </property>
+                <property>
+                    <name>mapred.input.dir</name>
+                    <value>${invertedindexInputPath}</value>
+                </property>
+                <property>
+                    <name>mapred.output.dir</name>
+                    <value>${invertedindexOutputPath}</value>
+                </property>
+            </configuration>
+        </map-reduce>
+        <ok to="hive"/>
+        <error to="fail"/>
+    </action>
+
+    <action name="hive">
+        <hive xmlns="uri:oozie:hive-action:0.2">
+            <job-tracker>${jobTracker}</job-tracker>
+            <name-node>${nameNode}</name-node>
+            <prepare>
+                <delete path="${hiveOutputPath}"/>
+            </prepare>
+            <script>hive-script.hql</script>
+            <param>OUTPUT=${hiveOutputPath}</param>
+        </hive>
+        <ok to="end"/>
+        <error to="fail"/>
+    </action>
+
+    <kill name="fail">
+        <message>Map/Reduce failed, error message[${wf:errorMessage(wf:lastErrorNode())}]</message>
+    </kill>
+
+    <end name="end"/>
+
+</workflow-app>
