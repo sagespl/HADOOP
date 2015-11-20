@@ -116,20 +116,6 @@
                 </property>
             </configuration>
         </map-reduce>
-        <ok to="hive"/>
-        <error to="fail"/>
-    </action>
-
-    <action name="hive">
-        <hive xmlns="uri:oozie:hive-action:0.2">
-            <job-tracker>${jobTracker}</job-tracker>
-            <name-node>${nameNode}</name-node>
-            <prepare>
-                <delete path="${hiveOutputPath}"/>
-            </prepare>
-            <script>hive-script.hql</script>
-            <param>OUTPUT=${hiveOutputPath}</param>
-        </hive>
         <ok to="end"/>
         <error to="fail"/>
     </action>
