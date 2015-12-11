@@ -57,6 +57,65 @@
                 </property>
             </configuration>
         </map-reduce>
+        <ok to="invertedindex"/>
+        <error to="fail"/>
+    </action>
+
+    <action name="invertedindex">
+        <map-reduce>
+            <job-tracker>${jobTracker}</job-tracker>
+            <name-node>${nameNode}</name-node>
+            <prepare>
+                <delete path="${nameNode}${invertedindexOutputPath}"/>
+            </prepare>
+            <configuration>
+
+                <property>
+                    <name>mapred.job.queue.name</name>
+                    <value>${queueName}</value>
+                </property>
+
+                <property>
+                    <name>mapred.mapper.new-api</name>
+                    <value>true</value>
+                </property>
+                <property>
+                    <name>mapred.reducer.new-api</name>
+                    <value>true</value>
+                </property>
+
+                <property>
+                    <name>mapreduce.map.class</name>
+                    <value>pl.com.sages.hadoop.mapreduce.invertedindex.InvertedIndexMapper</value>
+                </property>
+                <property>
+                    <name>mapreduce.reduce.class</name>
+                    <value>pl.com.sages.hadoop.mapreduce.invertedindex.InvertedIndexReducer</value>
+                </property>
+
+                <property>
+                    <name>mapred.output.key.class</name>
+                    <value>org.apache.hadoop.io.Text</value>
+                </property>
+                <property>
+                    <name>mapred.output.value.class</name>
+                    <value>org.apache.hadoop.io.Text</value>
+                </property>
+
+                <property>
+                    <name>mapred.map.tasks</name>
+                    <value>1</value>
+                </property>
+                <property>
+                    <name>mapred.input.dir</name>
+                    <value>${invertedindexInputPath}</value>
+                </property>
+                <property>
+                    <name>mapred.output.dir</name>
+                    <value>${invertedindexOutputPath}</value>
+                </property>
+            </configuration>
+        </map-reduce>
         <ok to="end"/>
         <error to="fail"/>
     </action>

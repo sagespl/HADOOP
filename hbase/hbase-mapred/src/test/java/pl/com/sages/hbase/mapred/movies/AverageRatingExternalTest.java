@@ -76,8 +76,3 @@ public class AverageRatingExternalTest {
         }
 
         ratingaverage.close();
-
-        assertThat(count).isGreaterThan(1000);
-    }
-
-}
