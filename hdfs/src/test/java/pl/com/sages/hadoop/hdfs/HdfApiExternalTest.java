@@ -21,7 +21,7 @@ public class HdfApiExternalTest {
 
     public static final String LOCAL_OUTPUT_PATH = "/tmp/iris.csv";
 
-    public static final String HDFS_INPUT_PATH = "/demo/data/Customer/acct.txt";
+    public static final String HDFS_INPUT_PATH = "/tmp/hdfs_iris.csv";
     public static final String HDFS_OUTPUT_PATH = "/tmp/hdfs-write-test.txt";
 
     private FileSystem fs;
@@ -33,13 +33,21 @@ public class HdfApiExternalTest {
         Configuration conf = new Configuration(false);
         conf.addResource("/etc/hadoop/conf/core-site.xml");
         conf.addResource("/etc/hadoop/conf/hdfs-site.xml");
-
-        //        conf.set("fs.default.name", "hdfs://sandbox.hortonworks.com:8020");
+        // conf.set("fs.default.name", "hdfs://sandbox.hortonworks.com:8020");
         conf.set("fs.default.name", "hdfs://localhost:8020");
-
         conf.setClass("fs.hdfs.impl", DistributedFileSystem.class, FileSystem.class);
-
         fs = FileSystem.get(conf);
+
+        // przygotowanie danych
+        new File(LOCAL_OUTPUT_PATH).delete();
+        fs.delete(new Path(HDFS_OUTPUT_PATH), true);
+
+        FSDataOutputStream outputStream = fs.create(new Path(HDFS_INPUT_PATH), true);
+        try {
+            IOUtils.copyBytes(this.getClass().getClassLoader().getResourceAsStream("iris.csv"), outputStream, 4096);
+        } finally {
+            IOUtils.closeStream(outputStream);
+        }
     }
 
     @Test
@@ -80,15 +88,12 @@ public class HdfApiExternalTest {
 
         // then
         assertThat(files).contains("user");
-        assertThat(files).doesNotContain("mapred");
-        assertThat(files).doesNotContain("mr-history");
+        assertThat(files).doesNotContain("tmp");
     }
 
     @Test
-    public void shouldReadFile() throws Exception {
+    public void shouldReadFileFromHDFS() throws Exception {
         // given
-
-        new File(LOCAL_OUTPUT_PATH).delete();
         FSDataInputStream inputStream = fs.open(new Path(HDFS_INPUT_PATH));
 
         // przewijanie do przodu
@@ -106,11 +111,11 @@ public class HdfApiExternalTest {
     }
 
     @Test
-    public void shouldWriteFile() throws Exception {
+    public void shouldWriteFileOnHDFS() throws Exception {
         // given
 
         // when
-        FSDataOutputStream outputStream = fs.create(new Path(LOCAL_OUTPUT_PATH), true);
+        FSDataOutputStream outputStream = fs.create(new Path(HDFS_OUTPUT_PATH), true);
         try {
             IOUtils.copyBytes(this.getClass().getClassLoader().getResourceAsStream("iris.csv"), outputStream, 4096);
         } finally {
@@ -118,9 +123,8 @@ public class HdfApiExternalTest {
         }
 
         // then
-        Assert.assertTrue(fs.exists(new Path(LOCAL_OUTPUT_PATH)));
+        Assert.assertTrue(fs.exists(new Path(HDFS_OUTPUT_PATH)));
     }
-
 
     @Test
     public void shouldWriteFileWithProgress() throws Exception {
