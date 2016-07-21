@@ -3,17 +3,21 @@
 
 ## Ustawiamy ścieżki
 
+```
 export HDFS_HOME=/user/hadoop
 export HADOOP_DATA=/home/hadoop/dane
 export HADOOP_PROJECT=/home/radek/Sages/repository/HADOOP
+```
 
 ## Wrzucamy nasze dane na hdfs'a
 
+```
 hdfs dfs -mkdir -p $HDFS_HOME/dane
 
 hdfs dfs -copyFromLocal $HADOOP_DATA/lektury $HDFS_HOME/dane/
 hdfs dfs -copyFromLocal $HADOOP_DATA/lektury-100/ $HDFS_HOME/dane/
 hdfs dfs -copyFromLocal $HADOOP_DATA/lektury-one-file/ $HDFS_HOME/dane/
+```
 
 ## Uruchomienie projektu
 
@@ -28,5 +32,7 @@ hadoop jar $HADOOP_PROJECT/mapreduce/target/mapreduce-1.0-SNAPSHOT-job.jar pl.co
 
 ## Jesli chcemy usunąć to co wcześniej wrzuciliśmy (dane plus wyniki)
 
+```
 hdfs dfs -rm -f -r -skipTrash $HDFS_HOME/dane
 hdfs dfs -rm -f -r -skipTrash $HDFS_HOME/wyniki
+```
