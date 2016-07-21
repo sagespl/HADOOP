@@ -17,12 +17,14 @@ hdfs dfs -copyFromLocal $HADOOP_DATA/lektury-one-file/ $HDFS_HOME/dane/
 
 ## Uruchomienie projektu
 
+```
 hadoop jar $HADOOP_PROJECT/mapreduce/target/mapreduce-1.0-SNAPSHOT-job.jar pl.com.sages.hadoop.mapreduce.wordcount.WordCountRunner $HDFS_HOME/dane/lektury $HDFS_HOME/wyniki/lektury-wordcount-output
 hadoop jar $HADOOP_PROJECT/mapreduce/target/mapreduce-1.0-SNAPSHOT-job.jar pl.com.sages.hadoop.mapreduce.wordcount.WordCountRunner $HDFS_HOME/dane/lektury-100 $HDFS_HOME/wyniki/lektury-100-wordcount-output
 hadoop jar $HADOOP_PROJECT/mapreduce/target/mapreduce-1.0-SNAPSHOT-job.jar pl.com.sages.hadoop.mapreduce.wordcount.WordCountRunner $HDFS_HOME/dane/lektury-one-file $HDFS_HOME/wyniki/lektury-one-file-wordcount-output
 
 hadoop jar $HADOOP_PROJECT/mapreduce/target/mapreduce-1.0-SNAPSHOT-job.jar pl.com.sages.hadoop.mapreduce.invertedindex.InvertedIndexRunner $HDFS_HOME/dane/lektury-100 $HDFS_HOME/wyniki/lektury-100-invertedindex-output
 hadoop jar $HADOOP_PROJECT/mapreduce/target/mapreduce-1.0-SNAPSHOT-job.jar pl.com.sages.hadoop.mapreduce.invertedindex.InvertedIndexRunner $HDFS_HOME/dane/lektury-one-file $HDFS_HOME/wyniki/lektury-one-file-invertedindex-output
+```
 
 ## Jesli chcemy usunąć to co wcześniej wrzuciliśmy (dane plus wyniki)
 
