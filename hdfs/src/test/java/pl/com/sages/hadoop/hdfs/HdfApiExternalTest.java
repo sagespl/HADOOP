@@ -10,7 +10,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -20,8 +19,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class HdfApiExternalTest {
 
-    public static final String LOCAL_INPUT_PATH = "/home/sages/Sages/dane/iris.csv";
-    public static final String LOCAL_OUTPUT_PATH = "/tmp/acct.txt";
+    public static final String LOCAL_OUTPUT_PATH = "/tmp/iris.csv";
 
     public static final String HDFS_INPUT_PATH = "/demo/data/Customer/acct.txt";
     public static final String HDFS_OUTPUT_PATH = "/tmp/hdfs-write-test.txt";
@@ -30,11 +28,14 @@ public class HdfApiExternalTest {
 
     @Before
     public void createRemoteFileSystem() throws IOException {
+        System.setProperty("HADOOP_USER_NAME", "hadoop");
+
         Configuration conf = new Configuration(false);
         conf.addResource("/etc/hadoop/conf/core-site.xml");
         conf.addResource("/etc/hadoop/conf/hdfs-site.xml");
 
-        conf.set("fs.default.name", "hdfs://sandbox.hortonworks.com:8020");
+        //        conf.set("fs.default.name", "hdfs://sandbox.hortonworks.com:8020");
+        conf.set("fs.default.name", "hdfs://localhost:8020");
 
         conf.setClass("fs.hdfs.impl", DistributedFileSystem.class, FileSystem.class);
 
@@ -55,9 +56,8 @@ public class HdfApiExternalTest {
         }
 
         // then
+        assertThat(files).contains("tmp");
         assertThat(files).contains("user");
-        assertThat(files).contains("mapred");
-        assertThat(files).contains("mr-history");
     }
 
     @Test
@@ -92,7 +92,7 @@ public class HdfApiExternalTest {
         FSDataInputStream inputStream = fs.open(new Path(HDFS_INPUT_PATH));
 
         // przewijanie do przodu
-//        inputStream.seek(2000);
+        //        inputStream.seek(2000);
 
         // when
         try {
@@ -108,20 +108,19 @@ public class HdfApiExternalTest {
     @Test
     public void shouldWriteFile() throws Exception {
         // given
-        String inputPath = "/home/sages/Sages/dane/iris.csv";
-        String outputPath = "/tmp/hdfs-write-test.txt";
 
         // when
-        FSDataOutputStream outputStream = fs.create(new Path(outputPath), true);
+        FSDataOutputStream outputStream = fs.create(new Path(LOCAL_OUTPUT_PATH), true);
         try {
-            IOUtils.copyBytes(new FileInputStream(new File(inputPath)), outputStream, 4096);
+            IOUtils.copyBytes(this.getClass().getClassLoader().getResourceAsStream("iris.csv"), outputStream, 4096);
         } finally {
             IOUtils.closeStream(outputStream);
         }
 
         // then
-        Assert.assertTrue(fs.exists(new Path(outputPath)));
+        Assert.assertTrue(fs.exists(new Path(LOCAL_OUTPUT_PATH)));
     }
+
 
     @Test
     public void shouldWriteFileWithProgress() throws Exception {
@@ -135,7 +134,7 @@ public class HdfApiExternalTest {
             }
         });
         try {
-            IOUtils.copyBytes(new FileInputStream(new File(LOCAL_INPUT_PATH)), outputStream, 4096);
+            IOUtils.copyBytes(this.getClass().getClassLoader().getResourceAsStream("iris.csv"), outputStream, 4096);
         } finally {
             IOUtils.closeStream(outputStream);
         }
@@ -150,7 +149,7 @@ public class HdfApiExternalTest {
         fs.delete(new Path(HDFS_OUTPUT_PATH), false);
 
         // when
-        fs.copyFromLocalFile(new Path(LOCAL_INPUT_PATH), new Path(HDFS_OUTPUT_PATH));
+        fs.copyFromLocalFile(new Path(this.getClass().getClassLoader().getResource("iris.csv").getFile()), new Path(HDFS_OUTPUT_PATH));
 
         // then
         Assert.assertTrue(fs.exists(new Path(HDFS_OUTPUT_PATH)));
@@ -160,7 +159,7 @@ public class HdfApiExternalTest {
     public void shouldCreateWholeDirectoryPath() throws Exception {
         // given
         String veryLongPath = "/tmp/very/long/direcotry/path";
-        fs.delete(new Path("/tmp/very"), true);//musi być overwerite!!!
+        fs.delete(new Path("/tmp/very"), true);
 
         // when
         boolean created = fs.mkdirs(new Path(veryLongPath));
