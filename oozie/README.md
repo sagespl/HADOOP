@@ -3,6 +3,7 @@
 
 ## przygotowanie zadania z projektu
 
+```
 hdfs dfs -rm -f -r -skipTrash /user/sages/oozie
 hdfs dfs -mkdir -p /user/sages/oozie
 hdfs dfs -mkdir -p /user/sages/oozie/lib
@@ -12,10 +13,13 @@ hdfs dfs -copyFromLocal /home/sages/Sages/HADOOP/mapreduce/target/mapreduce-1.0-
 hdfs dfs -copyFromLocal /home/sages/Sages/HADOOP/oozie/src/main/resources/job.properties /user/sages/oozie/
 hdfs dfs -copyFromLocal /home/sages/Sages/HADOOP/oozie/src/main/resources/workflow.xml /user/sages/oozie/
 hdfs dfs -copyFromLocal /home/sages/Sages/HADOOP/oozie/src/main/resources/hive-script.hql /user/sages/oozie/
+```
 
 ## uruchomienie zadania
-oozie job -oozie http://localhost:11000/oozie -config /home/sages/Sages/HADOOP/oozie/src/main/resources/job.properties -run
 
+```
+oozie job -oozie http://localhost:11000/oozie -config /home/sages/Sages/HADOOP/oozie/src/main/resources/job.properties -run
+```
 
 
 
