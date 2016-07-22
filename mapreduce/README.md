@@ -1,14 +1,6 @@
 
 # Instrukcja uruchomienia projektu na klastrze Apache Hadoop
 
-## Ustawiamy ścieżki
-
-```
-export HDFS_HOME=/user/hadoop
-export HADOOP_DATA=/home/radek/ownCloud/Sages/dane
-export HADOOP_PROJECT=/home/radek/Sages/repository/HADOOP
-```
-
 ## Wrzucamy nasze dane na hdfs'a
 
 ```
