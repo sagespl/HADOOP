@@ -5,7 +5,7 @@
 
 ```
 export HDFS_HOME=/user/hadoop
-export HADOOP_DATA=/home/hadoop/dane
+export HADOOP_DATA=/home/radek/ownCloud/Sages/dane
 export HADOOP_PROJECT=/home/radek/Sages/repository/HADOOP
 ```
 
