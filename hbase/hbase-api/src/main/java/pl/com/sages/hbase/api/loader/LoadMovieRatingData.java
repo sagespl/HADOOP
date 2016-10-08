@@ -10,7 +10,7 @@ import java.io.IOException;
 
 public class LoadMovieRatingData {
 
-    public static final String RATING_DATA = "/home/sages/Sages/dane/ml-10M100K/ratings.dat";
+    public static final String RATING_DATA = "/home/sages/dane/ml-10M100K/ratings.dat";
 
     public static void main(String[] args) throws IOException {
         new LoadMovieRatingData().run();

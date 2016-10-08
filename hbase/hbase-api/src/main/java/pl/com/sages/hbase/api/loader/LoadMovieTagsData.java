@@ -10,7 +10,7 @@ import java.io.IOException;
 
 public class LoadMovieTagsData {
 
-    public static final String TAG_DATA = "/home/sages/Sages/dane/ml-10M100K/tags.dat";
+    public static final String TAG_DATA = "/home/sages/dane/ml-10M100K/tags.dat";
 
     public static void main(String[] args) throws IOException {
         new LoadMovieTagsData().run();

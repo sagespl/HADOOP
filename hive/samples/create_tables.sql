@@ -9,7 +9,7 @@ Title STRING,
 Genres STRING)
 ROW FORMAT DELIMITED FIELDS TERMINATED BY '@';
 
-LOAD DATA LOCAL INPATH '/home/sages/Sages/dane/movie/movies.dat'
+LOAD DATA LOCAL INPATH '/home/sages/dane/movie/movies.dat'
 OVERWRITE INTO TABLE movies;
 
 
@@ -22,7 +22,7 @@ Rating STRING,
 Timestamp STRING)
 ROW FORMAT DELIMITED FIELDS TERMINATED BY '@';
 
-LOAD DATA LOCAL INPATH '/home/sages/Sages/dane/movie/ratings.dat'
+LOAD DATA LOCAL INPATH '/home/sages/dane/movie/ratings.dat'
 OVERWRITE INTO TABLE ratings;
 
 
@@ -35,7 +35,7 @@ Tag STRING,
 Timestamp STRING)
 ROW FORMAT DELIMITED FIELDS TERMINATED BY '@';
 
-LOAD DATA LOCAL INPATH '/home/sages/Sages/dane/movie/tags.dat'
+LOAD DATA LOCAL INPATH '/home/sages/dane/movie/tags.dat'
 OVERWRITE INTO TABLE tags;
 
 
