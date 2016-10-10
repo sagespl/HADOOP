@@ -3,7 +3,6 @@ package pl.com.sages.hadoop.hdfs;
 import junit.framework.Assert;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.*;
-import org.apache.hadoop.hdfs.DistributedFileSystem;
 import org.apache.hadoop.io.IOUtils;
 import org.apache.hadoop.util.Progressable;
 import org.junit.Before;
@@ -17,7 +16,7 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class HdfApiExternalTest {
+public class HdfsApiExternalTest {
 
     public static final String LOCAL_OUTPUT_PATH = "/tmp/iris.csv";
 
@@ -28,14 +27,12 @@ public class HdfApiExternalTest {
 
     @Before
     public void createRemoteFileSystem() throws IOException {
-        System.setProperty("HADOOP_USER_NAME", "hadoop");
+        // System.setProperty("HADOOP_USER_NAME", "hadoop");
 
         Configuration conf = new Configuration(false);
-        conf.addResource("/etc/hadoop/conf/core-site.xml");
-        conf.addResource("/etc/hadoop/conf/hdfs-site.xml");
-        // conf.set("fs.default.name", "hdfs://sandbox.hortonworks.com:8020");
-        conf.set("fs.default.name", "hdfs://localhost:8020");
-        conf.setClass("fs.hdfs.impl", DistributedFileSystem.class, FileSystem.class);
+        conf.addResource(new Path("/etc/hadoop/2.4.0.0-169/0/core-site.xml"));
+        conf.addResource(new Path("/etc/hadoop/2.4.0.0-169/0/hdfs-site.xml"));
+
         fs = FileSystem.get(conf);
 
         // przygotowanie danych
