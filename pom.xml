@@ -38,7 +38,7 @@
         <avro.version>1.7.7</avro.version>
         <hive.version>1.2.1</hive.version>
         <pig.version>0.15.0</pig.version>
-        <hbase.version>1.1.1</hbase.version>
+        <hbase.version>1.1.2</hbase.version>
         <phoenix.version>4.4.0-HBase-1.1</phoenix.version>
         <oozie.version>4.2.0</oozie.version>
         <cascading.version>3.0.0-wip-60</cascading.version>
