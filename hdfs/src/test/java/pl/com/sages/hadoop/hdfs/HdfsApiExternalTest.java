@@ -178,7 +178,7 @@ public class HdfsApiExternalTest {
         // given
 
         // when
-        boolean renamed = fs.rename(new Path("/this/file/does/not/exists"), new Path("/some/path/to/file"));
+        boolean renamed = fs.rename(new Path("/tmp/this/file/does/not/exists"), new Path("/tmp/some/path/to/file"));
 
         // then
         Assert.assertFalse(renamed);
