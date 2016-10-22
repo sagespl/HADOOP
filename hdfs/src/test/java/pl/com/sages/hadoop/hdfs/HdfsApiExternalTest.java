@@ -30,8 +30,12 @@ public class HdfsApiExternalTest {
         // System.setProperty("HADOOP_USER_NAME", "hadoop");
 
         Configuration conf = new Configuration(false);
-        conf.addResource(new Path("/etc/hadoop/2.4.0.0-169/0/core-site.xml"));
-        conf.addResource(new Path("/etc/hadoop/2.4.0.0-169/0/hdfs-site.xml"));
+        // HDP 2.4
+        // conf.addResource(new Path("/etc/hadoop/2.4.0.0-169/0/core-site.xml"));
+        // conf.addResource(new Path("/etc/hadoop/2.4.0.0-169/0/hdfs-site.xml"));
+        // HDP 2.3.4
+        conf.addResource(new Path("/etc/hadoop/conf/core-site.xml"));
+        conf.addResource(new Path("/etc/hadoop/conf/hdfs-site.xml"));
 
         fs = FileSystem.get(conf);
 
