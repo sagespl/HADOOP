@@ -30,7 +30,7 @@ public class InvertedIndexRunner {
 
     public static Job createJob(Path inputPath, Path outputPath) throws IOException {
         Configuration conf = new Configuration();
-        Job job = Job.getInstance(conf, "word count");
+        Job job = Job.getInstance(conf, "inverted index");
         job.setJarByClass(InvertedIndexRunner.class);
         job.setMapperClass(InvertedIndexMapper.class);
         job.setCombinerClass(InvertedIndexReducer.class);
