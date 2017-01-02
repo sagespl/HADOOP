@@ -5,6 +5,7 @@ import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.*;
 import org.apache.hadoop.io.IOUtils;
 import org.apache.hadoop.util.Progressable;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -27,15 +28,14 @@ public class HdfsApiExternalTest {
 
     @Before
     public void createRemoteFileSystem() throws IOException {
-        // System.setProperty("HADOOP_USER_NAME", "hadoop");
+        System.setProperty("HADOOP_USER_NAME", "sages");
 
         Configuration conf = new Configuration(false);
         // HDP 2.4
-        // conf.addResource(new Path("/etc/hadoop/2.4.0.0-169/0/core-site.xml"));
-        // conf.addResource(new Path("/etc/hadoop/2.4.0.0-169/0/hdfs-site.xml"));
-        // HDP 2.3.4
-        conf.addResource(new Path("/etc/hadoop/conf/core-site.xml"));
-        conf.addResource(new Path("/etc/hadoop/conf/hdfs-site.xml"));
+        // conf.addResource(new Path("/etc/hadoop/conf/core-site.xml"));
+        // conf.addResource(new Path("/etc/hadoop/conf/hdfs-site.xml"));
+        conf.set("fs.defaultFS", "hdfs://ip-172-31-12-241.us-west-2.compute.internal:8020");
+        conf.set("dfs.namenode.http-address", "ip-172-31-12-241.us-west-2.compute.internal:50070");
 
         fs = FileSystem.get(conf);
 
@@ -49,6 +49,12 @@ public class HdfsApiExternalTest {
         } finally {
             IOUtils.closeStream(outputStream);
         }
+    }
+
+    @After
+    public void after() throws IOException {
+        fs.delete(new Path(HDFS_INPUT_PATH), true);
+        fs.delete(new Path(HDFS_OUTPUT_PATH), true);
     }
 
     @Test

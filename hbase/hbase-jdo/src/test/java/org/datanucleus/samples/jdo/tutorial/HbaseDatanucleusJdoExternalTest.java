@@ -3,6 +3,7 @@ package org.datanucleus.samples.jdo.tutorial;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hbase.util.Bytes;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import pl.com.sages.hbase.api.dao.UsersDao;
 import pl.com.sages.hbase.api.loader.UserDataFactory;
@@ -18,6 +19,7 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import static pl.com.sages.hbase.api.util.HbaseConfigurationFactory.getConfiguration;
 
+@Ignore
 public class HbaseDatanucleusJdoExternalTest {
 
     @Before
