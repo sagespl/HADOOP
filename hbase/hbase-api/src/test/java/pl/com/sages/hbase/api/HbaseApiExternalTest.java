@@ -15,8 +15,8 @@ import static pl.com.sages.hbase.api.util.HbaseConfigurationFactory.getConfigura
 
 public class HbaseApiExternalTest {
 
-    public static final TableName TEST_TABLE_NAME = TableName.valueOf("test_users_" + System.currentTimeMillis());
-    public static final String TEST_FAMILY_NAME = "info";
+    private static final TableName TEST_TABLE_NAME = TableName.valueOf("test_users_" + System.currentTimeMillis());
+    private static final String TEST_FAMILY_NAME = "info";
 
     private Admin admin;
     private Connection connection;
