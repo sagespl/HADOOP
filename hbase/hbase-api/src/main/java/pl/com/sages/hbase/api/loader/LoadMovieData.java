@@ -10,7 +10,7 @@ import java.io.IOException;
 
 public class LoadMovieData {
 
-    public static final String MOVIE_DATA = "/home/sages/dane/ml-10M100K/movies.dat";
+    public static final String MOVIE_DATA = "/home/radek/Sages/dane/ml-10M100K/movies.dat";
 
     public static void main(String[] args) throws IOException {
         new LoadMovieData().run();
@@ -35,7 +35,7 @@ public class LoadMovieData {
             String genres = data[2];
 
             count++;
-            if (count % 1000 == 0) {
+            if (count % 10 == 0) {
                 System.out.println("Wczytano " + count + " wierszy");
             }
 

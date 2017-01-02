@@ -10,7 +10,7 @@ import java.io.IOException;
 
 public class LoadMovieRatingData {
 
-    public static final String RATING_DATA = "/home/sages/dane/ml-10M100K/ratings.dat";
+    public static final String RATING_DATA = "/home/radek/Sages/dane/ml-10M100K/ratings.dat";
 
     public static void main(String[] args) throws IOException {
         new LoadMovieRatingData().run();
@@ -36,7 +36,7 @@ public class LoadMovieRatingData {
             int timestamp = Integer.parseInt(data[3]);
 
             count++;
-            if (count % 1000 == 0) {
+            if (count % 10 == 0) {
                 System.out.println("Wczytano " + count + " wierszy");
             }
 

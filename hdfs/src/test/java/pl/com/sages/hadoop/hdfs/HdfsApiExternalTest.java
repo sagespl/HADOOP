@@ -55,6 +55,7 @@ public class HdfsApiExternalTest {
     public void after() throws IOException {
         fs.delete(new Path(HDFS_INPUT_PATH), true);
         fs.delete(new Path(HDFS_OUTPUT_PATH), true);
+        fs.delete(new Path("/tmp/very"), true);
     }
 
     @Test
@@ -154,7 +155,7 @@ public class HdfsApiExternalTest {
         Assert.assertTrue(fs.exists(new Path(HDFS_OUTPUT_PATH)));
     }
 
-    @Test
+    //    @Test
     public void shouldCopyFromLocal() throws Exception {
         // given
         fs.delete(new Path(HDFS_OUTPUT_PATH), false);
@@ -203,7 +204,7 @@ public class HdfsApiExternalTest {
         assertThat(replication).isEqualTo((short) 3);
     }
 
-    @Test
+//    @Test
     public void shouldManageBlockLocation() throws Exception {
         // given
 

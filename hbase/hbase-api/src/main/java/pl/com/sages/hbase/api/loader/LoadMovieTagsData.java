@@ -10,7 +10,7 @@ import java.io.IOException;
 
 public class LoadMovieTagsData {
 
-    public static final String TAG_DATA = "/home/sages/dane/ml-10M100K/tags.dat";
+    public static final String TAG_DATA = "/home/radek/Sages/dane/ml-10M100K/tags.dat";
 
     public static void main(String[] args) throws IOException {
         new LoadMovieTagsData().run();
@@ -37,7 +37,7 @@ public class LoadMovieTagsData {
             int timestamp = Integer.parseInt(data[3]);
 
             count++;
-            if (count % 1000 == 0) {
+            if (count % 10 == 0) {
                 System.out.println("Wczytano " + count + " wierszy");
             }
 
