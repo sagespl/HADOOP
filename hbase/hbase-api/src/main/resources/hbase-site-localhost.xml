@@ -8,7 +8,7 @@
 
     <property>
         <name>hbase.zookeeper.quorum</name>
-        <value>ip-172-31-12-241.us-west-2.compute.internal,ip-172-31-12-242.us-west-2.compute.internal,ip-172-31-12-243.us-west-2.compute.internal</value>
+        <value>sandbox.hortonworks.com</value>
     </property>
 
     <property>
