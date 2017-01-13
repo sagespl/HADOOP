@@ -10,6 +10,8 @@ import pl.com.sages.hbase.api.model.Movie;
 import pl.com.sages.hbase.api.util.ConnectionHandler;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MovieDao {
 
@@ -23,15 +25,31 @@ public class MovieDao {
         save(movie.getMovieId(), movie.getTitle(), movie.getGenres());
     }
 
-    public void save(int movieId, String title, String genres) throws IOException {
-        Table movies = ConnectionHandler.getConnection().getTable(TABLE);
+    public void save(List<Movie> movies) throws IOException {
+        Table table = ConnectionHandler.getConnection().getTable(TABLE);
 
+        List<Put> puts = new ArrayList<>(movies.size());
+        for (Movie movie : movies) {
+            puts.add(createPut(movie.getMovieId(), movie.getTitle(), movie.getGenres()));
+        }
+
+        table.put(puts);
+    }
+
+    public void save(int movieId, String title, String genres) throws IOException {
+        Table table = ConnectionHandler.getConnection().getTable(TABLE);
+
+        Put put = createPut(movieId, title, genres);
+
+        table.put(put);
+        table.close();
+    }
+
+    private Put createPut(int movieId, String title, String genres) {
         Put put = new Put(Bytes.toBytes(movieId));
         put.addColumn(CF, TITLE, Bytes.toBytes(title));
         put.addColumn(CF, GENRES, Bytes.toBytes(genres));
-
-        movies.put(put);
-        movies.close();
+        return put;
     }
 
     public static Movie createMovie(Result result) {
