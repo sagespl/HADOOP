@@ -39,8 +39,7 @@ public class LoadMovieData {
             String title = data[1];
             String genres = data[2];
 
-            Movie movie = new Movie(movieId, title, genres);
-            movies.add(movie);
+            movies.add(new Movie(movieId, title, genres));
 
             count++;
             if (count % COMMIT == 0) {

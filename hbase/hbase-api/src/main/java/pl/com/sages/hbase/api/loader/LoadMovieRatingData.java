@@ -40,8 +40,7 @@ public class LoadMovieRatingData {
             Double rating = Double.parseDouble(data[2]);
             int timestamp = Integer.parseInt(data[3]);
 
-            Rating rating1 = new Rating(userId, movieId, rating, timestamp);
-            ratings.add(rating1);
+            ratings.add(new Rating(userId, movieId, rating, timestamp));
 
             count++;
             if (count % COMMIT == 0) {

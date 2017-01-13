@@ -10,6 +10,8 @@ import pl.com.sages.hbase.api.model.Tag;
 import pl.com.sages.hbase.api.util.ConnectionHandler;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TagDao {
 
@@ -24,16 +26,36 @@ public class TagDao {
         save(tag.getUserId(), tag.getMovieId(), tag.getTag(), tag.getTimestamp());
     }
 
-    public void save(int userId, int movieId, String tag, int timestamp) throws IOException {
-        Table ratings = ConnectionHandler.getConnection().getTable(TABLE);
+    public void save(List<Tag> tags) throws IOException {
+        Table table = ConnectionHandler.getConnection().getTable(TABLE);
 
+        List<Put> puts = new ArrayList<>(tags.size());
+        for (Tag tag : tags) {
+            puts.add(createPut(tag));
+        }
+
+        table.put(puts);
+    }
+
+    public void save(int userId, int movieId, String tag, int timestamp) throws IOException {
+        Table table = ConnectionHandler.getConnection().getTable(TABLE);
+
+        Put put = createPut(userId, movieId, tag, timestamp);
+
+        table.put(put);
+        table.close();
+    }
+
+    private Put createPut(Tag tag) {
+        return createPut(tag.getUserId(), tag.getMovieId(), tag.getTag(), tag.getTimestamp());
+    }
+
+    private Put createPut(int userId, int movieId, String tag, int timestamp) {
         Put put = new Put(Bytes.toBytes(timestamp));
         put.addColumn(CF, USER_ID, Bytes.toBytes(userId));
         put.addColumn(CF, MOVIE_ID, Bytes.toBytes(movieId));
         put.addColumn(CF, TAG, Bytes.toBytes(tag));
-
-        ratings.put(put);
-        ratings.close();
+        return put;
     }
 
     public static Tag createTag(Result result) {
