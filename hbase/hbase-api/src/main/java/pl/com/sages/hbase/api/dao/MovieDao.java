@@ -22,7 +22,7 @@ public class MovieDao {
     public static final byte[] GENRES = Bytes.toBytes("genres");
 
     public void save(Movie movie) throws IOException {
-        save(movie.getMovieId(), movie.getTitle(), movie.getGenres());
+        save(movie);
     }
 
     public void save(List<Movie> movies) throws IOException {
@@ -30,7 +30,7 @@ public class MovieDao {
 
         List<Put> puts = new ArrayList<>(movies.size());
         for (Movie movie : movies) {
-            puts.add(createPut(movie.getMovieId(), movie.getTitle(), movie.getGenres()));
+            puts.add(createPut(movie));
         }
 
         table.put(puts);
@@ -43,6 +43,10 @@ public class MovieDao {
 
         table.put(put);
         table.close();
+    }
+
+    private Put createPut(Movie movie) {
+        return createPut(movie.getMovieId(), movie.getTitle(), movie.getGenres());
     }
 
     private Put createPut(int movieId, String title, String genres) {
