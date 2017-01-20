@@ -18,7 +18,7 @@ hdfs dfs -copyFromLocal $HADOOP_PROJECT/oozie/src/main/resources/hive-script.hql
 ## uruchomienie zadania
 
 ```
-oozie job -oozie http://hdp02:11000/oozie -config $HADOOP_PROJECT/oozie/src/main/resources/job.properties -run
+oozie job -oozie http://hdp02:11000/oozie -config $HADOOP_PROJECT/oozie/src/main/resources/pw-job.properties -run
 ```
 
 
