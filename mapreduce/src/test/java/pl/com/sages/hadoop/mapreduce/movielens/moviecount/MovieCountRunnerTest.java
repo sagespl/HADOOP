@@ -1,4 +1,4 @@
-package pl.com.sages.hadoop.mapreduce.movielens.moviewithtag;
+package pl.com.sages.hadoop.mapreduce.movielens.moviecount;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FileSystem;
@@ -8,24 +8,28 @@ import org.junit.Test;
 import pl.com.sages.hadoop.mapreduce.movielens.AbstractMovieLensTest;
 
 import static org.junit.Assert.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
-public class MovieWithTagRunnerTest extends AbstractMovieLensTest {
+/**
+ * Created by radek on 20.01.17.
+ */
+public class MovieCountRunnerTest extends AbstractMovieLensTest {
 
     @Test
-    public void shouldJoinMoviesAndTags() throws Exception {
+    public void shouldCountMovies() throws Exception {
         //given
         FileSystem fs = FileSystem.get(new Configuration());
         fs.delete(new Path(outputPath), true);
 
-        Job job = MovieWithTagRunner.createJob(new Path(moviesPath), new Path(tagsPath), new Path(outputPath));
+        Job job = MovieCountRunner.createJob(new Path(moviesPath));
 
         //when
         boolean completion = job.waitForCompletion(true);
 
         //then
         assertTrue(completion);
-        assertTrue(fs.exists(new Path(outputPath + "/_SUCCESS")));
-        assertTrue(fs.exists(new Path(outputPath + "/part-r-00000")));
+        long value = job.getCounters().findCounter(MovieCounter.MOVIE_NUMBER).getValue();
+        assertThat(value).isEqualTo(10681);
     }
 
 }
