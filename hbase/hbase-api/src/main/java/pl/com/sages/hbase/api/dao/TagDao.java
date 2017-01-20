@@ -6,7 +6,7 @@ import org.apache.hadoop.hbase.client.Put;
 import org.apache.hadoop.hbase.client.Result;
 import org.apache.hadoop.hbase.client.Table;
 import org.apache.hadoop.hbase.util.Bytes;
-import pl.com.sages.hbase.api.model.Tag;
+import pl.com.sages.hadoop.data.model.movielens.Tag;
 import pl.com.sages.hbase.api.util.ConnectionHandler;
 
 import java.io.IOException;

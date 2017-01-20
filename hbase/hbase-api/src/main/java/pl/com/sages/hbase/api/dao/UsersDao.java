@@ -4,7 +4,7 @@ package pl.com.sages.hbase.api.dao;
 import org.apache.hadoop.hbase.TableName;
 import org.apache.hadoop.hbase.client.*;
 import org.apache.hadoop.hbase.util.Bytes;
-import pl.com.sages.hbase.api.model.User;
+import pl.com.sages.hadoop.data.model.movielens.User;
 import pl.com.sages.hbase.api.util.ConnectionHandler;
 
 import java.io.IOException;
@@ -89,7 +89,7 @@ public class UsersDao {
         byte[] surname = result.getValue(CF, SURNAME);
         byte[] password = result.getValue(CF, PASSWORD);
 
-        return new User(forename, surname, email, password);
+        return new User(Bytes.toString(forename), Bytes.toString(surname), Bytes.toString(email), Bytes.toString(password));
     }
 
 }

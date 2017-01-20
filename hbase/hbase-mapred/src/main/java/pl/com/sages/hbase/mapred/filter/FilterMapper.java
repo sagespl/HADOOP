@@ -5,7 +5,7 @@ import org.apache.hadoop.hbase.client.Put;
 import org.apache.hadoop.hbase.client.Result;
 import org.apache.hadoop.hbase.io.ImmutableBytesWritable;
 import org.apache.hadoop.hbase.mapreduce.TableMapper;
-import pl.com.sages.hbase.api.model.Movie;
+import pl.com.sages.hadoop.data.model.movielens.Movie;
 
 import java.io.IOException;
 

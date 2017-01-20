@@ -1,16 +1,16 @@
-package pl.com.sages.hbase.api.model;
+package pl.com.sages.hadoop.data.model.movielens;
 
-public class Rating {
+public class Tag {
 
     private int userId;
     private int movieId;
-    private double rating;
+    private String tag;
     private int timestamp;
 
-    public Rating(int userId, int movieId, double rating, int timestamp) {
+    public Tag(int userId, int movieId, String tag, int timestamp) {
         this.userId = userId;
         this.movieId = movieId;
-        this.rating = rating;
+        this.tag = tag;
         this.timestamp = timestamp;
     }
 
@@ -30,12 +30,12 @@ public class Rating {
         this.movieId = movieId;
     }
 
-    public double getRating() {
-        return rating;
+    public String getTag() {
+        return tag;
     }
 
-    public void setRating(double rating) {
-        this.rating = rating;
+    public void setTag(String tag) {
+        this.tag = tag;
     }
 
     public int getTimestamp() {
@@ -48,10 +48,10 @@ public class Rating {
 
     @Override
     public String toString() {
-        return "Rating{" +
+        return "Tag{" +
                 "userId=" + userId +
                 ", movieId=" + movieId +
-                ", rating=" + rating +
+                ", tag='" + tag + '\'' +
                 ", timestamp=" + timestamp +
                 '}';
     }

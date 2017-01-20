@@ -19,6 +19,7 @@
         <module>oozie</module>
         <module>pig</module>
         <module>mahout</module>
+        <module>data-model</module>
     </modules>
 
     <repositories>

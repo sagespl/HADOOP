@@ -1,7 +1,7 @@
 package pl.com.sages.hbase.api.loader;
 
 import pl.com.sages.hbase.api.dao.MovieDao;
-import pl.com.sages.hbase.api.model.Movie;
+import pl.com.sages.hadoop.data.model.movielens.Movie;
 import pl.com.sages.hbase.api.util.HBaseUtil;
 
 import java.io.BufferedReader;

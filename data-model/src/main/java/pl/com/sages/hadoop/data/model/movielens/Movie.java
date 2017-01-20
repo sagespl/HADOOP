@@ -1,4 +1,4 @@
-package pl.com.sages.hbase.api.model;
+package pl.com.sages.hadoop.data.model.movielens;
 
 public class Movie {
 

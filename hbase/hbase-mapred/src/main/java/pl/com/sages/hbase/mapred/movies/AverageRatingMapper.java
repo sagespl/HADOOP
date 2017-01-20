@@ -6,7 +6,7 @@ import org.apache.hadoop.hbase.mapreduce.TableMapper;
 import org.apache.hadoop.io.DoubleWritable;
 import org.apache.hadoop.io.IntWritable;
 import pl.com.sages.hbase.api.dao.RatingDao;
-import pl.com.sages.hbase.api.model.Rating;
+import pl.com.sages.hadoop.data.model.movielens.Rating;
 
 import java.io.IOException;
 

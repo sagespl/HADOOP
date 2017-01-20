@@ -1,7 +1,7 @@
 package pl.com.sages.hbase.api.loader;
 
 import pl.com.sages.hbase.api.dao.RatingDao;
-import pl.com.sages.hbase.api.model.Rating;
+import pl.com.sages.hadoop.data.model.movielens.Rating;
 import pl.com.sages.hbase.api.util.HBaseUtil;
 
 import java.io.BufferedReader;

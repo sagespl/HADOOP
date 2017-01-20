@@ -1,6 +1,4 @@
-package pl.com.sages.hbase.api.model;
-
-import org.apache.hadoop.hbase.util.Bytes;
+package pl.com.sages.hadoop.data.model.movielens;
 
 public class User {
 
@@ -17,10 +15,6 @@ public class User {
         this.surname = surname;
         this.email = email;
         this.password = password;
-    }
-
-    public User(byte[] forename, byte[] surname, byte[] email, byte[] password) {
-        this(Bytes.toString(forename), Bytes.toString(surname), Bytes.toString(email), Bytes.toString(password));
     }
 
     public String getForename() {
