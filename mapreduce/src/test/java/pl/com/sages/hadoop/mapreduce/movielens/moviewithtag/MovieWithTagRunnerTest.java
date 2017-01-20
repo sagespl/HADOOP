@@ -1,4 +1,4 @@
-package pl.com.sages.hadoop.mapreduce.movies;
+package pl.com.sages.hadoop.mapreduce.movielens.moviewithtag;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.hadoop.conf.Configuration;
@@ -9,6 +9,7 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
+import pl.com.sages.hadoop.mapreduce.movielens.moviewithtag.MovieWithTagRunner;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -17,7 +18,7 @@ import java.io.InputStream;
 
 import static org.junit.Assert.assertTrue;
 
-public class MoviesTest {
+public class MovieWithTagRunnerTest {
 
     @Rule
     public TemporaryFolder inputFolder1 = new TemporaryFolder();
@@ -53,12 +54,13 @@ public class MoviesTest {
         FileSystem fs = FileSystem.get(new Configuration());
         fs.delete(new Path(outputPath), true);
 
-        Job job = MoviesRunner.createJob(new Path(inputPath1), new Path(inputPath2), new Path(outputPath));
+        Job job = MovieWithTagRunner.createJob(new Path(inputPath1), new Path(inputPath2), new Path(outputPath));
 
         //when
-        job.waitForCompletion(true);
+        boolean completion = job.waitForCompletion(true);
 
         //then
+        assertTrue(completion);
         assertTrue(fs.exists(new Path(outputPath + "/_SUCCESS")));
         assertTrue(fs.exists(new Path(outputPath + "/part-r-00000")));
     }

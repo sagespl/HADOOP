@@ -1,7 +1,7 @@
 package pl.com.sages.hbase.api.loader;
 
 import pl.com.sages.hbase.api.dao.UsersDao;
-import pl.com.sages.hadoop.data.model.movielens.User;
+import pl.com.sages.hadoop.data.model.users.User;
 
 import java.io.BufferedReader;
 import java.io.IOException;

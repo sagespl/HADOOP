@@ -4,7 +4,7 @@ package pl.com.sages.hbase.api.dao;
 import org.apache.hadoop.hbase.TableName;
 import org.apache.hadoop.hbase.client.*;
 import org.apache.hadoop.hbase.util.Bytes;
-import pl.com.sages.hadoop.data.model.movielens.User;
+import pl.com.sages.hadoop.data.model.users.User;
 import pl.com.sages.hbase.api.util.ConnectionHandler;
 
 import java.io.IOException;

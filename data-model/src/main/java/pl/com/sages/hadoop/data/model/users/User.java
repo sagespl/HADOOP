@@ -1,4 +1,4 @@
-package pl.com.sages.hadoop.data.model.movielens;
+package pl.com.sages.hadoop.data.model.users;
 
 public class User {
 

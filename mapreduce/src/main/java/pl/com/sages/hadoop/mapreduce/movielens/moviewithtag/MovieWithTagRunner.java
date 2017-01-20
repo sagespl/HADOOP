@@ -1,4 +1,4 @@
-package pl.com.sages.hadoop.mapreduce.movies;
+package pl.com.sages.hadoop.mapreduce.movielens.moviewithtag;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FileSystem;
@@ -12,7 +12,7 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
 import java.io.IOException;
 
-public class MoviesRunner {
+public class MovieWithTagRunner {
 
     public static void main(String[] args) throws Exception {
 
@@ -35,21 +35,20 @@ public class MoviesRunner {
 
     public static Job createJob(Path inputPath1, Path inputPath2, Path outputPath) throws IOException {
         Configuration conf = new Configuration();
-        Job job = Job.getInstance(conf, "movies join");
-        job.setJarByClass(MoviesReducer.class);
-//        job.setNumReduceTasks(3);
+        Job job = Job.getInstance(conf, "movie with tag");
+        job.setJarByClass(MovieWithTagReducer.class);
 
-//        job.setCombinerClass(MoviesReducer.class);
-        job.setReducerClass(MoviesReducer.class);
+        MultipleInputs.addInputPath(job, inputPath1, TextInputFormat.class, MovieMapper.class);
+        MultipleInputs.addInputPath(job, inputPath2, TextInputFormat.class, TagMapper.class);
+        job.setReducerClass(MovieWithTagReducer.class);
 
         job.setOutputKeyClass(IntWritable.class);
         job.setOutputValueClass(Text.class);
         job.setMapOutputKeyClass(IntWritable.class);
         job.setMapOutputValueClass(Text.class);
 
-        MultipleInputs.addInputPath(job, inputPath1, TextInputFormat.class, MovieMapper.class);
-        MultipleInputs.addInputPath(job, inputPath2, TextInputFormat.class, MovieTagMapper.class);
         FileOutputFormat.setOutputPath(job, outputPath);
+
         return job;
     }
 

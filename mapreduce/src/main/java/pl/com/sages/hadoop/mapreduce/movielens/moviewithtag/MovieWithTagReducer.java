@@ -1,4 +1,4 @@
-package pl.com.sages.hadoop.mapreduce.movies;
+package pl.com.sages.hadoop.mapreduce.movielens.moviewithtag;
 
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
@@ -6,7 +6,7 @@ import org.apache.hadoop.mapreduce.Reducer;
 
 import java.io.IOException;
 
-public class MoviesReducer extends Reducer<IntWritable, Text, IntWritable, Text> {
+public class MovieWithTagReducer extends Reducer<IntWritable, Text, IntWritable, Text> {
 
     private Text result = new Text();
 
