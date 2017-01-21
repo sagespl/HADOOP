@@ -1,6 +1,74 @@
 <workflow-app xmlns="uri:oozie:workflow:0.2" name="sages-oozie">
 
-    <start to="wordcount"/>
+    <start to="forking"/>
+
+    <fork name="forking">
+        <path start="indexsearch"/>
+        <path start="wordcount"/>
+    </fork>
+
+    <action name="indexsearch">
+        <map-reduce>
+            <job-tracker>${jobTracker}</job-tracker>
+            <name-node>${nameNode}</name-node>
+            <prepare>
+                <delete path="${nameNode}${indexsearchOutputPath}"/>
+            </prepare>
+            <configuration>
+
+                <property>
+                    <name>mapred.job.queue.name</name>
+                    <value>${queueName}</value>
+                </property>
+
+                <property>
+                    <name>mapred.mapper.new-api</name>
+                    <value>true</value>
+                </property>
+                <property>
+                    <name>mapred.reducer.new-api</name>
+                    <value>true</value>
+                </property>
+
+                <property>
+                    <name>mapreduce.map.class</name>
+                    <value>pl.com.sages.hadoop.mapreduce.indexsearch.SearchMapper</value>
+                </property>
+                <property>
+                    <name>mapreduce.reduce.class</name>
+                    <value>pl.com.sages.hadoop.mapreduce.indexsearch.SearchReducer</value>
+                </property>
+
+                <property>
+                    <name>mapred.output.key.class</name>
+                    <value>org.apache.hadoop.io.Text</value>
+                </property>
+                <property>
+                    <name>mapred.output.value.class</name>
+                    <value>org.apache.hadoop.io.Text</value>
+                </property>
+
+                <property>
+                    <name>mapred.map.tasks</name>
+                    <value>1</value>
+                </property>
+                <property>
+                    <name>mapreduce.job.reduces</name>
+                    <value>7</value>
+                </property>
+                <property>
+                    <name>mapred.input.dir</name>
+                    <value>${indexsearchInputPath}</value>
+                </property>
+                <property>
+                    <name>mapred.output.dir</name>
+                    <value>${indexsearchOutputPath}</value>
+                </property>
+            </configuration>
+        </map-reduce>
+        <ok to="joining"/>
+        <error to="fail"/>
+    </action>
 
     <action name="wordcount">
         <map-reduce>
@@ -116,9 +184,10 @@
                 </property>
             </configuration>
         </map-reduce>
-        <ok to="end"/>
+        <ok to="joining"/>
         <error to="fail"/>
     </action>
+    <join name="joining" to="end"/>
 
     <kill name="fail">
         <message>Map/Reduce failed, error message[${wf:errorMessage(wf:lastErrorNode())}]</message>
