@@ -1,5 +1,5 @@
 <workflow-app xmlns="uri:oozie:workflow:0.2" name="sages-oozie">
-
+<!-- taki tam komentarz -->
     <start to="forking"/>
 
     <fork name="forking">
