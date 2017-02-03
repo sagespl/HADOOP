@@ -27,7 +27,7 @@ public class KafkaProducerExample {
             TestCallback callback = new TestCallback();
 
             for (long i = 0; i < 10; i++) {
-                ProducerRecord<String, String> data = new ProducerRecord<>("test", "key-" + i, "message-" + i);
+                ProducerRecord<String, String> data = new ProducerRecord<>("my-partitioned-topic", "key-" + i, "message-" + i);
                 producer.send(data, callback);
             }
 
@@ -35,7 +35,7 @@ public class KafkaProducerExample {
             producer.close();
 
             LOGGER.info("Sended messages");
-            Thread.sleep(3000);
+            Thread.sleep(5000);
         }
 
     }

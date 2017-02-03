@@ -23,17 +23,18 @@ public class KafkaConsumerExample {
         consumerConfig.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
         consumerConfig.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.StringDeserializer");
         consumerConfig.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.StringDeserializer");
-        KafkaConsumer<byte[], byte[]> consumer = new KafkaConsumer<>(consumerConfig);
-        consumer.subscribe(Collections.singletonList("test"), new TestConsumerRebalanceListener());
+        KafkaConsumer<String, String> consumer = new KafkaConsumer<>(consumerConfig);
+        consumer.subscribe(Collections.singletonList("my-partitioned-topic"), new TestConsumerRebalanceListener());
 
         while (true) {
-            ConsumerRecords<byte[], byte[]> records = consumer.poll(10000);
+            ConsumerRecords<String, String> records = consumer.poll(10000);
             if (records.count() > 0) {
                 LOGGER.info("Poll records: " + records.count());
 
-//                for (ConsumerRecord<byte[], byte[]> record : records) {
-//                    System.out.printf("Received Message topic =%s, partition =%s, offset = %d, key = %s, value = %s\n", record.topic(), record.partition(), record.offset(), record.key(), record.value());
-//                }
+                for (ConsumerRecord<String, String> record : records) {
+                    System.out.printf("Received Message topic = %s, partition = %s, offset = %d, key = %s, value = %s\n",
+                            record.topic(), record.partition(), record.offset(), record.key(), record.value());
+                }
             }
 
             consumer.commitSync();
