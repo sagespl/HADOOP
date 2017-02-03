@@ -20,6 +20,7 @@
         <module>pig</module>
         <module>mahout</module>
         <module>data-model</module>
+        <module>kafka</module>
     </modules>
 
     <repositories>
@@ -57,6 +58,7 @@
 
     <dependencyManagement>
         <dependencies>
+
             <!-- Hadoop -->
             <dependency>
                 <groupId>org.apache.hadoop</groupId>
@@ -80,6 +82,7 @@
                 <artifactId>hadoop-mapreduce-client-core</artifactId>
                 <version>${hadoop.version}</version>
             </dependency>
+
             <!-- Avro -->
             <dependency>
                 <groupId>org.apache.avro</groupId>
@@ -92,6 +95,7 @@
                 <version>${avro.version}</version>
                 <classifier>hadoop2</classifier>
             </dependency>
+
             <!-- Hive-->
             <dependency>
                 <groupId>org.apache.hive</groupId>
@@ -103,6 +107,7 @@
                 <artifactId>hive-jdbc</artifactId>
                 <version>${hive.version}</version>
             </dependency>
+
             <!-- Pig -->
             <dependency>
                 <groupId>org.apache.pig</groupId>
@@ -110,12 +115,14 @@
                 <version>${pig.version}</version>
                 <classifier>h2</classifier>
             </dependency>
+
             <!--Oozie-->
             <dependency>
                 <groupId>org.apache.oozie</groupId>
                 <artifactId>oozie-client</artifactId>
                 <version>${oozie.version}</version>
             </dependency>
+
             <!-- Hbase -->
             <dependency>
                 <groupId>org.apache.hbase</groupId>
@@ -151,6 +158,7 @@
                 <artifactId>phoenix-core</artifactId>
                 <version>${phoenix.version}</version>
             </dependency>
+
             <!-- Cascading -->
             <dependency>
                 <groupId>cascading</groupId>
@@ -162,17 +170,34 @@
                 <artifactId>cascading-hadoop2-mr1</artifactId>
                 <version>${cascading.version}</version>
             </dependency>
-            <dependency>
-                <groupId>org.slf4j</groupId>
-                <artifactId>slf4j-simple</artifactId>
-                <version>${slf4j.version}</version>
-            </dependency>
+
             <!--Mahout-->
             <dependency>
                 <groupId>org.apache.mahout</groupId>
                 <artifactId>mahout-core</artifactId>
                 <version>${mahout.version}</version>
             </dependency>
+
+            <!--Kafka-->
+            <dependency>
+                <groupId>org.apache.kafka</groupId>
+                <artifactId>kafka-clients</artifactId>
+                <version>0.10.1.1</version>
+            </dependency>
+
+            <!-- log4j -->
+            <dependency>
+                <groupId>log4j</groupId>
+                <artifactId>log4j</artifactId>
+                <version>1.2.17</version>
+            </dependency>
+            <!--slf4j-->
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-simple</artifactId>
+                <version>${slf4j.version}</version>
+            </dependency>
+
             <!-- Tests -->
             <dependency>
                 <groupId>org.apache.mrunit</groupId>
@@ -198,6 +223,7 @@
                 <artifactId>pigunit</artifactId>
                 <version>${pig.version}</version>
             </dependency>
+
         </dependencies>
     </dependencyManagement>
 
@@ -209,8 +235,8 @@
                     <artifactId>maven-compiler-plugin</artifactId>
                     <version>3.3</version>
                     <configuration>
-                        <source>1.7</source>
-                        <target>1.7</target>
+                        <source>${maven.compiler.source}</source>
+                        <target>${maven.compiler.target}</target>
                     </configuration>
                 </plugin>
             </plugins>
