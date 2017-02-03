@@ -1,6 +1,6 @@
 package pl.com.sages.hadoop.kafka
 
-import java.util.{Date, Properties}
+import java.util.Properties
 
 import org.apache.kafka.clients.producer.{KafkaProducer, ProducerConfig, ProducerRecord}
 
