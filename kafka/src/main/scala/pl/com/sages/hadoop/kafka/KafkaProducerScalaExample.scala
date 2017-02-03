@@ -4,9 +4,6 @@ import java.util.Properties
 
 import org.apache.kafka.clients.producer.{KafkaProducer, ProducerConfig, ProducerRecord}
 
-/**
-  * Created by radek on 04.02.17.
-  */
 object KafkaProducerScalaExample {
 
   def main(args: Array[String]): Unit = {

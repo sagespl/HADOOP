@@ -6,9 +6,6 @@ import org.apache.kafka.clients.consumer.{ConsumerConfig, ConsumerRecords, Kafka
 
 import scala.collection.JavaConversions._
 
-/**
-  * Created by radek on 04.02.17.
-  */
 object KafkaConsumerScalaExample {
 
   def main(args: Array[String]): Unit = {
