@@ -8,6 +8,7 @@ object Main {
     val person = new Person
 
     person.age = 12
+    person.age_=(12)
     println(person.age)
 
     person.increment()
