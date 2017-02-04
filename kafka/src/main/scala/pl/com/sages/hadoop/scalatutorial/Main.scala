@@ -17,6 +17,9 @@ object Main {
     println(person.current)
     println(person.currentValue)
 
+    person.setName("Name")
+    println(person.getName)
+
   }
 
 }
