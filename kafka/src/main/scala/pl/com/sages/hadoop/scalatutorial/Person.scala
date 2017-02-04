@@ -2,7 +2,14 @@ package pl.com.sages.hadoop.scalatutorial
 
 import scala.beans.BeanProperty
 
-class Person {
+class Person(var id: Int) {
+
+  println("test")
+
+  def this(id: Int, age: Int) {
+    this(id)
+    this.age = age
+  }
 
   // You must initialize the field
   var age = 0

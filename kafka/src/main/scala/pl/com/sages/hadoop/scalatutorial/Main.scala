@@ -5,7 +5,8 @@ object Main {
   def main(args: Array[String]): Unit = {
     println("Main method ob object Main")
 
-    val person = new Person
+    val personOld = new Person(5)
+    val person = new Person(5, 12)
 
     person.age = 12
     person.age_=(12)
