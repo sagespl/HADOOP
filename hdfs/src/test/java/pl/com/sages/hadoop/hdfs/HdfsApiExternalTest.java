@@ -32,8 +32,11 @@ public class HdfsApiExternalTest {
 
         Configuration conf = new Configuration(false);
         // HDP 2.4
-        conf.addResource(new Path("/etc/hadoop/conf/core-site.xml"));
-        conf.addResource(new Path("/etc/hadoop/conf/hdfs-site.xml"));
+//        conf.addResource(new Path("/etc/hadoop/conf/core-site.xml"));
+//        conf.addResource(new Path("/etc/hadoop/conf/hdfs-site.xml"));
+
+        conf.set("fs.defaultFS", "hdfs://sandbox.hortonworks.com:8020");
+        conf.set("dfs.client.use.datanode.hostname", "true");
 
         fs = FileSystem.get(conf);
 
