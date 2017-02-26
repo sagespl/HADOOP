@@ -32,10 +32,8 @@ public class HdfsApiExternalTest {
 
         Configuration conf = new Configuration(false);
         // HDP 2.4
-        // conf.addResource(new Path("/etc/hadoop/conf/core-site.xml"));
-        // conf.addResource(new Path("/etc/hadoop/conf/hdfs-site.xml"));
-        conf.set("fs.defaultFS", "hdfs://ip-172-31-12-241.us-west-2.compute.internal:8020");
-        conf.set("dfs.namenode.http-address", "ip-172-31-12-241.us-west-2.compute.internal:50070");
+        conf.addResource(new Path("/etc/hadoop/conf/core-site.xml"));
+        conf.addResource(new Path("/etc/hadoop/conf/hdfs-site.xml"));
 
         fs = FileSystem.get(conf);
 
@@ -204,7 +202,7 @@ public class HdfsApiExternalTest {
         assertThat(replication).isEqualTo((short) 3);
     }
 
-//    @Test
+    //    @Test
     public void shouldManageBlockLocation() throws Exception {
         // given
 
