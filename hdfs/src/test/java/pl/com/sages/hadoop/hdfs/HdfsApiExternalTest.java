@@ -34,7 +34,6 @@ public class HdfsApiExternalTest {
         // HDP 2.4
 //        conf.addResource(new Path("/etc/hadoop/conf/core-site.xml"));
 //        conf.addResource(new Path("/etc/hadoop/conf/hdfs-site.xml"));
-
         conf.set("fs.defaultFS", "hdfs://sandbox.hortonworks.com:8020");
         conf.set("dfs.client.use.datanode.hostname", "true");
 
@@ -104,9 +103,6 @@ public class HdfsApiExternalTest {
     public void shouldReadFileFromHDFS() throws Exception {
         // given
         FSDataInputStream inputStream = fs.open(new Path(HDFS_INPUT_PATH));
-
-        // przewijanie do przodu
-        //        inputStream.seek(2000);
 
         // when
         try {
