@@ -10,9 +10,7 @@ hdfs dfs -mkdir -p $HADOOP_HDFS_HOME/oozie/lib
 
 hdfs dfs -copyFromLocal $HADOOP_PROJECT/mapreduce/target/mapreduce-1.0-SNAPSHOT-job.jar $HADOOP_HDFS_HOME/oozie/lib/
 hdfs dfs -copyFromLocal $HADOOP_PROJECT/oozie/target/oozie-1.0-SNAPSHOT.jar $HADOOP_HDFS_HOME/oozie/lib/
-hdfs dfs -copyFromLocal $HADOOP_PROJECT/oozie/src/main/resources/job.properties $HADOOP_HDFS_HOME/oozie/
 hdfs dfs -copyFromLocal -f $HADOOP_PROJECT/oozie/src/main/resources/workflow.xml $HADOOP_HDFS_HOME/oozie/
-hdfs dfs -copyFromLocal $HADOOP_PROJECT/oozie/src/main/resources/hive-script.hql $HADOOP_HDFS_HOME/oozie/
 ```
 
 ## uruchomienie zadania
