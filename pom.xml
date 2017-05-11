@@ -290,7 +290,7 @@
             </activation>
         </profile>
         <profile>
-            <id>pw</id>
+            <id>hdp</id>
             <properties>
                 <fs.defaultFS>hdfs://hadoop1:8020</fs.defaultFS>
                 <hbase.zookeeper.quorum>hadoop1,hadoop2,hadoop3</hbase.zookeeper.quorum>
@@ -300,7 +300,7 @@
             </activation>
         </profile>
         <profile>
-            <id>hdp</id>
+            <id>pw</id>
             <properties>
                 <fs.defaultFS>hdfs://hdp00.cl.ii.pw.edu.pl:8020</fs.defaultFS>
                 <hbase.zookeeper.quorum>hdp00.cl.ii.pw.edu.pl,hdp01.cl.ii.pw.edu.pl,hdp02.cl.ii.pw.edu.pl</hbase.zookeeper.quorum>
