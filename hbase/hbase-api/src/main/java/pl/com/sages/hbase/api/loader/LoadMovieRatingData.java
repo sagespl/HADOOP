@@ -1,6 +1,7 @@
 package pl.com.sages.hbase.api.loader;
 
 import pl.com.sages.hadoop.data.model.movielens.Rating;
+import pl.com.sages.hadoop.data.model.movielens.factory.RatingFactory;
 import pl.com.sages.hbase.api.dao.RatingDao;
 import pl.com.sages.hbase.api.util.HBaseUtil;
 
@@ -30,19 +31,12 @@ public class LoadMovieRatingData extends HBaseLoader {
             //UserID::MovieID::Rating::Timestamp
             BufferedReader br = new BufferedReader(new FileReader(new File(RATING_DATA)));
             String line;
-            String delimeter = "::";
-
             int count = 0;
             List<Rating> ratings = new ArrayList<>(COMMIT);
             while ((line = br.readLine()) != null) {
 
-                String[] data = line.split(delimeter);
-                int userId = Integer.parseInt(data[0]);
-                int movieId = Integer.parseInt(data[1]);
-                Double rating = Double.parseDouble(data[2]);
-                int timestamp = Integer.parseInt(data[3]);
-
-                ratings.add(new Rating(userId, movieId, rating, timestamp));
+                Rating rating = RatingFactory.create(line);
+                ratings.add(rating);
 
                 count++;
                 if (count % COMMIT == 0) {

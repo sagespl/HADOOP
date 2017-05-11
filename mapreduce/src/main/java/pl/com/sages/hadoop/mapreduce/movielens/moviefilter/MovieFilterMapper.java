@@ -7,9 +7,6 @@ import pl.com.sages.hadoop.data.model.movielens.factory.MovieFactory;
 
 import java.io.IOException;
 
-/**
- * Created by radek on 20.01.17.
- */
 public class MovieFilterMapper extends Mapper<Object, Text, Text, Text> {
 
     @Override

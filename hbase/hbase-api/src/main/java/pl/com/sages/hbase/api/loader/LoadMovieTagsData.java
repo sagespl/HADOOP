@@ -1,6 +1,7 @@
 package pl.com.sages.hbase.api.loader;
 
 import pl.com.sages.hadoop.data.model.movielens.Tag;
+import pl.com.sages.hadoop.data.model.movielens.factory.TagFactory;
 import pl.com.sages.hbase.api.dao.TagDao;
 import pl.com.sages.hbase.api.util.HBaseUtil;
 
@@ -30,19 +31,12 @@ public class LoadMovieTagsData extends HBaseLoader {
             //UserID::MovieID::Tag::Timestamp
             BufferedReader br = new BufferedReader(new FileReader(new File(TAG_DATA)));
             String line;
-            String delimeter = "::";
-
             int count = 0;
             List<Tag> tags = new ArrayList<>(COMMIT);
             while ((line = br.readLine()) != null) {
 
-                String[] data = line.split(delimeter);
-                int userId = Integer.parseInt(data[0]);
-                int movieId = Integer.parseInt(data[1]);
-                String tag = data[2];
-                int timestamp = Integer.parseInt(data[3]);
-
-                tags.add(new Tag(userId, movieId, tag, timestamp));
+                Tag tag = TagFactory.create(line);
+                tags.add(tag);
 
                 count++;
                 if (count % COMMIT == 0) {
