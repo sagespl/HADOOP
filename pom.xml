@@ -243,6 +243,12 @@
     </dependencyManagement>
 
     <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
         <pluginManagement>
             <plugins>
                 <plugin>
@@ -267,5 +273,26 @@
             </plugins>
         </pluginManagement>
     </build>
+
+    <profiles>
+        <profile>
+            <id>sandbox</id>
+            <properties>
+                <hbase.zookeeper.quorum>sandbox.hortonworks.com</hbase.zookeeper.quorum>
+            </properties>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
+        <profile>
+            <id>hdp</id>
+            <properties>
+                <hbase.zookeeper.quorum>hadoop1,hadoop2,hadoop3</hbase.zookeeper.quorum>
+            </properties>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+        </profile>
+    </profiles>
 
 </project>
