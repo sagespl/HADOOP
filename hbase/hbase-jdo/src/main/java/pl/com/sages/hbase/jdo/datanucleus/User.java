@@ -10,6 +10,8 @@ import javax.jdo.annotations.*;
 })
 public class User {
 
+    public static final String USER = "users";
+
     @PrimaryKey(column = "users", name = "users:id")
     private long id;
 

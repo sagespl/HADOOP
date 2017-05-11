@@ -6,6 +6,7 @@ import org.apache.hadoop.hbase.client.*;
 import org.apache.hadoop.hbase.util.Bytes;
 import pl.com.sages.hadoop.data.model.users.User;
 import pl.com.sages.hbase.api.util.ConnectionHandler;
+import pl.com.sages.hbase.api.util.HBaseUtil;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -13,7 +14,7 @@ import java.util.List;
 
 public class UsersDao {
 
-    public static final TableName TABLE = TableName.valueOf("users");
+    public static final TableName TABLE = HBaseUtil.getUserTableName("users");
     public static final byte[] CF = Bytes.toBytes("users");
 
     public static final byte[] FORENAME = Bytes.toBytes("forename");

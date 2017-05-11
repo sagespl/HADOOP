@@ -1,10 +1,7 @@
 package org.datanucleus.samples.jdo.tutorial;
 
-import org.apache.hadoop.hbase.util.Bytes;
 import org.junit.Before;
 import org.junit.Test;
-import pl.com.sages.hbase.api.dao.UsersDao;
-import pl.com.sages.hbase.api.loader.LoadUserData;
 import pl.com.sages.hbase.api.util.HBaseUtil;
 import pl.com.sages.hbase.jdo.datanucleus.Inventory;
 import pl.com.sages.hbase.jdo.datanucleus.Product;
@@ -20,8 +17,7 @@ public class HbaseDatanucleusJdoExternalTest {
 
     @Before
     public void before() throws IOException {
-        HBaseUtil.recreateTable(UsersDao.TABLE, Bytes.toString(UsersDao.CF));
-        new LoadUserData().load();
+        HBaseUtil.recreateTable(User.USER, User.USER);
         HBaseUtil.recreateTable(Inventory.INVETORY, Inventory.INVETORY);
         HBaseUtil.recreateTable(Product.PRODUCT, Product.PRODUCT);
 
