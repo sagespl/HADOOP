@@ -15,7 +15,7 @@
 
         <properties>
 
-            <property name="javax.jdo.option.ConnectionURL" value="hbase:localhost:2181"/>
+            <property name="javax.jdo.option.ConnectionURL" value="hbase:"/>
             <property name="datanucleus.autoCreateSchema" value="false"/>
             <property name="datanucleus.validateTables" value="false"/>
             <property name="datanucleus.Optimistic" value="false"/>
