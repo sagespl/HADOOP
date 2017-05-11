@@ -8,6 +8,7 @@ import org.apache.hadoop.hbase.client.Table;
 import org.apache.hadoop.hbase.util.Bytes;
 import pl.com.sages.hadoop.data.model.movielens.Rating;
 import pl.com.sages.hbase.api.util.ConnectionHandler;
+import pl.com.sages.hbase.api.util.HBaseUtil;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -15,7 +16,7 @@ import java.util.List;
 
 public class RatingDao {
 
-    public static final TableName TABLE = TableName.valueOf("ratings");
+    public static final TableName TABLE = HBaseUtil.getUserTableName("ratings");
     public static final byte[] CF = Bytes.toBytes("ratings");
 
     public static final byte[] USER_ID = Bytes.toBytes("userId");

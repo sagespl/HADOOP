@@ -8,6 +8,7 @@ import org.apache.hadoop.hbase.client.Table;
 import org.apache.hadoop.hbase.util.Bytes;
 import pl.com.sages.hadoop.data.model.movielens.Movie;
 import pl.com.sages.hbase.api.util.ConnectionHandler;
+import pl.com.sages.hbase.api.util.HBaseUtil;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -15,7 +16,7 @@ import java.util.List;
 
 public class MovieDao {
 
-    public static final TableName TABLE = TableName.valueOf("movies");
+    public static final TableName TABLE = HBaseUtil.getUserTableName("movies");
     public static final byte[] CF = Bytes.toBytes("movies");
 
     public static final byte[] TITLE = Bytes.toBytes("title");

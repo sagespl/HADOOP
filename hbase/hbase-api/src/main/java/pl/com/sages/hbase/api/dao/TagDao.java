@@ -8,6 +8,7 @@ import org.apache.hadoop.hbase.client.Table;
 import org.apache.hadoop.hbase.util.Bytes;
 import pl.com.sages.hadoop.data.model.movielens.Tag;
 import pl.com.sages.hbase.api.util.ConnectionHandler;
+import pl.com.sages.hbase.api.util.HBaseUtil;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -15,7 +16,7 @@ import java.util.List;
 
 public class TagDao {
 
-    public static final TableName TABLE = TableName.valueOf("tags");
+    public static final TableName TABLE = HBaseUtil.getUserTableName("tags");
     public static final byte[] CF = Bytes.toBytes("tags");
 
     public static final byte[] USER_ID = Bytes.toBytes("userId");
