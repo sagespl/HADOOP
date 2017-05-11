@@ -17,7 +17,7 @@
         <module>hbase-api</module>
         <module>hbase-mapred</module>
         <module>hbase-jdo</module>
-        <!--<module>hbase-jpa-kundera</module>-->
+        <module>hbase-jpa-kundera</module>
         <module>phoenix</module>
     </modules>
 
