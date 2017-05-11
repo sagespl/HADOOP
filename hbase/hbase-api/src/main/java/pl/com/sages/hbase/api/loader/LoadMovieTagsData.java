@@ -1,7 +1,7 @@
 package pl.com.sages.hbase.api.loader;
 
-import pl.com.sages.hbase.api.dao.TagDao;
 import pl.com.sages.hadoop.data.model.movielens.Tag;
+import pl.com.sages.hbase.api.dao.TagDao;
 import pl.com.sages.hbase.api.util.HBaseUtil;
 
 import java.io.BufferedReader;
@@ -13,7 +13,7 @@ import java.util.List;
 
 public class LoadMovieTagsData {
 
-    public static final String TAG_DATA = "/home/radek/Sages/dane/ml-10M100K/tags.dat";
+    public static final String TAG_DATA = System.getenv("HADOOP_DATA") + "/ml-10M100K/tags.dat";
     public static final int COMMIT = 100;
 
     public static void main(String[] args) throws IOException {
@@ -41,7 +41,7 @@ public class LoadMovieTagsData {
             String tag = data[2];
             int timestamp = Integer.parseInt(data[3]);
 
-            tags.add(new Tag(userId,movieId,tag,timestamp));
+            tags.add(new Tag(userId, movieId, tag, timestamp));
 
             count++;
             if (count % COMMIT == 0) {

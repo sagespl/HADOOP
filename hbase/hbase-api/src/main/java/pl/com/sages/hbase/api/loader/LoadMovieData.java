@@ -1,7 +1,7 @@
 package pl.com.sages.hbase.api.loader;
 
-import pl.com.sages.hbase.api.dao.MovieDao;
 import pl.com.sages.hadoop.data.model.movielens.Movie;
+import pl.com.sages.hbase.api.dao.MovieDao;
 import pl.com.sages.hbase.api.util.HBaseUtil;
 
 import java.io.BufferedReader;
@@ -13,7 +13,7 @@ import java.util.List;
 
 public class LoadMovieData {
 
-    public static final String MOVIE_DATA = "/home/radek/Sages/dane/ml-10M100K/movies.dat";
+    public static final String MOVIE_DATA = System.getenv("HADOOP_DATA") + "/ml-10M100K/movies.dat";
     public static final int COMMIT = 100;
 
     public static void main(String[] args) throws IOException {
