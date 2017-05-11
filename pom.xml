@@ -57,6 +57,7 @@
         <!-- UTF-8 -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <datanucleus-core.version>4.1.1</datanucleus-core.version>
     </properties>
 
     <dependencyManagement>
@@ -167,6 +168,29 @@
                 <groupId>com.impetus.kundera.client</groupId>
                 <artifactId>kundera-hbase-v2</artifactId>
                 <version>3.8</version>
+            </dependency>
+
+            <!--JDO for HBase-->
+            <dependency>
+                <groupId>org.datanucleus</groupId>
+                <artifactId>datanucleus-core</artifactId>
+                <version>${datanucleus-core.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.datanucleus</groupId>
+                <artifactId>datanucleus-hbase</artifactId>
+                <version>${datanucleus-core.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.apache.hbase</groupId>
+                        <artifactId>hbase</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>org.datanucleus</groupId>
+                <artifactId>datanucleus-api-jdo</artifactId>
+                <version>${datanucleus-core.version}</version>
             </dependency>
 
             <!-- Cascading -->
