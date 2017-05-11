@@ -49,6 +49,7 @@
         <slf4j.version>1.7.5</slf4j.version>
         <mahout.version>0.9</mahout.version>
         <kafka.version>0.10.1.1</kafka.version>
+        <datanucleus.version>4.1.1</datanucleus.version>
         <!-- Java 7 -->
         <maven.compiler.source>1.7</maven.compiler.source>
         <maven.compiler.target>1.7</maven.compiler.target>
@@ -57,7 +58,6 @@
         <!-- UTF-8 -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <datanucleus-core.version>4.1.1</datanucleus-core.version>
     </properties>
 
     <dependencyManagement>
@@ -174,12 +174,12 @@
             <dependency>
                 <groupId>org.datanucleus</groupId>
                 <artifactId>datanucleus-core</artifactId>
-                <version>${datanucleus-core.version}</version>
+                <version>${datanucleus.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.datanucleus</groupId>
                 <artifactId>datanucleus-hbase</artifactId>
-                <version>${datanucleus-core.version}</version>
+                <version>${datanucleus.version}</version>
                 <exclusions>
                     <exclusion>
                         <groupId>org.apache.hbase</groupId>
@@ -190,7 +190,7 @@
             <dependency>
                 <groupId>org.datanucleus</groupId>
                 <artifactId>datanucleus-api-jdo</artifactId>
-                <version>${datanucleus-core.version}</version>
+                <version>${datanucleus.version}</version>
             </dependency>
 
             <!-- Cascading -->
