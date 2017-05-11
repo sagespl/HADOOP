@@ -2,6 +2,7 @@ package pl.com.sages.hbase.mapred.join;
 
 import org.apache.hadoop.hbase.Cell;
 import org.apache.hadoop.hbase.CellUtil;
+import org.apache.hadoop.hbase.TableName;
 import org.apache.hadoop.hbase.client.Put;
 import org.apache.hadoop.hbase.client.Result;
 import org.apache.hadoop.hbase.io.ImmutableBytesWritable;
@@ -9,13 +10,14 @@ import org.apache.hadoop.hbase.mapreduce.TableMapper;
 import org.apache.hadoop.hbase.util.Bytes;
 import pl.com.sages.hbase.api.dao.MovieDao;
 import pl.com.sages.hbase.api.dao.RatingDao;
+import pl.com.sages.hbase.api.util.HBaseUtil;
 
 import java.io.IOException;
 
 public class AllMovieDataMapper extends TableMapper<ImmutableBytesWritable, Put> {
 
-    public static final String TABLE_NAME = "movies_data";
-    public static final String FAMILY_NAME = "movies_data";
+    static final TableName TABLE_NAME = HBaseUtil.getUserTableName("movies_data");
+    static final String FAMILY_NAME = "movies_data";
 
     public void map(ImmutableBytesWritable row, Result value, Context context) throws IOException, InterruptedException {
         Put put = resultToPut(row, value);

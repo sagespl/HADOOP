@@ -13,7 +13,7 @@ import java.io.IOException;
 public class AverageRatingReducer extends TableReducer<IntWritable, DoubleWritable, ImmutableBytesWritable> {
 
     public static final byte[] CF = "ratings_average".getBytes();
-    public static final byte[] AVERAGE = "average".getBytes();
+    static final byte[] AVERAGE = "average".getBytes();
 
     public void reduce(IntWritable key, Iterable<DoubleWritable> values, Context context) throws IOException, InterruptedException {
 

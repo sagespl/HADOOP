@@ -4,15 +4,16 @@ import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hbase.HBaseConfiguration;
 import org.apache.hadoop.hbase.HColumnDescriptor;
 import org.apache.hadoop.hbase.HTableDescriptor;
+import org.apache.hadoop.hbase.TableName;
 import org.apache.hadoop.hbase.client.HBaseAdmin;
 import org.apache.hadoop.hbase.client.Scan;
 import org.apache.hadoop.hbase.mapreduce.TableMapReduceUtil;
-import org.apache.hadoop.hbase.util.Bytes;
 import org.apache.hadoop.mapreduce.Job;
 import org.junit.Before;
 import org.junit.Test;
 import pl.com.sages.hbase.api.dao.MovieDao;
 import pl.com.sages.hbase.api.dao.RatingDao;
+import pl.com.sages.hbase.api.util.HBaseUtil;
 import pl.com.sages.hbase.mapred.movies.AverageRatingMapper;
 
 import java.io.IOException;
@@ -23,8 +24,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class AllMovieDataExternalTest {
 
-    public static final String TABLE_NAME = AllMovieDataMapper.TABLE_NAME;
-    public static final String FAMILY_NAME = AllMovieDataMapper.FAMILY_NAME;
+    private static final TableName TABLE_NAME = AllMovieDataMapper.TABLE_NAME;
+    private static final String FAMILY_NAME = AllMovieDataMapper.FAMILY_NAME;
 
     private Configuration configuration = HBaseConfiguration.create();
 
@@ -61,7 +62,7 @@ public class AllMovieDataExternalTest {
         scans.add(scan1);
 
         Scan scan2 = new Scan();
-        scan2.setAttribute(Scan.SCAN_ATTRIBUTES_TABLE_NAME, Bytes.toBytes("ratings_average"));
+        scan2.setAttribute(Scan.SCAN_ATTRIBUTES_TABLE_NAME, HBaseUtil.getUserTableName("ratings_average").toBytes());
         scans.add(scan2);
 
         TableMapReduceUtil.initTableMapperJob(scans,
@@ -70,7 +71,7 @@ public class AllMovieDataExternalTest {
                 null,
                 job);
         TableMapReduceUtil.initTableReducerJob(
-                TABLE_NAME,
+                TABLE_NAME.getNameAsString(),
                 null,
                 job);
         job.setNumReduceTasks(0);

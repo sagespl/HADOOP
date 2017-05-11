@@ -18,7 +18,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class FilterMapperExternalTest {
 
-    public static final String TABLE_NAME = "movies_comedy";
+    public static final TableName TABLE_NAME = HBaseUtil.getUserTableName("movies_comedy");
     public static final String FAMILY_NAME = Bytes.toString(MovieDao.CF);
 
     private Configuration configuration = HBaseConfiguration.create();
@@ -47,7 +47,7 @@ public class FilterMapperExternalTest {
                 null,
                 job);
         TableMapReduceUtil.initTableReducerJob(
-                TABLE_NAME,
+                TABLE_NAME.getNameAsString(),
                 null,
                 job);
         job.setNumReduceTasks(0);
@@ -59,7 +59,7 @@ public class FilterMapperExternalTest {
         assertThat(succeeded).isTrue();
 
         Connection connection = ConnectionFactory.createConnection(configuration);
-        Table filteredTable = connection.getTable(TableName.valueOf(TABLE_NAME));
+        Table filteredTable = connection.getTable(TABLE_NAME);
         scan = new Scan();
         scan.addFamily(Bytes.toBytes(FAMILY_NAME));
 

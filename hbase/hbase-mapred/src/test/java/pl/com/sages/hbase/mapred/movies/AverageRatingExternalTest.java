@@ -2,12 +2,12 @@ package pl.com.sages.hbase.mapred.movies;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hbase.HBaseConfiguration;
+import org.apache.hadoop.hbase.TableName;
 import org.apache.hadoop.hbase.client.*;
 import org.apache.hadoop.hbase.mapreduce.TableMapReduceUtil;
 import org.apache.hadoop.hbase.util.Bytes;
 import org.apache.hadoop.io.DoubleWritable;
 import org.apache.hadoop.io.IntWritable;
-import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
 import org.junit.Before;
 import org.junit.Test;
@@ -20,8 +20,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class AverageRatingExternalTest {
 
-    public static final String TABLE_NAME = "ratings_average";
-    public static final String FAMILY_NAME = "ratings_average";
+    private static final TableName TABLE_NAME = HBaseUtil.getUserTableName("ratings_average");
+    private static final String FAMILY_NAME = "ratings_average";
 
     private Configuration configuration = HBaseConfiguration.create();
 
@@ -51,7 +51,7 @@ public class AverageRatingExternalTest {
                 DoubleWritable.class,
                 job);
         TableMapReduceUtil.initTableReducerJob(
-                TABLE_NAME,
+                TABLE_NAME.getNameAsString(),
                 AverageRatingReducer.class,
                 job);
 
