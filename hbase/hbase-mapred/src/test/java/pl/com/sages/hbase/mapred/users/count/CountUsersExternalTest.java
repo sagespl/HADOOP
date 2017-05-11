@@ -11,7 +11,7 @@ import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.output.NullOutputFormat;
 import org.junit.Test;
 import pl.com.sages.hbase.api.dao.UsersDao;
-import pl.com.sages.hbase.api.loader.UserDataFactory;
+import pl.com.sages.hbase.api.loader.LoadUserData;
 import pl.com.sages.hbase.api.util.HBaseUtil;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -24,7 +24,7 @@ public class CountUsersExternalTest {
         Configuration configuration = HBaseConfiguration.create();
 
         HBaseUtil.recreateTable(UsersDao.TABLE, Bytes.toString(UsersDao.CF));
-        UserDataFactory.insertTestData();
+        new LoadUserData().load();
 
         // map reduce
         Job job = new Job(configuration, "Count Users");

@@ -11,48 +11,54 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LoadMovieData {
+public class LoadMovieData extends HBaseLoader {
 
-    public static final String MOVIE_DATA = System.getenv("HADOOP_DATA") + "/ml-10M100K/movies.dat";
-    public static final int COMMIT = 100;
+    private static final String MOVIE_DATA = System.getenv("HADOOP_DATA") + "/ml-10M100K/movies.dat";
 
     public static void main(String[] args) throws IOException {
-        new LoadMovieData().run();
+        new LoadMovieData().load();
     }
 
-    public void run() throws IOException {
-        HBaseUtil.recreateTable(MovieDao.TABLE, MovieDao.CF);
+    @Override
+    public void load() {
+        try {
 
-        MovieDao movieDao = new MovieDao();
+            HBaseUtil.recreateTable(MovieDao.TABLE, MovieDao.CF);
 
-        // MovieID::Title::Genres
-        BufferedReader br = new BufferedReader(new FileReader(new File(MOVIE_DATA)));
-        String line = "";
-        String delimeter = "::";
+            MovieDao movieDao = new MovieDao();
 
-        int count = 0;
-        List<Movie> movies = new ArrayList<>(COMMIT);
-        while ((line = br.readLine()) != null) {
+            // MovieID::Title::Genres
+            BufferedReader br = new BufferedReader(new FileReader(new File(MOVIE_DATA)));
+            String line;
+            String delimeter = "::";
 
-            String[] data = line.split(delimeter);
-            int movieId = Integer.parseInt(data[0]);
-            String title = data[1];
-            String genres = data[2];
+            int count = 0;
+            List<Movie> movies = new ArrayList<>(COMMIT);
+            while ((line = br.readLine()) != null) {
 
-            movies.add(new Movie(movieId, title, genres));
+                String[] data = line.split(delimeter);
+                int movieId = Integer.parseInt(data[0]);
+                String title = data[1];
+                String genres = data[2];
 
-            count++;
-            if (count % COMMIT == 0) {
-                movieDao.save(movies);
-                movies = new ArrayList<>(COMMIT);
-                System.out.println("Wczytano " + count + " wierszy");
+                movies.add(new Movie(movieId, title, genres));
+
+                count++;
+                if (count % COMMIT == 0) {
+                    movieDao.save(movies);
+                    movies = new ArrayList<>(COMMIT);
+                    System.out.println("Wczytano " + count + " wierszy");
+                }
             }
+
+            movieDao.save(movies);
+            System.out.println("Wczytano " + count + " wierszy");
+
+            br.close();
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
-
-        movieDao.save(movies);
-        System.out.println("Wczytano " + count + " wierszy");
-
-        br.close();
     }
 
 

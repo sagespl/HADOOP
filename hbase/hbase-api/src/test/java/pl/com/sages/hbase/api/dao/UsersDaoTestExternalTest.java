@@ -4,8 +4,8 @@ import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hbase.util.Bytes;
 import org.junit.Before;
 import org.junit.Test;
-import pl.com.sages.hbase.api.loader.UserDataFactory;
 import pl.com.sages.hadoop.data.model.users.User;
+import pl.com.sages.hbase.api.loader.LoadUserData;
 import pl.com.sages.hbase.api.util.HBaseUtil;
 
 import java.io.IOException;
@@ -16,10 +16,10 @@ import static pl.com.sages.hbase.api.util.HbaseConfigurationFactory.getConfigura
 
 public class UsersDaoTestExternalTest {
 
-    public static final String EMAIL = "jan@kowalski.pl";
-    public static final String FORENAME = "Jan";
-    public static final String SURNAME = "Kowalski";
-    public static final String PASSWORD = "k12l3iu12313;k";
+    private static final String EMAIL = "jan@kowalski.pl";
+    private static final String FORENAME = "Jan";
+    private static final String SURNAME = "Kowalski";
+    private static final String PASSWORD = "k12l3iu12313;k";
 
     private UsersDao usersDao;
 
@@ -30,7 +30,7 @@ public class UsersDaoTestExternalTest {
 
         HBaseUtil.recreateTable(UsersDao.TABLE, Bytes.toString(UsersDao.CF));
 
-        UserDataFactory.insertTestData();
+        new LoadUserData().load();
     }
 
     @Test
