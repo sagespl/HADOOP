@@ -3,7 +3,7 @@ package pl.com.sages.hbase.jpa.kundera;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "users", schema = "jpa_users@sages")
+@Table(name = "users")
 public class User {
 
     @Id

@@ -1,13 +1,15 @@
 package pl.com.sages.hbase.jpa.kundera;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
-@Table(name = "account", schema = "jpa_users@sages")
+@Table(name = "account")
 public class Account {
 
     @Id
-//    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long accountId;
 
     @Column(name = "name")
