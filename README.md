@@ -3,6 +3,13 @@ Materiały do szkolenia: HADOOP Projektowanie rozwiązań Big Data z wykorzystan
 
 ## Ustawienie zmiennych systemowych
 
+* HADOOP_HDFS_HOME - katalog użytkownika na HDFS'ie
+* HADOOP_HDFS_USER - nazwa użytkownika na HDFS'ie
+* HADOOP_DATA - lokalizacja danych testowych (ścieżka lokalna)
+* HADOOP_PROJECT - lokalizacja projektu HADOOP (ścieżka lokalna)
+
+Przykład:
+
 ```
 export HADOOP_HDFS_HOME=/user/hadoop
 export HADOOP_DATA=/home/hadoop/dane

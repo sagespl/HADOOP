@@ -1,0 +1,13 @@
+<configuration>
+
+    <property>
+        <name>fs.defaultFS</name>
+        <value>${fs.defaultFS}</value>
+    </property>
+
+    <property>
+        <name>dfs.client.use.datanode.hostname</name>
+        <value>true</value>
+    </property>
+
+</configuration>

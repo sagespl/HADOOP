@@ -28,14 +28,10 @@ public class HdfsApiExternalTest {
 
     @Before
     public void createRemoteFileSystem() throws IOException {
-        System.setProperty("HADOOP_USER_NAME", "sages");
+        // System.setProperty("HADOOP_USER_NAME", System.getenv("HADOOP_HDFS_USER"));
 
         Configuration conf = new Configuration(false);
-        // HDP 2.4
-//        conf.addResource(new Path("/etc/hadoop/conf/core-site.xml"));
-//        conf.addResource(new Path("/etc/hadoop/conf/hdfs-site.xml"));
-        conf.set("fs.defaultFS", "hdfs://sandbox.hortonworks.com:8020");
-        conf.set("dfs.client.use.datanode.hostname", "true");
+        conf.addResource(this.getClass().getClassLoader().getResourceAsStream("hdfs-configuration.xml"));
 
         fs = FileSystem.get(conf);
 
