@@ -3,7 +3,7 @@ package pl.com.sages.hbase.mapred.filter;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hbase.HBaseConfiguration;
 import org.apache.hadoop.hbase.TableName;
-import org.apache.hadoop.hbase.client.*;
+import org.apache.hadoop.hbase.client.Scan;
 import org.apache.hadoop.hbase.mapreduce.TableMapReduceUtil;
 import org.apache.hadoop.hbase.util.Bytes;
 import org.apache.hadoop.mapreduce.Job;
@@ -11,6 +11,7 @@ import org.junit.Before;
 import org.junit.Test;
 import pl.com.sages.hbase.api.dao.MovieDao;
 import pl.com.sages.hbase.api.util.ConnectionHandler;
+import pl.com.sages.hbase.api.util.HBaseTableUtil;
 import pl.com.sages.hbase.api.util.HBaseUtil;
 
 import java.io.IOException;
@@ -62,20 +63,9 @@ public class FilterMapperExternalTest {
         boolean succeeded = job.waitForCompletion(true);
 
         //then
-        Connection connection = ConnectionHandler.getConnection();
-
         assertThat(succeeded).isTrue();
-        assertThat(connection.getAdmin().tableExists(TABLE_NAME)).isTrue();
-
-        Table table = connection.getTable(TABLE_NAME);
-        scan = new Scan();
-        int count = 0;
-        ResultScanner results = table.getScanner(scan);
-        for (Result result : results) {
-            count++;
-        }
-        table.close();
-        assertThat(count).isGreaterThan(1000);
+        assertThat(ConnectionHandler.getConnection().getAdmin().tableExists(TABLE_NAME)).isTrue();
+        assertThat(HBaseTableUtil.countNumberOfRows(TABLE_NAME)).isGreaterThan(1000);
     }
 
 }
