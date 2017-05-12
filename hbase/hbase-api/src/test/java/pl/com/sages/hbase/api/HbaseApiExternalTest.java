@@ -17,7 +17,8 @@ import static pl.com.sages.hbase.api.util.HbaseConfigurationFactory.getConfigura
 public class HbaseApiExternalTest {
 
     private static final TableName TEST_TABLE_NAME = HBaseUtil.getUserTableName("hbase_api_test_table");
-    private static final String FAMILY_NAME = "cf";
+    private static final String FAMILY_NAME_1 = "cf1";
+    private static final String FAMILY_NAME_2 = "cf2";
 
     private Connection connection;
     private Admin admin;
@@ -35,9 +36,13 @@ public class HbaseApiExternalTest {
 
         HTableDescriptor table = new HTableDescriptor(TEST_TABLE_NAME);
 
-        HColumnDescriptor columnFamily = new HColumnDescriptor(FAMILY_NAME);
-        columnFamily.setMaxVersions(10);
-        table.addFamily(columnFamily);
+        HColumnDescriptor columnFamily1 = new HColumnDescriptor(FAMILY_NAME_1);
+        columnFamily1.setMaxVersions(10);
+        table.addFamily(columnFamily1);
+
+        HColumnDescriptor columnFamily2 = new HColumnDescriptor(FAMILY_NAME_2);
+        columnFamily2.setMaxVersions(10);
+        table.addFamily(columnFamily2);
 
         admin.createTable(table);
     }
@@ -64,7 +69,7 @@ public class HbaseApiExternalTest {
         String value = "nasza testowa wartość";
 
         Put put = new Put(Bytes.toBytes(id));
-        put.addColumn(Bytes.toBytes(FAMILY_NAME),
+        put.addColumn(Bytes.toBytes(FAMILY_NAME_1),
                 Bytes.toBytes(qualifier),
                 Bytes.toBytes(value));
 
@@ -76,7 +81,7 @@ public class HbaseApiExternalTest {
         Result result = table.get(get);
 
         //then
-        assertThat(value).isEqualToIgnoringCase(Bytes.toString(result.getValue(Bytes.toBytes(FAMILY_NAME), Bytes.toBytes(qualifier))));
+        assertThat(value).isEqualToIgnoringCase(Bytes.toString(result.getValue(Bytes.toBytes(FAMILY_NAME_1), Bytes.toBytes(qualifier))));
     }
 
     @Test
@@ -90,13 +95,13 @@ public class HbaseApiExternalTest {
         String value2 = "nasza testowa wartość 2";
 
         Put put = new Put(Bytes.toBytes(id));
-        put.addColumn(Bytes.toBytes(FAMILY_NAME),
+        put.addColumn(Bytes.toBytes(FAMILY_NAME_1),
                 Bytes.toBytes(qualifier),
                 Bytes.toBytes(value1));
         table.put(put);
 
         put = new Put(Bytes.toBytes(id));
-        put.addColumn(Bytes.toBytes(FAMILY_NAME),
+        put.addColumn(Bytes.toBytes(FAMILY_NAME_1),
                 Bytes.toBytes(qualifier),
                 Bytes.toBytes(value2));
         table.put(put);
@@ -107,9 +112,9 @@ public class HbaseApiExternalTest {
         Result result = table.get(get);
 
         //then
-        assertThat(value2).isEqualToIgnoringCase(Bytes.toString(result.getValue(Bytes.toBytes(FAMILY_NAME), Bytes.toBytes(qualifier))));
+        assertThat(value2).isEqualToIgnoringCase(Bytes.toString(result.getValue(Bytes.toBytes(FAMILY_NAME_1), Bytes.toBytes(qualifier))));
 
-        List<Cell> columnCells = result.getColumnCells(Bytes.toBytes(FAMILY_NAME), Bytes.toBytes(qualifier));
+        List<Cell> columnCells = result.getColumnCells(Bytes.toBytes(FAMILY_NAME_1), Bytes.toBytes(qualifier));
         assertThat(value2).isEqualToIgnoringCase(Bytes.toString(CellUtil.cloneValue(columnCells.get(0))));
         assertThat(value1).isEqualToIgnoringCase(Bytes.toString(CellUtil.cloneValue(columnCells.get(1))));
     }
@@ -127,28 +132,28 @@ public class HbaseApiExternalTest {
         long timestamp = 100;
 
         Put put = new Put(Bytes.toBytes(id));
-        put.addColumn(Bytes.toBytes(FAMILY_NAME),
+        put.addColumn(Bytes.toBytes(FAMILY_NAME_1),
                 Bytes.toBytes(column),
                 ++timestamp,
                 Bytes.toBytes(value1));
         table.put(put);
 
         put = new Put(Bytes.toBytes(id));
-        put.addColumn(Bytes.toBytes(FAMILY_NAME),
+        put.addColumn(Bytes.toBytes(FAMILY_NAME_1),
                 Bytes.toBytes(column),
                 ++timestamp,
                 Bytes.toBytes(value2));
         table.put(put);
 
         put = new Put(Bytes.toBytes(id));
-        put.addColumn(Bytes.toBytes(FAMILY_NAME),
+        put.addColumn(Bytes.toBytes(FAMILY_NAME_1),
                 Bytes.toBytes(column),
                 ++timestamp,
                 Bytes.toBytes(value3));
         table.put(put);
 
         //when
-        // bez dodatkowych metod usuwa????
+        // bez dodatkowych metod usuwa cały wiersz (DeleteFamily dla każdej rodziny)
         Delete delete = new Delete(Bytes.toBytes(id));
         // delete latest versio of column (Delete)
 //        delete.addColumn(Bytes.toBytes(FAMILY_NAME), Bytes.toBytes(column));
