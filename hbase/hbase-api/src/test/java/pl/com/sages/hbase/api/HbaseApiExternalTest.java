@@ -125,37 +125,46 @@ public class HbaseApiExternalTest {
         Table table = connection.getTable(TEST_TABLE_NAME);
 
         String id = "id";
-        String qualifier = "cell";
+        String qualifier1 = "cell1";
+        String qualifier2 = "cell2";
         String value1 = "nasza testowa wartosc 1";
         String value2 = "nasza testowa wartosc 2";
         String value3 = "nasza testowa wartosc 3";
-        long timestamp = 100;
 
-        put(table, id, FAMILY_NAME_1, qualifier, ++timestamp, value1);
-        put(table, id, FAMILY_NAME_1, qualifier, ++timestamp, value2);
-        put(table, id, FAMILY_NAME_1, qualifier, ++timestamp, value3);
+        long timestamp = 101;
+        put(table, id, FAMILY_NAME_1, qualifier1, timestamp, value1);
+        put(table, id, FAMILY_NAME_1, qualifier2, timestamp, value1);
+        put(table, id, FAMILY_NAME_2, qualifier1, timestamp, value1);
+        put(table, id, FAMILY_NAME_2, qualifier2, timestamp, value1);
 
-        timestamp = 200;
-        put(table, id, FAMILY_NAME_2, qualifier, ++timestamp, value1);
-        put(table, id, FAMILY_NAME_2, qualifier, ++timestamp, value2);
-        put(table, id, FAMILY_NAME_2, qualifier, ++timestamp, value3);
+        timestamp++;
+        put(table, id, FAMILY_NAME_1, qualifier1, timestamp, value2);
+        put(table, id, FAMILY_NAME_1, qualifier2, timestamp, value2);
+        put(table, id, FAMILY_NAME_2, qualifier1, timestamp, value2);
+        put(table, id, FAMILY_NAME_2, qualifier2, timestamp, value2);
 
+        timestamp++;
+        put(table, id, FAMILY_NAME_1, qualifier1, timestamp, value3);
+        put(table, id, FAMILY_NAME_1, qualifier2, timestamp, value3);
+        put(table, id, FAMILY_NAME_2, qualifier1, timestamp, value3);
+        put(table, id, FAMILY_NAME_2, qualifier2, timestamp, value3);
 
         //when
         // bez dodatkowych metod usuwa cały wiersz (DeleteFamily dla każdej rodziny z aktualnym timestamp)
         Delete delete = new Delete(Bytes.toBytes(id));
-        // delete latest versio of qualifier (Delete)
-//        delete.addColumn(Bytes.toBytes(FAMILY_NAME_1), Bytes.toBytes(qualifier));
+        // delete latest versio of qualifier1 (Delete)
+//        delete.addColumn(Bytes.toBytes(FAMILY_NAME_1), Bytes.toBytes(qualifier1));
         // delete selected version (Delete)
-//        delete.addColumn(Bytes.toBytes(FAMILY_NAME_1), Bytes.toBytes(qualifier), 102);
+//        delete.addColumn(Bytes.toBytes(FAMILY_NAME_1), Bytes.toBytes(qualifier1), 102);
 
         // delete all versions of column (DeleteColumn)
-//        delete.addColumns(Bytes.toBytes(FAMILY_NAME_1), Bytes.toBytes(qualifier));
+//        delete.addColumns(Bytes.toBytes(FAMILY_NAME_1), Bytes.toBytes(qualifier1));
         // delete all versions of column with less or equal timestamp (DeleteColumn)
-//        delete.addColumns(Bytes.toBytes(FAMILY_NAME_1), Bytes.toBytes(qualifier), 102);
+//        delete.addColumns(Bytes.toBytes(FAMILY_NAME_1), Bytes.toBytes(qualifier1), 102);
 
 //        delete.addFamily(Bytes.toBytes(FAMILY_NAME_1));
-        delete.addFamily(Bytes.toBytes(FAMILY_NAME_1), 102);
+//        delete.addFamily(Bytes.toBytes(FAMILY_NAME_1), 102);
+        delete.addFamilyVersion(Bytes.toBytes(FAMILY_NAME_1), 102);
         table.delete(delete);
 
         //then
@@ -163,7 +172,7 @@ public class HbaseApiExternalTest {
 //        get.setMaxVersions(10);
 //        Result result = table.get(get);
 
-//        assertThat(value1).isEqualToIgnoringCase(Bytes.toString(result.getValue(Bytes.toBytes(FAMILY_NAME), Bytes.toBytes(qualifier))));
+//        assertThat(value1).isEqualToIgnoringCase(Bytes.toString(result.getValue(Bytes.toBytes(FAMILY_NAME), Bytes.toBytes(qualifier1))));
     }
 
     private void put(Table table, String id, String family, String qualifier, long timestamp, String value) throws Exception {
