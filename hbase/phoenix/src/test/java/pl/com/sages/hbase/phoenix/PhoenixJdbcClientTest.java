@@ -2,27 +2,29 @@ package pl.com.sages.hbase.phoenix;
 
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Properties;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@Ignore
 public class PhoenixJdbcClientTest {
 
     private String tableName = "phoenix_test_table";
     private Connection conn;
 
     @Before
-    public void before() throws ClassNotFoundException, SQLException {
+    public void before() throws Exception {
+        // wczytywanie parametrów
+        Properties properties = new Properties();
+        properties.load(this.getClass().getClassLoader().getResourceAsStream("phoenix.properties"));
         // tworzenie polaczenia
         Class.forName("org.apache.phoenix.jdbc.PhoenixDriver");
-        conn = DriverManager.getConnection("jdbc:phoenix:sandbox:/hbase-unsecure");
+        conn = DriverManager.getConnection(properties.getProperty("phoenix.connection"));
         // tworzenie tabeli
         String query = "CREATE TABLE %s " +
                 "(count INTEGER not null, " +
