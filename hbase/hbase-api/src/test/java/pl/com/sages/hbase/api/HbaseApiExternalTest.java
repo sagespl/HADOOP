@@ -7,8 +7,10 @@ import org.apache.hadoop.hbase.util.Bytes;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import pl.com.sages.hadoop.data.model.users.User;
 import pl.com.sages.hbase.api.util.HBaseUtil;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -169,6 +171,37 @@ public class HbaseApiExternalTest {
                 timestamp,
                 Bytes.toBytes(value));
         table.put(put);
+    }
+
+    @Test
+    public void shouldScanTable() throws Exception {
+        //given
+        Table table = connection.getTable(TEST_TABLE_NAME);
+
+        String id = "id";
+        String qualifier = "cell";
+        String value = "nasza testowa wartość";
+
+        Put put = new Put(Bytes.toBytes(id));
+        put.addColumn(Bytes.toBytes(FAMILY_NAME_1),
+                Bytes.toBytes(qualifier),
+                Bytes.toBytes(value));
+
+        table.put(put);
+
+        //when
+        Scan scan = new Scan();
+        scan.setMaxVersions(10);
+
+        ResultScanner scanner = table.getScanner(scan);
+        ArrayList<Result> results = new ArrayList<>();
+        for (Result result : scanner) {
+            results.add(result);
+        }
+
+        //then
+        assertThat(results).isNotEmpty();
+        assertThat(value).isEqualToIgnoringCase(Bytes.toString(results.get(0).getValue(Bytes.toBytes(FAMILY_NAME_1), Bytes.toBytes(qualifier))));
     }
 
 }
