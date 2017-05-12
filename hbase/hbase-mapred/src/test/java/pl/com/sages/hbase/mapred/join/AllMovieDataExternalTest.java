@@ -12,7 +12,6 @@ import pl.com.sages.hbase.api.dao.MovieDao;
 import pl.com.sages.hbase.api.dao.RatingDao;
 import pl.com.sages.hbase.api.util.HBaseTableBuilder;
 import pl.com.sages.hbase.mapred.movies.AverageRatingMapper;
-import pl.com.sages.hbase.mapred.movies.AverageRatingToTableExternalTest;
 import pl.com.sages.hbase.mapred.movies.MovieAverageRatingsConstants;
 
 import java.io.IOException;
