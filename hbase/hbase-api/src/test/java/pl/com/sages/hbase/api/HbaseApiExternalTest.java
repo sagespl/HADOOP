@@ -117,36 +117,51 @@ public class HbaseApiExternalTest {
     @Test
     public void shouldDeleteDataFromHbase() throws Exception {
         //given
-        Table users = connection.getTable(TEST_TABLE_NAME);
+        Table table = connection.getTable(TEST_TABLE_NAME);
 
         String id = "id";
         String column = "cell";
-        String value1 = "nasza testowa wartość";
-        String value2 = "nasza testowa wartość 2";
+        String value1 = "nasza testowa wartosc 1";
+        String value2 = "nasza testowa wartosc 2";
+        String value3 = "nasza testowa wartosc 3";
+        long timestamp = 100;
 
         Put put = new Put(Bytes.toBytes(id));
         put.addColumn(Bytes.toBytes(FAMILY_NAME),
                 Bytes.toBytes(column),
+                ++timestamp,
                 Bytes.toBytes(value1));
-        users.put(put);
+        table.put(put);
 
         put = new Put(Bytes.toBytes(id));
         put.addColumn(Bytes.toBytes(FAMILY_NAME),
                 Bytes.toBytes(column),
+                ++timestamp,
                 Bytes.toBytes(value2));
-        users.put(put);
+        table.put(put);
+
+        put = new Put(Bytes.toBytes(id));
+        put.addColumn(Bytes.toBytes(FAMILY_NAME),
+                Bytes.toBytes(column),
+                ++timestamp,
+                Bytes.toBytes(value3));
+        table.put(put);
 
         //when
+        // bez dodatkowych metod usuwa????
         Delete delete = new Delete(Bytes.toBytes(id));
-        delete.addColumn(Bytes.toBytes(FAMILY_NAME), Bytes.toBytes(column));
-        users.delete(delete);
+        // delete latest versio of column (Delete)
+//        delete.addColumn(Bytes.toBytes(FAMILY_NAME), Bytes.toBytes(column));
+        // delete selected version (Delete)
+//        delete.addColumn(Bytes.toBytes(FAMILY_NAME), Bytes.toBytes(column), 102);
+        table.delete(delete);
 
         //then
-        Get get = new Get(Bytes.toBytes(id));
-        get.setMaxVersions(10);
-        Result result = users.get(get);
+//        Get get = new Get(Bytes.toBytes(id));
+//        get.setMaxVersions(10);
+//        Result result = table.get(get);
 
-        assertThat(value1).isEqualToIgnoringCase(Bytes.toString(result.getValue(Bytes.toBytes(FAMILY_NAME), Bytes.toBytes(column))));
+//        assertThat(value1).isEqualToIgnoringCase(Bytes.toString(result.getValue(Bytes.toBytes(FAMILY_NAME), Bytes.toBytes(column))));
     }
 
 }
