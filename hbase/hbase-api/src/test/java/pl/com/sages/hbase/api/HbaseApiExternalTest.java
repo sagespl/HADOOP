@@ -125,40 +125,28 @@ public class HbaseApiExternalTest {
         Table table = connection.getTable(TEST_TABLE_NAME);
 
         String id = "id";
-        String column = "cell";
+        String qualifier = "cell";
         String value1 = "nasza testowa wartosc 1";
         String value2 = "nasza testowa wartosc 2";
         String value3 = "nasza testowa wartosc 3";
         long timestamp = 100;
 
-        Put put = new Put(Bytes.toBytes(id));
-        put.addColumn(Bytes.toBytes(FAMILY_NAME_1),
-                Bytes.toBytes(column),
-                ++timestamp,
-                Bytes.toBytes(value1));
-        table.put(put);
+        put(table, id, FAMILY_NAME_1, qualifier, ++timestamp, value1);
+        put(table, id, FAMILY_NAME_1, qualifier, ++timestamp, value2);
+        put(table, id, FAMILY_NAME_1, qualifier, ++timestamp, value3);
 
-        put = new Put(Bytes.toBytes(id));
-        put.addColumn(Bytes.toBytes(FAMILY_NAME_1),
-                Bytes.toBytes(column),
-                ++timestamp,
-                Bytes.toBytes(value2));
-        table.put(put);
+        put(table, id, FAMILY_NAME_2, qualifier, ++timestamp, value1);
+        put(table, id, FAMILY_NAME_2, qualifier, ++timestamp, value2);
+        put(table, id, FAMILY_NAME_2, qualifier, ++timestamp, value3);
 
-        put = new Put(Bytes.toBytes(id));
-        put.addColumn(Bytes.toBytes(FAMILY_NAME_1),
-                Bytes.toBytes(column),
-                ++timestamp,
-                Bytes.toBytes(value3));
-        table.put(put);
 
         //when
         // bez dodatkowych metod usuwa cały wiersz (DeleteFamily dla każdej rodziny)
         Delete delete = new Delete(Bytes.toBytes(id));
-        // delete latest versio of column (Delete)
-//        delete.addColumn(Bytes.toBytes(FAMILY_NAME), Bytes.toBytes(column));
+        // delete latest versio of qualifier (Delete)
+//        delete.addColumn(Bytes.toBytes(FAMILY_NAME), Bytes.toBytes(qualifier));
         // delete selected version (Delete)
-//        delete.addColumn(Bytes.toBytes(FAMILY_NAME), Bytes.toBytes(column), 102);
+//        delete.addColumn(Bytes.toBytes(FAMILY_NAME), Bytes.toBytes(qualifier), 102);
         table.delete(delete);
 
         //then
@@ -166,7 +154,16 @@ public class HbaseApiExternalTest {
 //        get.setMaxVersions(10);
 //        Result result = table.get(get);
 
-//        assertThat(value1).isEqualToIgnoringCase(Bytes.toString(result.getValue(Bytes.toBytes(FAMILY_NAME), Bytes.toBytes(column))));
+//        assertThat(value1).isEqualToIgnoringCase(Bytes.toString(result.getValue(Bytes.toBytes(FAMILY_NAME), Bytes.toBytes(qualifier))));
+    }
+
+    private void put(Table table, String id, String family, String qualifier, long timestamp, String value) throws Exception {
+        Put put = new Put(Bytes.toBytes(id));
+        put.addColumn(Bytes.toBytes(family),
+                Bytes.toBytes(qualifier),
+                ++timestamp,
+                Bytes.toBytes(value));
+        table.put(put);
     }
 
 }
