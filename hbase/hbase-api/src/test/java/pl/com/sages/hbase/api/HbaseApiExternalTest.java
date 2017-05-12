@@ -16,8 +16,8 @@ import static pl.com.sages.hbase.api.util.HbaseConfigurationFactory.getConfigura
 
 public class HbaseApiExternalTest {
 
-    private static final TableName TEST_TABLE_NAME = HBaseUtil.getUserTableName("test_users_" + System.currentTimeMillis());
-    private static final String FAMILY_NAME = "info";
+    private static final TableName TEST_TABLE_NAME = HBaseUtil.getUserTableName("hbase_api_test_table");
+    private static final String FAMILY_NAME = "cf";
 
     private Connection connection;
     private Admin admin;
@@ -27,6 +27,11 @@ public class HbaseApiExternalTest {
         Configuration configuration = getConfiguration();
         connection = ConnectionFactory.createConnection(configuration);
         admin = connection.getAdmin();
+
+        if (admin.tableExists(TEST_TABLE_NAME)) {
+            admin.disableTable(TEST_TABLE_NAME);
+            admin.deleteTable(TEST_TABLE_NAME);
+        }
 
         HTableDescriptor table = new HTableDescriptor(TEST_TABLE_NAME);
 
@@ -40,8 +45,8 @@ public class HbaseApiExternalTest {
     @After
     public void deleteTable() throws Exception {
         if (admin != null) {
-            admin.disableTable(TEST_TABLE_NAME);
-            admin.deleteTable(TEST_TABLE_NAME);
+//            admin.disableTable(TEST_TABLE_NAME);
+//            admin.deleteTable(TEST_TABLE_NAME);
             admin.close();
         }
         if (connection != null) {
