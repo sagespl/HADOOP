@@ -11,6 +11,7 @@ import org.apache.hadoop.hbase.util.Bytes;
 import pl.com.sages.hbase.api.dao.MovieDao;
 import pl.com.sages.hbase.api.dao.RatingDao;
 import pl.com.sages.hbase.api.util.HBaseUtil;
+import pl.com.sages.hbase.mapred.movies.MovieAverageRatingsConstants;
 
 import java.io.IOException;
 
@@ -28,13 +29,11 @@ public class AllMovieDataMapper extends TableMapper<ImmutableBytesWritable, Put>
 
     private static Put resultToPut(ImmutableBytesWritable key, Result result) throws IOException {
 
-
         System.out.println("------------------------------");
 
         String movieId = null;
         String movieTitle = null;
-        String movieGenres = null;
-        String movieTags = null;
+        String movieGenres = "";
         Double movieRating = null;
 
         Cell[] cells = result.rawCells();
@@ -58,17 +57,19 @@ public class AllMovieDataMapper extends TableMapper<ImmutableBytesWritable, Put>
                     System.out.println(movieId + "::" + movieGenres);
                 }
 
-            } else if (family.equals("ratingaverage")) {
+            } else if (family.equals(MovieAverageRatingsConstants.FAMILY_NAME)) {
 
                 movieId = Bytes.toString(cell.getRow());
                 System.out.println(movieId);
-                if (column.equals("average")) {
+                if (column.equals(MovieAverageRatingsConstants.QUALIFIER_NAME)) {
 
                     movieRating = Bytes.toDouble(CellUtil.cloneValue(cell));
                     System.out.println(movieId + "::" + movieRating);
 
                 }
 
+            } else {
+                throw new RuntimeException("Unknown family: " + family);
             }
 
         }
@@ -82,6 +83,8 @@ public class AllMovieDataMapper extends TableMapper<ImmutableBytesWritable, Put>
         } else if (movieRating != null) {
             put = new Put(Bytes.toBytes(movieId));
             put.addColumn(Bytes.toBytes(FAMILY_NAME), RatingDao.RATING, Bytes.toBytes(movieRating));
+        } else {
+            throw new UnsupportedOperationException();
         }
 
         return put;

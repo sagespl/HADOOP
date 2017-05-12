@@ -2,9 +2,6 @@ package pl.com.sages.hbase.mapred.join;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hbase.HBaseConfiguration;
-import org.apache.hadoop.hbase.HColumnDescriptor;
-import org.apache.hadoop.hbase.HTableDescriptor;
-import org.apache.hadoop.hbase.client.HBaseAdmin;
 import org.apache.hadoop.hbase.client.Scan;
 import org.apache.hadoop.hbase.mapreduce.TableMapReduceUtil;
 import org.apache.hadoop.mapreduce.Job;
@@ -12,6 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 import pl.com.sages.hbase.api.dao.MovieDao;
 import pl.com.sages.hbase.api.dao.RatingDao;
+import pl.com.sages.hbase.api.util.HBaseTableBuilder;
 import pl.com.sages.hbase.mapred.filter.FilterMapper;
 import pl.com.sages.hbase.mapred.movies.AverageRatingMapper;
 
@@ -31,28 +29,19 @@ public class UnionExternalTest {
 
     @Before
     public void before() throws IOException {
-        HBaseAdmin admin = new HBaseAdmin(configuration);
-
-        boolean exists = admin.tableExists(TABLE_NAME);
-        if (exists) {
-            admin.disableTable(TABLE_NAME);
-            admin.deleteTable(TABLE_NAME);
-        }
-
-        // tworzenie tabeli HBase
-        HTableDescriptor table = new HTableDescriptor(TABLE_NAME);
-        table.addFamily(new HColumnDescriptor(FAMILY_NAME));
-        table.addFamily(new HColumnDescriptor(MovieDao.CF));
-        table.addFamily(new HColumnDescriptor(RatingDao.CF));
-
-        admin.createTable(table);
+        new HBaseTableBuilder()
+                .withTable(TABLE_NAME)
+                .withFamily(FAMILY_NAME)
+                .withFamily(MovieDao.CF)
+                .withFamily(RatingDao.CF)
+                .build();
     }
 
     @Test
     public void shouldJoinTables() throws Exception {
         //given
 
-        Job job = new Job(configuration, "Joins");
+        Job job = Job.getInstance(configuration, "Joins");
         job.setJarByClass(AverageRatingMapper.class);
 
         List<Scan> scans = new ArrayList<>();

@@ -9,17 +9,14 @@ import java.io.IOException;
 
 public abstract class HBaseUtil {
 
-    @Deprecated
     public static void recreateTable(String tableName, String familyName) {
         recreateTable(TableName.valueOf(tableName), familyName);
     }
 
-    @Deprecated
     public static void recreateTable(TableName tableName, byte[] familyName) {
         recreateTable(tableName, Bytes.toString(familyName));
     }
 
-    @Deprecated
     public static void recreateTable(TableName tableName, String familyName) {
         new HBaseTableBuilder().withTable(tableName).withFamily(familyName).build();
     }

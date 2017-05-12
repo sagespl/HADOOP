@@ -2,7 +2,6 @@ package pl.com.sages.hbase.mapred.movies;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hbase.HBaseConfiguration;
-import org.apache.hadoop.hbase.TableName;
 import org.apache.hadoop.hbase.client.Scan;
 import org.apache.hadoop.hbase.mapreduce.TableMapReduceUtil;
 import org.apache.hadoop.io.DoubleWritable;
@@ -18,15 +17,12 @@ import pl.com.sages.hbase.api.util.HBaseUtil;
 import java.io.IOException;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static pl.com.sages.hbase.mapred.movies.MovieAverageRatingsConstants.*;
 
 /**
  * Wyliczenie średniej oceny dla filmu i zapisanie jej w nowej tabeli
  */
 public class AverageRatingToTableExternalTest {
-
-    private static final TableName TABLE_NAME = HBaseUtil.getUserTableName("ratings_average");
-    private static final String FAMILY_NAME = "ratings_average";
-    private static final String QUALIFIER_NAME = "average";
 
     @Before
     public void before() throws IOException {

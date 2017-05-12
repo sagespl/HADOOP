@@ -7,10 +7,13 @@ import org.apache.hadoop.hbase.TableName;
 import org.apache.hadoop.hbase.client.Admin;
 import org.apache.hadoop.hbase.util.Bytes;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class HBaseTableBuilder {
 
     private TableName tableName;
-    private String familyName;
+    private List<String> familyNames = new ArrayList<>();
 
     public HBaseTableBuilder withTable(TableName tableName) {
         this.tableName = tableName;
@@ -28,12 +31,12 @@ public class HBaseTableBuilder {
     }
 
     public HBaseTableBuilder withFamily(String familyName) {
-        this.familyName = familyName;
+        familyNames.add(familyName);
         return this;
     }
 
     public HBaseTableBuilder withFamily(byte[] familyName) {
-        this.familyName = Bytes.toString(familyName);
+        familyNames.add(Bytes.toString(familyName));
         return this;
     }
 
@@ -58,9 +61,12 @@ public class HBaseTableBuilder {
             }
 
             HTableDescriptor table = new HTableDescriptor(tableName);
-            HColumnDescriptor columnFamily = new HColumnDescriptor(familyName);
-            columnFamily.setMaxVersions(1);
-            table.addFamily(columnFamily);
+
+            for (String familyName : familyNames) {
+                HColumnDescriptor columnFamily = new HColumnDescriptor(familyName);
+                columnFamily.setMaxVersions(1);
+                table.addFamily(columnFamily);
+            }
 
             admin.createTable(table);
 
