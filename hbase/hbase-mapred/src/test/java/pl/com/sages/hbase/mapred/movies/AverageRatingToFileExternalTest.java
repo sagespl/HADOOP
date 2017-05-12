@@ -7,7 +7,6 @@ import org.apache.hadoop.hbase.client.Scan;
 import org.apache.hadoop.hbase.mapreduce.TableMapReduceUtil;
 import org.apache.hadoop.io.DoubleWritable;
 import org.apache.hadoop.io.IntWritable;
-import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.junit.Test;
@@ -16,13 +15,15 @@ import pl.com.sages.hbase.mapred.file.RatingExportReducer;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+/**
+ * Wyliczenie średniej oceny dla filmu i zapisanie jej w pliku
+ */
 public class AverageRatingToFileExternalTest {
-
-    private Configuration configuration = HBaseConfiguration.create();
 
     @Test
     public void shouldRunMapReduce() throws Exception {
         //given
+        Configuration configuration = HBaseConfiguration.create();
         Job job = Job.getInstance(configuration, "Average Rating");
         job.setJarByClass(AverageRatingMapper.class);
 
@@ -38,6 +39,7 @@ public class AverageRatingToFileExternalTest {
                 IntWritable.class,
                 DoubleWritable.class,
                 job);
+        // reduktor standardowo jak w zwykłym MR
         job.setReducerClass(RatingExportReducer.class);
         job.setNumReduceTasks(1);
         FileOutputFormat.setOutputPath(job, new Path("/tmp/mr/mySummaryFile_" + System.currentTimeMillis()));

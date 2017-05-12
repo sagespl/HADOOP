@@ -19,6 +19,9 @@ import java.io.IOException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+/**
+ * Wyliczenie średniej oceny dla filmu i zapisanie jej w nowej tabeli
+ */
 public class AverageRatingToTableExternalTest {
 
     private static final TableName TABLE_NAME = HBaseUtil.getUserTableName("ratings_average");
