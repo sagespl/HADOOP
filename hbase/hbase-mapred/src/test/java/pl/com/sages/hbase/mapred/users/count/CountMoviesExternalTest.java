@@ -13,14 +13,17 @@ import pl.com.sages.hbase.api.dao.MovieDao;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+/**
+ * Przykład użycia licznika w MR dla HBase
+ */
 public class CountMoviesExternalTest {
 
     @Test
     public void shouldCountMovies() throws Exception {
+        // given
         Configuration configuration = HBaseConfiguration.create();
 
-        // map reduce
-        Job job = new Job(configuration, "Count Movies");
+        Job job = Job.getInstance(configuration, "Count Movies");
         job.setJarByClass(CountMoviesMapper.class);
 
         Scan scan = new Scan();
@@ -36,6 +39,7 @@ public class CountMoviesExternalTest {
                 ImmutableBytesWritable.class,
                 Result.class,
                 job);
+        // brak jakiegokolwiek wyniku, kończymy mapera i nic nie zwracamy!!!
         job.setOutputFormatClass(NullOutputFormat.class);
         job.setNumReduceTasks(0);
 
