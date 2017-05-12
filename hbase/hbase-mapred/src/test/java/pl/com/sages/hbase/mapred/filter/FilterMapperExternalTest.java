@@ -55,6 +55,7 @@ public class FilterMapperExternalTest {
                 TABLE_NAME.getNameAsString(),
                 null,
                 job);
+        // Brak reduktora -> patrz implementację Mapper'a
         job.setNumReduceTasks(0);
 
         //when
@@ -66,14 +67,14 @@ public class FilterMapperExternalTest {
         assertThat(succeeded).isTrue();
         assertThat(connection.getAdmin().tableExists(TABLE_NAME)).isTrue();
 
-        Table filteredTable = connection.getTable(TABLE_NAME);
+        Table table = connection.getTable(TABLE_NAME);
         scan = new Scan();
         int count = 0;
-        ResultScanner results = filteredTable.getScanner(scan);
+        ResultScanner results = table.getScanner(scan);
         for (Result result : results) {
             count++;
         }
-        filteredTable.close();
+        table.close();
         assertThat(count).isGreaterThan(1000);
     }
 

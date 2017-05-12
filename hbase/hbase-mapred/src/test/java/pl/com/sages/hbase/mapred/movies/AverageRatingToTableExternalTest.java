@@ -5,25 +5,24 @@ import org.apache.hadoop.hbase.HBaseConfiguration;
 import org.apache.hadoop.hbase.TableName;
 import org.apache.hadoop.hbase.client.*;
 import org.apache.hadoop.hbase.mapreduce.TableMapReduceUtil;
-import org.apache.hadoop.hbase.util.Bytes;
 import org.apache.hadoop.io.DoubleWritable;
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.mapreduce.Job;
 import org.junit.Before;
 import org.junit.Test;
 import pl.com.sages.hbase.api.dao.RatingDao;
+import pl.com.sages.hbase.api.util.ConnectionHandler;
 import pl.com.sages.hbase.api.util.HBaseUtil;
 
 import java.io.IOException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class AverageRatingExternalTest {
+public class AverageRatingToTableExternalTest {
 
     private static final TableName TABLE_NAME = HBaseUtil.getUserTableName("ratings_average");
     private static final String FAMILY_NAME = "ratings_average";
-
-    private Configuration configuration = HBaseConfiguration.create();
+    private static final String QUALIFIER_NAME = "average";
 
     @Before
     public void before() throws IOException {
@@ -33,10 +32,12 @@ public class AverageRatingExternalTest {
     @Test
     public void shouldRunMapReduce() throws Exception {
         //given
+        Configuration configuration = HBaseConfiguration.create();
+        configuration.set(AverageRatingReducer.FAMILY, FAMILY_NAME);
+        configuration.set(AverageRatingReducer.QUALIFIER, QUALIFIER_NAME);
+
         Job job = Job.getInstance(configuration, "Average Rating");
         job.setJarByClass(AverageRatingMapper.class);
-
-        job.setMapperClass(AverageRatingMapper.class);
 
         Scan scan = new Scan();
         scan.setCaching(500);
@@ -59,24 +60,19 @@ public class AverageRatingExternalTest {
         boolean succeeded = job.waitForCompletion(true);
 
         //then
+        Connection connection = ConnectionHandler.getConnection();
+
         assertThat(succeeded).isTrue();
+        assertThat(connection.getAdmin().tableExists(TABLE_NAME)).isTrue();
 
-        HTableInterface ratingaverage = new HTable(configuration, TABLE_NAME);
-
+        Table table = connection.getTable(TABLE_NAME);
         scan = new Scan();
-        scan.addFamily(Bytes.toBytes(FAMILY_NAME));
-
         int count = 0;
-        ResultScanner results = ratingaverage.getScanner(scan);
+        ResultScanner results = table.getScanner(scan);
         for (Result result : results) {
-            byte[] id = result.getRow();
-            byte[] average = result.getValue(Bytes.toBytes(FAMILY_NAME), AverageRatingReducer.AVERAGE);
-            System.out.println(Bytes.toInt(id) + " " + Bytes.toDouble(average));
             count++;
         }
-
-        ratingaverage.close();
-
+        table.close();
         assertThat(count).isGreaterThan(1000);
     }
 
