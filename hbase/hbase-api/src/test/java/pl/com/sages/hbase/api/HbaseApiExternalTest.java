@@ -135,18 +135,27 @@ public class HbaseApiExternalTest {
         put(table, id, FAMILY_NAME_1, qualifier, ++timestamp, value2);
         put(table, id, FAMILY_NAME_1, qualifier, ++timestamp, value3);
 
+        timestamp = 200;
         put(table, id, FAMILY_NAME_2, qualifier, ++timestamp, value1);
         put(table, id, FAMILY_NAME_2, qualifier, ++timestamp, value2);
         put(table, id, FAMILY_NAME_2, qualifier, ++timestamp, value3);
 
 
         //when
-        // bez dodatkowych metod usuwa cały wiersz (DeleteFamily dla każdej rodziny)
+        // bez dodatkowych metod usuwa cały wiersz (DeleteFamily dla każdej rodziny z aktualnym timestamp)
         Delete delete = new Delete(Bytes.toBytes(id));
         // delete latest versio of qualifier (Delete)
-//        delete.addColumn(Bytes.toBytes(FAMILY_NAME), Bytes.toBytes(qualifier));
+//        delete.addColumn(Bytes.toBytes(FAMILY_NAME_1), Bytes.toBytes(qualifier));
         // delete selected version (Delete)
-//        delete.addColumn(Bytes.toBytes(FAMILY_NAME), Bytes.toBytes(qualifier), 102);
+//        delete.addColumn(Bytes.toBytes(FAMILY_NAME_1), Bytes.toBytes(qualifier), 102);
+
+        // delete all versions of column (DeleteColumn)
+//        delete.addColumns(Bytes.toBytes(FAMILY_NAME_1), Bytes.toBytes(qualifier));
+        // delete all versions of column with less or equal timestamp (DeleteColumn)
+//        delete.addColumns(Bytes.toBytes(FAMILY_NAME_1), Bytes.toBytes(qualifier), 102);
+
+//        delete.addFamily(Bytes.toBytes(FAMILY_NAME_1));
+        delete.addFamily(Bytes.toBytes(FAMILY_NAME_1), 102);
         table.delete(delete);
 
         //then
@@ -161,7 +170,7 @@ public class HbaseApiExternalTest {
         Put put = new Put(Bytes.toBytes(id));
         put.addColumn(Bytes.toBytes(family),
                 Bytes.toBytes(qualifier),
-                ++timestamp,
+                timestamp,
                 Bytes.toBytes(value));
         table.put(put);
     }
