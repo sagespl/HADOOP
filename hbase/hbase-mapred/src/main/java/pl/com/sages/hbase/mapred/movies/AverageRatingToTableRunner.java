@@ -8,12 +8,14 @@ import org.apache.hadoop.io.DoubleWritable;
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.mapreduce.Job;
 import pl.com.sages.hbase.api.dao.RatingDao;
+import pl.com.sages.hbase.api.util.HBaseUtil;
 
 import static pl.com.sages.hbase.mapred.movies.MovieAverageRatingsConstants.*;
 
 public class AverageRatingToTableRunner {
 
     public static void main(String[] args) throws Exception {
+        HBaseUtil.recreateTable(TABLE_NAME, FAMILY_NAME);
 
         Configuration configuration = HBaseConfiguration.create();
         configuration.set(AverageRatingReducer.FAMILY, FAMILY_NAME);
