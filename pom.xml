@@ -358,9 +358,9 @@
         <profile>
             <id>hdp</id>
             <properties>
-                <fs.defaultFS>hdfs://hadoop1:8020</fs.defaultFS>
-                <hbase.zookeeper.quorum>hadoop1,hadoop2,hadoop3</hbase.zookeeper.quorum>
-                <phoenix.connection>jdbc:phoenix:hadoop3:/hbase-unsecure</phoenix.connection>
+                <fs.defaultFS>hdfs://hdp7:8020</fs.defaultFS>
+                <hbase.zookeeper.quorum>hdp3,hdp4,hdp7</hbase.zookeeper.quorum>
+                <phoenix.connection>jdbc:phoenix:hdp3:/hbase-unsecure</phoenix.connection>
             </properties>
             <activation>
                 <activeByDefault>false</activeByDefault>
