@@ -2,6 +2,7 @@ package pl.com.sages.hbase.phoenix;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.sql.Connection;
@@ -12,6 +13,7 @@ import java.util.Properties;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+@Ignore
 public class PhoenixJdbcClientTest {
 
     private String tableName = "phoenix_test_table";

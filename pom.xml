@@ -347,7 +347,7 @@
         <profile>
             <id>hdp</id>
             <properties>
-                <fs.defaultFS>hdfs://hdp1:8020</fs.defaultFS>
+                <fs.defaultFS>hdfs://hdp7:8020</fs.defaultFS>
                 <hbase.zookeeper.quorum>hdp3,hdp4,hdp7</hbase.zookeeper.quorum>
                 <phoenix.connection>jdbc:phoenix:hdp3:/hbase-unsecure</phoenix.connection>
             </properties>
