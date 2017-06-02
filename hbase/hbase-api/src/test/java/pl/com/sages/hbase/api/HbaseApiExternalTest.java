@@ -7,7 +7,10 @@ import org.apache.hadoop.hbase.util.Bytes;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import pl.com.sages.hadoop.data.model.users.User;
+import pl.com.sages.hbase.api.util.HBaseUtil;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -15,11 +18,12 @@ import static pl.com.sages.hbase.api.util.HbaseConfigurationFactory.getConfigura
 
 public class HbaseApiExternalTest {
 
-    private static final TableName TEST_TABLE_NAME = TableName.valueOf("test_users_" + System.currentTimeMillis());
-    private static final String TEST_FAMILY_NAME = "info";
+    private static final TableName TEST_TABLE_NAME = HBaseUtil.getUserTableName("hbase_api_test_table");
+    private static final String FAMILY_NAME_1 = "cf1";
+    private static final String FAMILY_NAME_2 = "cf2";
 
-    private Admin admin;
     private Connection connection;
+    private Admin admin;
 
     @Before
     public void createTestTable() throws Exception {
@@ -27,11 +31,20 @@ public class HbaseApiExternalTest {
         connection = ConnectionFactory.createConnection(configuration);
         admin = connection.getAdmin();
 
+        if (admin.tableExists(TEST_TABLE_NAME)) {
+            admin.disableTable(TEST_TABLE_NAME);
+            admin.deleteTable(TEST_TABLE_NAME);
+        }
+
         HTableDescriptor table = new HTableDescriptor(TEST_TABLE_NAME);
 
-        HColumnDescriptor columnFamily = new HColumnDescriptor(TEST_FAMILY_NAME);
-        columnFamily.setMaxVersions(10);
-        table.addFamily(columnFamily);
+        HColumnDescriptor columnFamily1 = new HColumnDescriptor(FAMILY_NAME_1);
+        columnFamily1.setMaxVersions(10);
+        table.addFamily(columnFamily1);
+
+        HColumnDescriptor columnFamily2 = new HColumnDescriptor(FAMILY_NAME_2);
+        columnFamily2.setMaxVersions(10);
+        table.addFamily(columnFamily2);
 
         admin.createTable(table);
     }
@@ -39,8 +52,8 @@ public class HbaseApiExternalTest {
     @After
     public void deleteTable() throws Exception {
         if (admin != null) {
-            admin.disableTable(TEST_TABLE_NAME);
-            admin.deleteTable(TEST_TABLE_NAME);
+//            admin.disableTable(TEST_TABLE_NAME);
+//            admin.deleteTable(TEST_TABLE_NAME);
             admin.close();
         }
         if (connection != null) {
@@ -49,51 +62,61 @@ public class HbaseApiExternalTest {
     }
 
     @Test
-    public void shouldPutDataOnHbase() throws Exception {
+    public void shouldPutAndGetDataFromHbase() throws Exception {
         //given
-        Table users = connection.getTable(TEST_TABLE_NAME);
-        Put put = new Put(Bytes.toBytes("id"));
-        put.addColumn(Bytes.toBytes(TEST_FAMILY_NAME),
-                Bytes.toBytes("cell"),
-                Bytes.toBytes("nasza testowa wartość"));
-
-        //when
-        users.put(put);
-
-        //then
-    }
-
-    @Test
-    public void shouldGetDataFromHbase() throws Exception {
-        //given
-        Table users = connection.getTable(TEST_TABLE_NAME);
+        Table table = connection.getTable(TEST_TABLE_NAME);
 
         String id = "id";
-        String column = "cell";
-        String value1 = "nasza testowa wartość";
-        String value2 = "nasza testowa wartość 2";
+        String qualifier = "cell";
+        String value = "nasza testowa wartość";
 
         Put put = new Put(Bytes.toBytes(id));
-        put.addColumn(Bytes.toBytes(TEST_FAMILY_NAME),
-                Bytes.toBytes(column),
-                Bytes.toBytes(value1));
-        users.put(put);
+        put.addColumn(Bytes.toBytes(FAMILY_NAME_1),
+                Bytes.toBytes(qualifier),
+                Bytes.toBytes(value));
 
-        put = new Put(Bytes.toBytes(id));
-        put.addColumn(Bytes.toBytes(TEST_FAMILY_NAME),
-                Bytes.toBytes(column),
-                Bytes.toBytes(value2));
-        users.put(put);
+        table.put(put);
 
         //when
         Get get = new Get(Bytes.toBytes(id));
         get.setMaxVersions(10);
-        Result result = users.get(get);
+        Result result = table.get(get);
 
         //then
-        assertThat(value2).isEqualToIgnoringCase(Bytes.toString(result.getValue(Bytes.toBytes(TEST_FAMILY_NAME), Bytes.toBytes(column))));
+        assertThat(value).isEqualToIgnoringCase(Bytes.toString(result.getValue(Bytes.toBytes(FAMILY_NAME_1), Bytes.toBytes(qualifier))));
+    }
 
-        List<Cell> columnCells = result.getColumnCells(Bytes.toBytes(TEST_FAMILY_NAME), Bytes.toBytes(column));
+    @Test
+    public void shouldPutAndGetDataFromHbaseWithVersions() throws Exception {
+        //given
+        Table table = connection.getTable(TEST_TABLE_NAME);
+
+        String id = "id";
+        String qualifier = "cell";
+        String value1 = "nasza testowa wartość";
+        String value2 = "nasza testowa wartość 2";
+
+        Put put = new Put(Bytes.toBytes(id));
+        put.addColumn(Bytes.toBytes(FAMILY_NAME_1),
+                Bytes.toBytes(qualifier),
+                Bytes.toBytes(value1));
+        table.put(put);
+
+        put = new Put(Bytes.toBytes(id));
+        put.addColumn(Bytes.toBytes(FAMILY_NAME_1),
+                Bytes.toBytes(qualifier),
+                Bytes.toBytes(value2));
+        table.put(put);
+
+        //when
+        Get get = new Get(Bytes.toBytes(id));
+        get.setMaxVersions(10);
+        Result result = table.get(get);
+
+        //then
+        assertThat(value2).isEqualToIgnoringCase(Bytes.toString(result.getValue(Bytes.toBytes(FAMILY_NAME_1), Bytes.toBytes(qualifier))));
+
+        List<Cell> columnCells = result.getColumnCells(Bytes.toBytes(FAMILY_NAME_1), Bytes.toBytes(qualifier));
         assertThat(value2).isEqualToIgnoringCase(Bytes.toString(CellUtil.cloneValue(columnCells.get(0))));
         assertThat(value1).isEqualToIgnoringCase(Bytes.toString(CellUtil.cloneValue(columnCells.get(1))));
     }
@@ -101,36 +124,84 @@ public class HbaseApiExternalTest {
     @Test
     public void shouldDeleteDataFromHbase() throws Exception {
         //given
-        Table users = connection.getTable(TEST_TABLE_NAME);
+        Table table = connection.getTable(TEST_TABLE_NAME);
 
         String id = "id";
-        String column = "cell";
-        String value1 = "nasza testowa wartość";
-        String value2 = "nasza testowa wartość 2";
+        String qualifier1 = "cell1";
+        String qualifier2 = "cell2";
+        String value1 = "nasza testowa wartosc 1";
+        String value2 = "nasza testowa wartosc 2";
+        String value3 = "nasza testowa wartosc 3";
 
-        Put put = new Put(Bytes.toBytes(id));
-        put.addColumn(Bytes.toBytes(TEST_FAMILY_NAME),
-                Bytes.toBytes(column),
-                Bytes.toBytes(value1));
-        users.put(put);
+        long timestamp = 101;
+        put(table, id, FAMILY_NAME_1, qualifier1, timestamp, value1);
+        put(table, id, FAMILY_NAME_1, qualifier2, timestamp, value1);
+        put(table, id, FAMILY_NAME_2, qualifier1, timestamp, value1);
+        put(table, id, FAMILY_NAME_2, qualifier2, timestamp, value1);
 
-        put = new Put(Bytes.toBytes(id));
-        put.addColumn(Bytes.toBytes(TEST_FAMILY_NAME),
-                Bytes.toBytes(column),
-                Bytes.toBytes(value2));
-        users.put(put);
+        timestamp++;
+        put(table, id, FAMILY_NAME_1, qualifier1, timestamp, value2);
+        put(table, id, FAMILY_NAME_1, qualifier2, timestamp, value2);
+        put(table, id, FAMILY_NAME_2, qualifier1, timestamp, value2);
+        put(table, id, FAMILY_NAME_2, qualifier2, timestamp, value2);
+
+        timestamp++;
+        put(table, id, FAMILY_NAME_1, qualifier1, timestamp, value3);
+        put(table, id, FAMILY_NAME_1, qualifier2, timestamp, value3);
+        put(table, id, FAMILY_NAME_2, qualifier1, timestamp, value3);
+        put(table, id, FAMILY_NAME_2, qualifier2, timestamp, value3);
 
         //when
         Delete delete = new Delete(Bytes.toBytes(id));
-        delete.addColumn(Bytes.toBytes(TEST_FAMILY_NAME), Bytes.toBytes(column));
-        users.delete(delete);
+        delete.addColumn(Bytes.toBytes(FAMILY_NAME_1), Bytes.toBytes(qualifier1));
+        table.delete(delete);
 
         //then
         Get get = new Get(Bytes.toBytes(id));
         get.setMaxVersions(10);
-        Result result = users.get(get);
+        Result result = table.get(get);
 
-        assertThat(value1).isEqualToIgnoringCase(Bytes.toString(result.getValue(Bytes.toBytes(TEST_FAMILY_NAME), Bytes.toBytes(column))));
+        assertThat(value2).isEqualToIgnoringCase(Bytes.toString(result.getValue(Bytes.toBytes(FAMILY_NAME_1), Bytes.toBytes(qualifier1))));
+    }
+
+    private void put(Table table, String id, String family, String qualifier, long timestamp, String value) throws Exception {
+        Put put = new Put(Bytes.toBytes(id));
+        put.addColumn(Bytes.toBytes(family),
+                Bytes.toBytes(qualifier),
+                timestamp,
+                Bytes.toBytes(value));
+        table.put(put);
+    }
+
+    @Test
+    public void shouldScanTable() throws Exception {
+        //given
+        Table table = connection.getTable(TEST_TABLE_NAME);
+
+        String id = "id";
+        String qualifier = "cell";
+        String value = "nasza testowa wartość";
+
+        Put put = new Put(Bytes.toBytes(id));
+        put.addColumn(Bytes.toBytes(FAMILY_NAME_1),
+                Bytes.toBytes(qualifier),
+                Bytes.toBytes(value));
+
+        table.put(put);
+
+        //when
+        Scan scan = new Scan();
+        scan.setMaxVersions(10);
+
+        ResultScanner scanner = table.getScanner(scan);
+        ArrayList<Result> results = new ArrayList<>();
+        for (Result result : scanner) {
+            results.add(result);
+        }
+
+        //then
+        assertThat(results).isNotEmpty();
+        assertThat(value).isEqualToIgnoringCase(Bytes.toString(results.get(0).getValue(Bytes.toBytes(FAMILY_NAME_1), Bytes.toBytes(qualifier))));
     }
 
 }

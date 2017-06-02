@@ -6,28 +6,30 @@ import org.apache.hadoop.hbase.client.Result;
 import org.apache.hadoop.hbase.client.Scan;
 import org.apache.hadoop.hbase.io.ImmutableBytesWritable;
 import org.apache.hadoop.hbase.mapreduce.TableMapReduceUtil;
-import org.apache.hadoop.hbase.util.Bytes;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.output.NullOutputFormat;
+import org.junit.Before;
 import org.junit.Test;
 import pl.com.sages.hbase.api.dao.UsersDao;
 import pl.com.sages.hbase.api.loader.LoadUserData;
-import pl.com.sages.hbase.api.util.HBaseUtil;
+
+import java.io.IOException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class CountUsersExternalTest {
+
+    @Before
+    public void before() throws IOException {
+        new LoadUserData().load();
+    }
 
     @Test
     public void shouldRunMapReduce() throws Exception {
         //given
         Configuration configuration = HBaseConfiguration.create();
 
-        HBaseUtil.recreateTable(UsersDao.TABLE, Bytes.toString(UsersDao.CF));
-        new LoadUserData().load();
-
-        // map reduce
-        Job job = new Job(configuration, "Count Users");
+        Job job = Job.getInstance(configuration, "Count Users");
         job.setJarByClass(CountUsersMapper.class);
 
         Scan scan = new Scan();
@@ -43,6 +45,7 @@ public class CountUsersExternalTest {
                 ImmutableBytesWritable.class,
                 Result.class,
                 job);
+        // brak jakiegokolwiek wyniku, kończymy mapera i nic nie zwracamy!!!
         job.setOutputFormatClass(NullOutputFormat.class);
         job.setNumReduceTasks(0);
 

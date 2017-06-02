@@ -11,7 +11,7 @@ import pl.com.sages.hbase.api.dao.MovieDao;
 
 public class CountMoviesMapper extends TableMapper<Text, LongWritable> {
 
-    public static enum Counters {
+    public enum Counters {
         MOVIE_COUNT
     }
 

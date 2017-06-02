@@ -62,11 +62,6 @@
                     <descriptors>
                         <descriptor>src/main/assembly/hadoop-job.xml</descriptor>
                     </descriptors>
-                    <!--<archive>-->
-                    <!--<manifest>-->
-                    <!--<mainClass>com.big.data.course.WordCount</mainClass>-->
-                    <!--</manifest>-->
-                    <!--</archive>-->
                 </configuration>
                 <executions>
                     <execution>

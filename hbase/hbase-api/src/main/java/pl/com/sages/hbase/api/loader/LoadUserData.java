@@ -1,7 +1,9 @@
 package pl.com.sages.hbase.api.loader;
 
+import org.apache.hadoop.hbase.util.Bytes;
 import pl.com.sages.hadoop.data.model.users.User;
 import pl.com.sages.hbase.api.dao.UsersDao;
+import pl.com.sages.hbase.api.util.HBaseUtil;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -13,6 +15,7 @@ public class LoadUserData extends HBaseLoader {
     @Override
     public void load() {
         try {
+            HBaseUtil.recreateTable(UsersDao.TABLE, Bytes.toString(UsersDao.CF));
 
             UsersDao usersDao = new UsersDao();
 

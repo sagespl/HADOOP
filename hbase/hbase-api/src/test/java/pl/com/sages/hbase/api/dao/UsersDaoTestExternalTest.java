@@ -1,18 +1,14 @@
 package pl.com.sages.hbase.api.dao;
 
-import org.apache.hadoop.conf.Configuration;
-import org.apache.hadoop.hbase.util.Bytes;
 import org.junit.Before;
 import org.junit.Test;
 import pl.com.sages.hadoop.data.model.users.User;
 import pl.com.sages.hbase.api.loader.LoadUserData;
-import pl.com.sages.hbase.api.util.HBaseUtil;
 
 import java.io.IOException;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static pl.com.sages.hbase.api.util.HbaseConfigurationFactory.getConfiguration;
 
 public class UsersDaoTestExternalTest {
 
@@ -25,11 +21,7 @@ public class UsersDaoTestExternalTest {
 
     @Before
     public void before() throws IOException {
-        Configuration configuration = getConfiguration();
         usersDao = new UsersDao();
-
-        HBaseUtil.recreateTable(UsersDao.TABLE, Bytes.toString(UsersDao.CF));
-
         new LoadUserData().load();
     }
 

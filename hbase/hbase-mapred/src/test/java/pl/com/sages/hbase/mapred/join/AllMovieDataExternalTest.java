@@ -2,10 +2,7 @@ package pl.com.sages.hbase.mapred.join;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hbase.HBaseConfiguration;
-import org.apache.hadoop.hbase.HColumnDescriptor;
-import org.apache.hadoop.hbase.HTableDescriptor;
 import org.apache.hadoop.hbase.TableName;
-import org.apache.hadoop.hbase.client.HBaseAdmin;
 import org.apache.hadoop.hbase.client.Scan;
 import org.apache.hadoop.hbase.mapreduce.TableMapReduceUtil;
 import org.apache.hadoop.mapreduce.Job;
@@ -13,8 +10,9 @@ import org.junit.Before;
 import org.junit.Test;
 import pl.com.sages.hbase.api.dao.MovieDao;
 import pl.com.sages.hbase.api.dao.RatingDao;
-import pl.com.sages.hbase.api.util.HBaseUtil;
+import pl.com.sages.hbase.api.util.HBaseTableBuilder;
 import pl.com.sages.hbase.mapred.movies.AverageRatingMapper;
+import pl.com.sages.hbase.mapred.movies.MovieAverageRatingsConstants;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -31,28 +29,18 @@ public class AllMovieDataExternalTest {
 
     @Before
     public void before() throws IOException {
-        HBaseAdmin admin = new HBaseAdmin(configuration);
-
-        boolean exists = admin.tableExists(TABLE_NAME);
-        if (exists) {
-            admin.disableTable(TABLE_NAME);
-            admin.deleteTable(TABLE_NAME);
-        }
-
-        // tworzenie tabeli HBase
-        HTableDescriptor table = new HTableDescriptor(TABLE_NAME);
-        table.addFamily(new HColumnDescriptor(FAMILY_NAME));
-        table.addFamily(new HColumnDescriptor(MovieDao.CF));
-        table.addFamily(new HColumnDescriptor(RatingDao.CF));
-
-        admin.createTable(table);
+        new HBaseTableBuilder()
+                .withTable(TABLE_NAME)
+                .withFamily(FAMILY_NAME)
+                .withFamily(MovieDao.CF)
+                .withFamily(RatingDao.CF)
+                .build();
     }
 
     @Test
     public void shouldJoinTables() throws Exception {
         //given
-
-        Job job = new Job(configuration, "All movie data");
+        Job job = Job.getInstance(configuration, "All movie data");
         job.setJarByClass(AverageRatingMapper.class);
 
         List<Scan> scans = new ArrayList<>();
@@ -62,7 +50,7 @@ public class AllMovieDataExternalTest {
         scans.add(scan1);
 
         Scan scan2 = new Scan();
-        scan2.setAttribute(Scan.SCAN_ATTRIBUTES_TABLE_NAME, HBaseUtil.getUserTableName("ratings_average").toBytes());
+        scan2.setAttribute(Scan.SCAN_ATTRIBUTES_TABLE_NAME, MovieAverageRatingsConstants.TABLE_NAME.toBytes());
         scans.add(scan2);
 
         TableMapReduceUtil.initTableMapperJob(scans,
@@ -74,6 +62,7 @@ public class AllMovieDataExternalTest {
                 TABLE_NAME.getNameAsString(),
                 null,
                 job);
+        // Brak redukcji, join w maperze!
         job.setNumReduceTasks(0);
 
         //when

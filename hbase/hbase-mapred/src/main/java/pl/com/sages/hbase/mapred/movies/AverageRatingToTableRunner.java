@@ -1,29 +1,26 @@
 package pl.com.sages.hbase.mapred.movies;
 
 import org.apache.hadoop.conf.Configuration;
-import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.hbase.HBaseConfiguration;
 import org.apache.hadoop.hbase.client.Scan;
 import org.apache.hadoop.hbase.mapreduce.TableMapReduceUtil;
 import org.apache.hadoop.io.DoubleWritable;
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.mapreduce.Job;
-import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
-import org.junit.Test;
 import pl.com.sages.hbase.api.dao.RatingDao;
-import pl.com.sages.hbase.mapred.file.RatingExportReducer;
+import pl.com.sages.hbase.api.util.HBaseUtil;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static pl.com.sages.hbase.mapred.movies.MovieAverageRatingsConstants.*;
 
-/**
- * Wyliczenie średniej oceny dla filmu i zapisanie jej w pliku
- */
-public class AverageRatingToFileExternalTest {
+public class AverageRatingToTableRunner {
 
-    @Test
-    public void shouldRunMapReduce() throws Exception {
-        //given
+    public static void main(String[] args) throws Exception {
+        HBaseUtil.recreateTable(TABLE_NAME, FAMILY_NAME);
+
         Configuration configuration = HBaseConfiguration.create();
+        configuration.set(AverageRatingReducer.FAMILY, FAMILY_NAME);
+        configuration.set(AverageRatingReducer.QUALIFIER, QUALIFIER_NAME);
+
         Job job = Job.getInstance(configuration, "Average Rating");
         job.setJarByClass(AverageRatingMapper.class);
 
@@ -39,16 +36,12 @@ public class AverageRatingToFileExternalTest {
                 IntWritable.class,
                 DoubleWritable.class,
                 job);
-        // reduktor standardowo jak w zwykłym MR
-        job.setReducerClass(RatingExportReducer.class);
-        job.setNumReduceTasks(1);
-        FileOutputFormat.setOutputPath(job, new Path("/tmp/mr/mySummaryFile_" + System.currentTimeMillis()));
+        TableMapReduceUtil.initTableReducerJob(
+                TABLE_NAME.getNameAsString(),
+                AverageRatingReducer.class,
+                job);
 
-        //when
-        boolean succeeded = job.waitForCompletion(true);
-
-        //then
-        assertThat(succeeded).isTrue();
+        System.exit(job.waitForCompletion(true) ? 0 : 1);
     }
 
 }
