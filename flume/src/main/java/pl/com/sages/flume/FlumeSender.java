@@ -1,7 +1,5 @@
 package pl.com.sages.flume;
 
-import sun.awt.windows.ThemeReader;
-
 public class FlumeSender {
 
     public static void main(String[] args) {
