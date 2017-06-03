@@ -1,6 +1,5 @@
 package pl.com.sages.hadoop.hdfs;
 
-import junit.framework.Assert;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.*;
 import org.apache.hadoop.io.IOUtils;
@@ -12,23 +11,28 @@ import org.junit.Test;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import static junit.framework.Assert.assertFalse;
+import static junit.framework.Assert.assertTrue;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class HdfsApiExternalTest {
 
-    public static final String LOCAL_OUTPUT_PATH = "/tmp/iris.csv";
+    private static final String USER = System.getProperty("user.name");
+    private static final String USER_HOME = "/user/" + USER;
+    private static final int BUFF_SIZE = 4096;
 
-    public static final String HDFS_INPUT_PATH = "/tmp/hdfs_iris.csv";
-    public static final String HDFS_OUTPUT_PATH = "/tmp/hdfs-write-test.txt";
+    private static final String HDFS_INPUT_PATH = USER_HOME + "/iris.csv";
+    private static final String HDFS_OUTPUT_PATH = USER_HOME + "/hdfs-write-test.csv";
+    private static final String LOCAL_OUTPUT_PATH = "/tmp/" + USER + "_iris.csv";
 
     private FileSystem fs;
 
     @Before
-    public void createRemoteFileSystem() throws IOException {
-        // System.setProperty("HADOOP_USER_NAME", System.getenv("HADOOP_HDFS_USER"));
+    public void before() throws IOException {
 
         Configuration conf = new Configuration(false);
         conf.addResource(this.getClass().getClassLoader().getResourceAsStream("hdfs-configuration.xml"));
@@ -36,22 +40,21 @@ public class HdfsApiExternalTest {
         fs = FileSystem.get(conf);
 
         // przygotowanie danych
-        new File(LOCAL_OUTPUT_PATH).delete();
-        fs.delete(new Path(HDFS_OUTPUT_PATH), true);
+        cleanFiles();
 
         FSDataOutputStream outputStream = fs.create(new Path(HDFS_INPUT_PATH), true);
         try {
-            IOUtils.copyBytes(this.getClass().getClassLoader().getResourceAsStream("iris.csv"), outputStream, 4096);
+            IOUtils.copyBytes(getTestFileInputStream(), outputStream, BUFF_SIZE);
         } finally {
             IOUtils.closeStream(outputStream);
         }
     }
 
     @After
-    public void after() throws IOException {
+    public void cleanFiles() throws IOException {
+        new File(LOCAL_OUTPUT_PATH).delete();
         fs.delete(new Path(HDFS_INPUT_PATH), true);
         fs.delete(new Path(HDFS_OUTPUT_PATH), true);
-        fs.delete(new Path("/tmp/very"), true);
     }
 
     @Test
@@ -102,7 +105,7 @@ public class HdfsApiExternalTest {
 
         // when
         try {
-            IOUtils.copyBytes(inputStream, new FileOutputStream(new File(LOCAL_OUTPUT_PATH)), 4096);
+            IOUtils.copyBytes(inputStream, new FileOutputStream(new File(LOCAL_OUTPUT_PATH)), BUFF_SIZE);
         } finally {
             IOUtils.closeStream(inputStream);
         }
@@ -112,24 +115,24 @@ public class HdfsApiExternalTest {
     }
 
     @Test
-    public void shouldWriteFileOnHDFS() throws Exception {
+    public void shouldWriteFileToHDFS() throws Exception {
         // given
 
         // when
         FSDataOutputStream outputStream = fs.create(new Path(HDFS_OUTPUT_PATH), true);
         try {
-            IOUtils.copyBytes(this.getClass().getClassLoader().getResourceAsStream("iris.csv"), outputStream, 4096);
+            IOUtils.copyBytes(getTestFileInputStream(), outputStream, BUFF_SIZE);
         } finally {
             IOUtils.closeStream(outputStream);
         }
 
         // then
-        Assert.assertTrue(fs.exists(new Path(HDFS_OUTPUT_PATH)));
+        assertTrue(fs.exists(new Path(HDFS_OUTPUT_PATH)));
     }
 
     @Test
     public void shouldWriteFileWithProgress() throws Exception {
-        fs.delete(new Path(HDFS_OUTPUT_PATH), false);
+        // given
 
         // when
         FSDataOutputStream outputStream = fs.create(new Path(HDFS_OUTPUT_PATH), new Progressable() {
@@ -139,38 +142,38 @@ public class HdfsApiExternalTest {
             }
         });
         try {
-            IOUtils.copyBytes(this.getClass().getClassLoader().getResourceAsStream("iris.csv"), outputStream, 4096);
+            IOUtils.copyBytes(getTestFileInputStream(), outputStream, BUFF_SIZE);
         } finally {
             IOUtils.closeStream(outputStream);
         }
 
         // then
-        Assert.assertTrue(fs.exists(new Path(HDFS_OUTPUT_PATH)));
+        assertTrue(fs.exists(new Path(HDFS_OUTPUT_PATH)));
     }
 
-    //    @Test
+    @Test
     public void shouldCopyFromLocal() throws Exception {
         // given
-        fs.delete(new Path(HDFS_OUTPUT_PATH), false);
 
         // when
-        fs.copyFromLocalFile(new Path(this.getClass().getClassLoader().getResource("iris.csv").getFile()), new Path(HDFS_OUTPUT_PATH));
+        fs.copyFromLocalFile(new Path(getTestFilePath()), new Path(HDFS_OUTPUT_PATH));
 
         // then
-        Assert.assertTrue(fs.exists(new Path(HDFS_OUTPUT_PATH)));
+        assertTrue(fs.exists(new Path(HDFS_OUTPUT_PATH)));
     }
 
     @Test
     public void shouldCreateWholeDirectoryPath() throws Exception {
         // given
-        String veryLongPath = "/tmp/very/long/direcotry/path";
-        fs.delete(new Path("/tmp/very"), true);
+        fs.delete(new Path(USER_HOME + "/very"), true);
+        String veryLongDirecotryPath = USER_HOME + "/very/long/direcotry/path";
 
         // when
-        boolean created = fs.mkdirs(new Path(veryLongPath));
+        boolean created = fs.mkdirs(new Path(veryLongDirecotryPath));
 
         // then
-        Assert.assertTrue(created);
+        assertTrue(created);
+        fs.delete(new Path(USER_HOME + "/very"), true);
     }
 
     @Test
@@ -181,23 +184,24 @@ public class HdfsApiExternalTest {
         boolean renamed = fs.rename(new Path("/tmp/this/file/does/not/exists"), new Path("/tmp/some/path/to/file"));
 
         // then
-        Assert.assertFalse(renamed);
+        assertFalse(renamed);
     }
 
     @Test
     public void shouldSetAndGetReplication() throws Exception {
         // given
+        short targetReplication = (short) 5;
 
         // when
-        fs.setReplication(new Path(HDFS_INPUT_PATH), (short) 3);
+        fs.setReplication(new Path(HDFS_INPUT_PATH), targetReplication);
         FileStatus fileStatus = fs.getFileStatus(new Path(HDFS_INPUT_PATH));
         short replication = fileStatus.getReplication();
 
         // then
-        assertThat(replication).isEqualTo((short) 3);
+        assertThat(replication).isEqualTo(targetReplication);
     }
 
-    //    @Test
+    @Test
     public void shouldManageBlockLocation() throws Exception {
         // given
 
@@ -207,6 +211,14 @@ public class HdfsApiExternalTest {
 
         // then
         assertThat(fileBlockLocations.length).isGreaterThanOrEqualTo(1);
+    }
+
+    private InputStream getTestFileInputStream() {
+        return this.getClass().getClassLoader().getResourceAsStream("iris.csv");
+    }
+
+    private String getTestFilePath() {
+        return this.getClass().getClassLoader().getResource("iris.csv").getFile();
     }
 
 }
