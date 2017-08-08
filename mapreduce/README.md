@@ -41,7 +41,8 @@ hdfs dfs -put $HADOOP_PROJECT/mapreduce/src/main/python $HADOOP_HDFS_HOME
 ## Testy
 
 ```
-cat /home/sages/dane/lektury/aniol.txt | ./map.py | sort | ./reduce.py | sort | grep -v 1
+cat $HADOOP_DATA/lektury/aniol.txt | $HADOOP_PROJECT/mapreduce/src/main/python/map.py | sort \
+ | $HADOOP_PROJECT/mapreduce/src/main/python/reduce.py | sort | grep -v 1
 ```
 
 ## Uruchomienie zadania
@@ -50,10 +51,10 @@ cat /home/sages/dane/lektury/aniol.txt | ./map.py | sort | ./reduce.py | sort | 
 hdfs dfs -rm -f -r -skipTrash $HADOOP_HDFS_HOME/wyniki/lektury-one-file-wordcount-python-output
 
 hadoop jar /usr/hdp/2.6.1.0-129/hadoop-mapreduce/hadoop-streaming.jar \
--file /home/sages/repository/HADOOP/mapreduce/src/main/python/map.py \
--mapper /home/sages/repository/HADOOP/mapreduce/src/main/python/map.py \
--file /home/sages/repository/HADOOP/mapreduce/src/main/python/reduce.py \
--reducer /home/sages/repository/HADOOP/mapreduce/src/main/python/reduce.py \
+-file $HADOOP_PROJECT/mapreduce/src/main/python/map.py \
+-mapper $HADOOP_PROJECT/mapreduce/src/main/python/map.py \
+-file $HADOOP_PROJECT/mapreduce/src/main/python/reduce.py \
+-reducer $HADOOP_PROJECT/mapreduce/src/main/python/reduce.py \
 -input $HADOOP_HDFS_HOME/dane/lektury-one-file \
 -output $HADOOP_HDFS_HOME/wyniki/lektury-one-file-wordcount-python-output
 ~~~
