@@ -7,8 +7,8 @@ def reduce(lines):
     sum = 0
     for line in lines:
         key, value = line.split("<>")
-        if key != lastKey:
-            print("{0},{1}".format(key, sum))
+        if key != lastKey and lastKey is not None:
+            print("{0},{1}".format(lastKey, sum))
             sum = 0
 
         sum += int(value)
