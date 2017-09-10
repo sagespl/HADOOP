@@ -6,7 +6,7 @@
 ```
 hdfs dfs -mkdir -p $HADOOP_HDFS_HOME/dane
 
-hdfs dfs -copyFromLocal $HADOOP_DATA/lektury $HADOOP_HDFS_HOME/dane/
+hdfs dfs -copyFromLocal $HADOOP_DATA/lektury-all $HADOOP_HDFS_HOME/dane/
 hdfs dfs -copyFromLocal $HADOOP_DATA/lektury-100/ $HADOOP_HDFS_HOME/dane/
 hdfs dfs -copyFromLocal $HADOOP_DATA/lektury-one-file/ $HADOOP_HDFS_HOME/dane/
 ```
@@ -14,7 +14,7 @@ hdfs dfs -copyFromLocal $HADOOP_DATA/lektury-one-file/ $HADOOP_HDFS_HOME/dane/
 ## Uruchomienie projektu
 
 ```
-yarn jar $HADOOP_PROJECT/mapreduce/target/mapreduce-1.0-SNAPSHOT-job.jar pl.com.sages.hadoop.mapreduce.wordcount.WordCountRunner $HADOOP_HDFS_HOME/dane/lektury $HADOOP_HDFS_HOME/wyniki/lektury-wordcount-output
+yarn jar $HADOOP_PROJECT/mapreduce/target/mapreduce-1.0-SNAPSHOT-job.jar pl.com.sages.hadoop.mapreduce.wordcount.WordCountRunner $HADOOP_HDFS_HOME/dane/lektury-all $HADOOP_HDFS_HOME/wyniki/lektury-wordcount-output
 yarn jar $HADOOP_PROJECT/mapreduce/target/mapreduce-1.0-SNAPSHOT-job.jar pl.com.sages.hadoop.mapreduce.wordcount.WordCountRunner $HADOOP_HDFS_HOME/dane/lektury-100 $HADOOP_HDFS_HOME/wyniki/lektury-100-wordcount-output
 yarn jar $HADOOP_PROJECT/mapreduce/target/mapreduce-1.0-SNAPSHOT-job.jar pl.com.sages.hadoop.mapreduce.wordcount.WordCountRunner $HADOOP_HDFS_HOME/dane/lektury-one-file $HADOOP_HDFS_HOME/wyniki/lektury-one-file-wordcount-output
 
