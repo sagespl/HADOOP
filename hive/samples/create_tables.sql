@@ -1,6 +1,15 @@
+
+set hive.cli.print.current.db=true;
+
+-- stworzenie bazy danych
+DROP database if exists sages;
+CREATE database sages;
 use sages;
 
 
+
+
+-- tabela filmów
 drop table if exists movies;
 
 CREATE TABLE IF NOT EXISTS movies (
@@ -12,27 +21,27 @@ ROW FORMAT DELIMITED FIELDS TERMINATED BY '@';
 LOAD DATA LOCAL INPATH '/home/sages/dane/movie/movies.dat'
 OVERWRITE INTO TABLE movies;
 
-
+-- tabela ocen
 drop table if exists ratings;
 
 CREATE TABLE IF NOT EXISTS ratings (
 UserID STRING,
 MovieID STRING,
 Rating STRING,
-Timestamp STRING)
+Time STRING)
 ROW FORMAT DELIMITED FIELDS TERMINATED BY '@';
 
 LOAD DATA LOCAL INPATH '/home/sages/dane/movie/ratings.dat'
 OVERWRITE INTO TABLE ratings;
 
-
+-- tabela takgów
 drop table if exists tags;
 
 CREATE TABLE IF NOT EXISTS tags (
 UserID STRING,
 MovieID STRING,
 Tag STRING,
-Timestamp STRING)
+Time STRING)
 ROW FORMAT DELIMITED FIELDS TERMINATED BY '@';
 
 LOAD DATA LOCAL INPATH '/home/sages/dane/movie/tags.dat'
