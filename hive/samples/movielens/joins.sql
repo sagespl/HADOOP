@@ -4,7 +4,7 @@
 select m.movieid, m.title, m.genres, t.tag
 from movies m
 JOIN tags t on t.movieid = m.movieid
-limit 100;
+limit 10;
 
 select m.movieid, m.title, m.genres, t.tag
 from movies m
