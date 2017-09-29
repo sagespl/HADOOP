@@ -358,8 +358,8 @@
         <profile>
             <id>hdp</id>
             <properties>
-                <fs.defaultFS>hdfs://hdp7:8020</fs.defaultFS>
-                <hbase.zookeeper.quorum>hdp3,hdp4,hdp7</hbase.zookeeper.quorum>
+                <fs.defaultFS>hdfs://hdp4:8020</fs.defaultFS>
+                <hbase.zookeeper.quorum>hdp1,hdp4,hdp5</hbase.zookeeper.quorum>
                 <phoenix.connection>jdbc:phoenix:hdp3:/hbase-unsecure</phoenix.connection>
             </properties>
             <activation>
