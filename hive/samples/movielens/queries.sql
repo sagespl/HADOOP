@@ -6,9 +6,6 @@ select * from eratings limit 10;
 select * from tags limit 10;
 select * from etags limit 10;
 
-select * from movies;
-select * from movies limit 10;
-
 describe movies;
 describe formatted movies;
 
