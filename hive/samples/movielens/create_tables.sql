@@ -1,10 +1,19 @@
 
 set hive.cli.print.current.db=true;
 
+-- wyczyszczenie bazy danych
+use radek;
+drop table if exists movies;
+drop table if exists ratings;
+drop table if exists tags;
+drop table if exists emovies;
+drop table if exists eratings;
+drop table if exists etags;
+
 -- stworzenie bazy danych
-DROP database if exists sages;
-CREATE database sages;
-use sages;
+DROP database if exists radek;
+CREATE database radek;
+use radek;
 
 
 
@@ -18,7 +27,7 @@ Title STRING,
 Genres STRING)
 ROW FORMAT DELIMITED FIELDS TERMINATED BY '@';
 
-LOAD DATA LOCAL INPATH '/home/sages/dane/movielens/hive/movies.dat'
+LOAD DATA LOCAL INPATH '/home/radek/dane/movielens/hive/movies.dat'
 OVERWRITE INTO TABLE movies;
 
 -- tabela ocen
@@ -31,7 +40,7 @@ Rating STRING,
 Time STRING)
 ROW FORMAT DELIMITED FIELDS TERMINATED BY '@';
 
-LOAD DATA LOCAL INPATH '/home/sages/dane/movielens/hive/ratings.dat'
+LOAD DATA LOCAL INPATH '/home/radek/dane/movielens/hive/ratings.dat'
 OVERWRITE INTO TABLE ratings;
 
 -- tabela takgów
@@ -44,7 +53,7 @@ Tag STRING,
 Time STRING)
 ROW FORMAT DELIMITED FIELDS TERMINATED BY '@';
 
-LOAD DATA LOCAL INPATH '/home/sages/dane/movielens/hive/tags.dat'
+LOAD DATA LOCAL INPATH '/home/radek/dane/movielens/hive/tags.dat'
 OVERWRITE INTO TABLE tags;
 
 
@@ -58,7 +67,7 @@ MovieID STRING,
 Title STRING,
 Genres STRING)
 ROW FORMAT DELIMITED FIELDS TERMINATED BY '@'
-LOCATION '/user/sages/dane/movie/movies';
+LOCATION '/user/radek/dane/movie/movies';
 
 
 drop table if exists eratings;
@@ -69,7 +78,7 @@ MovieID STRING,
 Rating STRING,
 Time STRING)
 ROW FORMAT DELIMITED FIELDS TERMINATED BY '@'
-LOCATION '/user/sages/dane/movie/ratings';
+LOCATION '/user/radek/dane/movie/ratings';
 
 
 drop table if exists etags;
@@ -80,15 +89,6 @@ MovieID STRING,
 Tag STRING,
 Time STRING)
 ROW FORMAT DELIMITED FIELDS TERMINATED BY '@'
-LOCATION '/user/sages/dane/movie/tags';
-
-
+LOCATION '/user/radek/dane/movie/tags';
 
 show tables;
-
-select * from movies limit 10;
-select * from emovies limit 10;
-select * from ratings limit 10;
-select * from eratings limit 10;
-select * from tags limit 10;
-select * from etags limit 10;

@@ -1,4 +1,11 @@
 
+select * from movies limit 10;
+select * from emovies limit 10;
+select * from ratings limit 10;
+select * from eratings limit 10;
+select * from tags limit 10;
+select * from etags limit 10;
+
 select * from movies;
 select * from movies limit 10;
 
