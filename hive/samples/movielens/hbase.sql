@@ -41,12 +41,6 @@ WITH SERDEPROPERTIES ('hbase.columns.mapping' = ':key#b,tags:userId#b,tags:movie
 TBLPROPERTIES ('hbase.table.name' = 'radek:tags');
 
 
-select * from usershb limit 10;
-select * from movieshb limit 10;
-select * from tagshb limit 10;
-select * from ratingshb limit 10;
-
-select avg(rating) from ratingshb;
 
 
 
