@@ -63,15 +63,3 @@ select * from movies where title rlike '.*(Hulk|Spiderman|Avengers|Batman).*';
 select avg(rating) from ratings;
 select userid, avg(rating) from ratings GROUP BY userid limit 10;
 select userid, avg(rating) from ratings GROUP BY userid HAVING avg(rating) >= 4 limit 10;
-
-
-
-
-set hbase.zookeeper.quorum=sandbox.hortonworks.com
-set hbase.zookeeper.property.clientPort=2181
-set zookeeper.znode.parent=/hbase-unsecure
-
-CREATE TABLE foo(rowkey STRING, a STRING, b STRING)
-STORED BY 'org.apache.hadoop.hive.hbase.HBaseStorageHandler'
-WITH SERDEPROPERTIES ('hbase.columns.mapping' = ':key,f:c1,f:c2')
-TBLPROPERTIES ('hbase.table.name' = 'users');
