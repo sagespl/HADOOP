@@ -1,13 +1,15 @@
 
+-- describe
+describe movies;
+describe formatted movies;
+
+-- select
 select * from movies limit 10;
 select * from emovies limit 10;
 select * from ratings limit 10;
 select * from eratings limit 10;
 select * from tags limit 10;
 select * from etags limit 10;
-
-describe movies;
-describe formatted movies;
 
 select movieid, title from movies limit 10;
 select m.movieid, m.title from movies m limit 10;
