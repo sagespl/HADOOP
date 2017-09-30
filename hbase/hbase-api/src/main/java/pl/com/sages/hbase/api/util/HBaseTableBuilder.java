@@ -7,6 +7,7 @@ import org.apache.hadoop.hbase.TableName;
 import org.apache.hadoop.hbase.client.Admin;
 import org.apache.hadoop.hbase.util.Bytes;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,11 +48,7 @@ public class HBaseTableBuilder {
 
             // recreating namespace
             String namespace = tableName.getNamespaceAsString();
-            NamespaceDescriptor namespaceDescriptor;
-            if (!HBaseUtil.namespaceExists(namespace, admin)) {
-                namespaceDescriptor = NamespaceDescriptor.create(namespace).build();
-                admin.createNamespace(namespaceDescriptor);
-            }
+            HBaseUtil.createNamespaceIfNotExists(namespace, admin);
 
             if (admin.tableExists(tableName)) {
                 if (!admin.isTableDisabled(tableName)) {

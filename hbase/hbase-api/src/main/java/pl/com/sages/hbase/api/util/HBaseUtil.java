@@ -26,6 +26,14 @@ public abstract class HBaseUtil {
         return TableName.valueOf(userName, tableName);
     }
 
+    public static void createNamespaceIfNotExists(final String namespace, final Admin admin) throws IOException {
+        NamespaceDescriptor namespaceDescriptor;
+        if (!HBaseUtil.namespaceExists(namespace, admin)) {
+            namespaceDescriptor = NamespaceDescriptor.create(namespace).build();
+            admin.createNamespace(namespaceDescriptor);
+        }
+    }
+
     public static boolean namespaceExists(final String namespace, final Admin admin) throws IOException {
         NamespaceDescriptor[] namespaceDescriptors = admin.listNamespaceDescriptors();
         for (NamespaceDescriptor namespaceDescriptor : namespaceDescriptors) {
