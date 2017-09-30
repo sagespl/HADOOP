@@ -1,4 +1,9 @@
 
+-- engine
+set hive.execution.engine=tez;
+set hive.execution.engine=mr;
+set hive.execution.engine=spark;
+
 -- describe
 describe movies;
 describe formatted movies;
