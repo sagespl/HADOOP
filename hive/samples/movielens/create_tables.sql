@@ -18,7 +18,7 @@ Title STRING,
 Genres STRING)
 ROW FORMAT DELIMITED FIELDS TERMINATED BY '@';
 
-LOAD DATA LOCAL INPATH '/home/sages/dane/movie/movies.dat'
+LOAD DATA LOCAL INPATH '/home/sages/dane/movielens/hive/movies.dat'
 OVERWRITE INTO TABLE movies;
 
 -- tabela ocen
@@ -31,7 +31,7 @@ Rating STRING,
 Time STRING)
 ROW FORMAT DELIMITED FIELDS TERMINATED BY '@';
 
-LOAD DATA LOCAL INPATH '/home/sages/dane/movie/ratings.dat'
+LOAD DATA LOCAL INPATH '/home/sages/dane/movielens/hive/ratings.dat'
 OVERWRITE INTO TABLE ratings;
 
 -- tabela takgów
@@ -44,7 +44,7 @@ Tag STRING,
 Time STRING)
 ROW FORMAT DELIMITED FIELDS TERMINATED BY '@';
 
-LOAD DATA LOCAL INPATH '/home/sages/dane/movie/tags.dat'
+LOAD DATA LOCAL INPATH '/home/sages/dane/movielens/hive/tags.dat'
 OVERWRITE INTO TABLE tags;
 
 
