@@ -1,0 +1,5 @@
+52.207.242.143   ip-172-31-4-251.ec2.internal     hdp1
+52.90.126.90     ip-172-31-6-214.ec2.internal     hdp2
+54.234.107.148   ip-172-31-7-83.ec2.internal      hdp3
+107.21.165.251   ip-172-31-13-182.ec2.internal    hdp4
+54.208.146.71    ip-172-31-15-128.ec2.internal    hdp5
