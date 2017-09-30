@@ -1,8 +1,8 @@
 
 -- engine
 set hive.execution.engine=tez;
-set hive.execution.engine=mr;
 set hive.execution.engine=spark;
+set hive.execution.engine=mr;
 
 -- describe
 describe movies;
