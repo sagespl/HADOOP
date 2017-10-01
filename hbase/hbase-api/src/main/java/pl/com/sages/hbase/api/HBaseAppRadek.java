@@ -10,7 +10,7 @@ import java.util.List;
 
 public class HBaseAppRadek {
 
-    private static final TableName JAVA_TABLE = TableName.valueOf("radek", "java"); // radek:java
+    private static final TableName JAVA_TABLE = HBaseUtil.getUserTableName("java"); // radek:java
     private static final String FAMILY_NAME = "cf1";
     private static final String ID = "id";
     private static final String CELL_1 = "cell1";
