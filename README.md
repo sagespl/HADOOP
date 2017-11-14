@@ -36,3 +36,21 @@ unzip ml-10m.zip
 # Ambari
 
 http://sandbox.hortonworks.com:8080
+
+# Adresy i porty
+
+VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 delete "namenode"
+VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 delete "datanodes"
+VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 delete "jobtracker"
+VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 delete "tasktracker"
+VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 delete "hbase"
+VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 delete "allapps"
+VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 delete "hue"
+
+VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 "namenode,tcp,,50070,,50070"
+VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 "datanodes,tcp,,50075,,50075"
+VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 "jobtracker,tcp,,50030,,50030"
+VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 "tasktracker,tcp,,50060,,50060"
+VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 "hbase,tcp,,60010,,60010"
+VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 "allapps,tcp,,58088,,8088"
+VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 "hue,tcp,,58888,,8888"
