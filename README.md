@@ -32,3 +32,7 @@ unzip ml-latest.zip
 unzip ml-20m.zip
 unzip ml-10m.zip
 ```
+
+# Ambari
+
+http://sandbox.hortonworks.com:8080
