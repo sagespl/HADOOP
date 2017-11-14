@@ -39,16 +39,20 @@ http://sandbox.hortonworks.com:8080
 
 # Adresy i porty
 
+VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 delete "ssh"
+VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 delete "ambari"
 VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 delete "namenode"
-VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 delete "datanodes"
+VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 delete "datanode"
 VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 delete "jobtracker"
 VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 delete "tasktracker"
 VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 delete "hbase"
 VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 delete "allapps"
 VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 delete "hue"
 
+VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 "ssh,tcp,,2222,,22"
+VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 "ambari,tcp,,8080,,8080"
 VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 "namenode,tcp,,50070,,50070"
-VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 "datanodes,tcp,,50075,,50075"
+VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 "datanode,tcp,,50075,,50075"
 VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 "jobtracker,tcp,,50030,,50030"
 VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 "tasktracker,tcp,,50060,,50060"
 VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 "hbase,tcp,,60010,,60010"
