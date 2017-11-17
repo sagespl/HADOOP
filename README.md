@@ -46,6 +46,8 @@ VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 delete "Nam
 VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 delete "NameNodeMetadata"
 VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 delete "DataNodeHttp"
 VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 delete "DataNodeHttps"
+VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 delete "ResourceManagerUI"
+VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 delete "JobHistoryUI"
 
 VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 "SSH,tcp,,2222,,22"
 VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 "Ambari,tcp,,8080,,8080"
@@ -54,3 +56,5 @@ VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 "NameNodeHt
 VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 "NameNodeMetadata,tcp,,8020,,8020"
 VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 "DataNodeHttp,tcp,,50075,,50075"
 VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 "DataNodeHttps,tcp,,50475,,50475"
+VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 "ResourceManagerUI,tcp,,8088,,8088"
+VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 "JobHistoryUI,tcp,,19888,,19888"
