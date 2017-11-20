@@ -21,16 +21,20 @@ public class HdfsManager {
 
         DistributedFileSystem dfs = (DistributedFileSystem) fs;
         SnapshottableDirectoryStatus[] stats = dfs.getSnapshottableDirListing();
-        for (SnapshottableDirectoryStatus stat : stats) {
+        if (stats != null) {
+            for (SnapshottableDirectoryStatus stat : stats) {
 
-            Path snapshotableDirectory = stat.getFullPath();
-            System.out.println(snapshotableDirectory);
+                Path snapshotableDirectory = stat.getFullPath();
+                System.out.println(snapshotableDirectory);
 
-            FileStatus[] fileStatuses = dfs.listStatus(new Path(snapshotableDirectory, ".snapshot"));
-            for (FileStatus fileStatus : fileStatuses) {
-                String snapshotName = fileStatus.getPath().getName();
-                System.out.println("Usuwam snapshot: " + snapshotName);
-                dfs.deleteSnapshot(snapshotableDirectory, snapshotName);
+                FileStatus[] fileStatuses = dfs.listStatus(new Path(snapshotableDirectory, ".snapshot"));
+                for (FileStatus fileStatus : fileStatuses) {
+                    String snapshotName = fileStatus.getPath().getName();
+                    System.out.println("Usuwam snapshot: " + snapshotName);
+                    dfs.deleteSnapshot(snapshotableDirectory, snapshotName);
+                }
+
+                dfs.disallowSnapshot(snapshotableDirectory);
             }
         }
 
