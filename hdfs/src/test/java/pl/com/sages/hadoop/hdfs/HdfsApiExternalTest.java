@@ -194,10 +194,10 @@ public class HdfsApiExternalTest {
 
         // when
         fs.setReplication(new Path(HDFS_INPUT_PATH), targetReplication);
-        FileStatus fileStatus = fs.getFileStatus(new Path(HDFS_INPUT_PATH));
-        short replication = fileStatus.getReplication();
 
         // then
+        FileStatus fileStatus = fs.getFileStatus(new Path(HDFS_INPUT_PATH));
+        short replication = fileStatus.getReplication();
         assertThat(replication).isEqualTo(targetReplication);
     }
 
