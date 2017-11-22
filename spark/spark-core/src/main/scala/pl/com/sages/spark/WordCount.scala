@@ -18,7 +18,7 @@ object WordCount extends GlobalParameters {
     // delete result directory and save result on HDFS
     import org.apache.hadoop.fs.{FileSystem, Path}
     FileSystem.get(sc.hadoopConfiguration).delete(new Path(resultPath), true)
-    wordCount.saveAsTextFile(resultPath)
+    wordCount.coalesce(1).saveAsTextFile(resultPath)
 
     // end
     sc.stop()
