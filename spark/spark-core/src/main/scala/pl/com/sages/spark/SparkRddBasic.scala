@@ -22,7 +22,7 @@ object SparkRddBasic extends GlobalParameters {
 
     // flatMap
     val phraseRdd = sc.parallelize(List("Ala ma kota", "Witaj świecie", "Dwadzieścia tysięcy mil podmorskiej żeglugi"))
-    val words = phraseRdd.flatMap(line => line.split(" "))
+    val words = phraseRdd.flatMap(_.split(" "))
     println(words.collect().mkString("\n"))
 
     // filter
@@ -81,6 +81,14 @@ object SparkRddBasic extends GlobalParameters {
     nums.foreach(x => println(x))
     def f(x:Int) = println(x)
     nums.foreach(f)
+
+    // actions
+    nums.first()
+    nums.take(3)
+    nums.top(3)
+    nums.takeSample(true,3)
+    nums.takeOrdered(3)
+    nums.takeOrdered(3)(Ordering[Int].reverse)
 
     // end
     sc.stop()
