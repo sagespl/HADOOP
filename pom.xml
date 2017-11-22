@@ -28,6 +28,7 @@
     <properties>
         <!-- dependency versions -->
         <hadoop.version>[2.7.1]</hadoop.version>
+        <spark.version>[2.1.1]</spark.version>
         <avro.version>1.7.7</avro.version>
         <hive.version>1.2.1</hive.version>
         <pig.version>0.15.0</pig.version>
@@ -41,12 +42,14 @@
         <mahout.version>0.9</mahout.version>
         <kafka.version>0.10.1.1</kafka.version>
         <datanucleus.version>4.1.1</datanucleus.version>
-        <spark.version>2.1.1</spark.version>
+
         <!-- Java 7 -->
         <maven.compiler.source>1.7</maven.compiler.source>
         <maven.compiler.target>1.7</maven.compiler.target>
+
         <!--Scala-->
-        <scala.version>2.11.8</scala.version>
+        <scala.version>[2.11.8]</scala.version>
+
         <!-- UTF-8 -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
