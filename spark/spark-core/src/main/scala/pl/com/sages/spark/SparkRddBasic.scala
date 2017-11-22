@@ -21,14 +21,13 @@ object SparkRddBasic extends GlobalParameters {
     println(squared.collect().mkString("\n"))
 
     // flatMap
-    val phraseRdd = sc.parallelize(List("Ala ma kota", "Witaj świecie", "Dwadzieścia tysięcy mil podmorskiej żeglugi"))
-    val words = phraseRdd.flatMap(_.split(" "))
+    val lines = sc.parallelize(List("Ala ma kota", "Witaj świecie", "Dwadzieścia tysięcy mil podmorskiej żeglugi"))
+    val words = lines.flatMap(_.split(" "))
     println(words.collect().mkString("\n"))
 
     // filter
-    val filteredLines = phraseRdd.filter(line => line.contains("kot"))
-    filteredLines.count()
-    filteredLines.first()
+    val filteredLines = lines.filter(line => line.contains("kot"))
+    println(filteredLines.collect().mkString("\n"))
 
     // distinct
     val distinct = nums.distinct()
