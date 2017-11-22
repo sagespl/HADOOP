@@ -33,6 +33,15 @@ unzip ml-20m.zip
 unzip ml-10m.zip
 ```
 
+# Załadowanie na HDFS'a
+~~~
+hdfs dfs -copyFromLocal $HADOOP_DATA/ml-10M100K $HADOOP_HDFS_HOME/dane/
+hdfs dfs -copyFromLocal $HADOOP_DATA/ml-20m $HADOOP_HDFS_HOME/dane/
+hdfs dfs -copyFromLocal $HADOOP_DATA/ml-latest $HADOOP_HDFS_HOME/dane/
+
+hdfs dfs -du -h $HADOOP_HDFS_HOME/dane
+~~~
+
 # Ambari
 
 http://sandbox.hortonworks.com:8080
