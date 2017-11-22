@@ -2,7 +2,7 @@ package pl.com.sages.spark
 
 trait GlobalParameters {
 
-  val bookPath: String = "/user/sages/dane/lektury-100"
+  val bookPath: String = "/user/sages/dane/lektury-all"
 
   val moviesPath: String = "/user/sages/dane/ml-10M100K/movies.dat"
   val tagsPath: String = "/user/sages/dane/ml-10M100K/tags.dat"

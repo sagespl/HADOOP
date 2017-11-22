@@ -1,6 +1,5 @@
 package pl.com.sages.spark
 
-import org.apache.hadoop.fs.{FileSystem, Path}
 import org.apache.spark.{SparkConf, SparkContext}
 
 object SparkRddBasic extends GlobalParameters {
@@ -23,6 +22,8 @@ object SparkRddBasic extends GlobalParameters {
 
     result.take(10).foreach(println)
 
+    // delete result directory and save result on HDFS
+    import org.apache.hadoop.fs.{FileSystem, Path}
     var hdfs = FileSystem.get(sc.hadoopConfiguration)
     hdfs.delete(new Path(resultPath), true)
     result.saveAsTextFile(resultPath)
