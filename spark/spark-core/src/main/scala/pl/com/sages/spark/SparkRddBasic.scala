@@ -77,6 +77,11 @@ object SparkRddBasic extends GlobalParameters {
     val countByValue = nums.countByValue()
     print(countByValue)
 
+    // foreach
+    nums.foreach(x => println(x))
+    def f(x:Int) = println(x)
+    nums.foreach(f)
+
     // end
     sc.stop()
   }
