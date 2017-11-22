@@ -2,25 +2,26 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
 
+    <modelVersion>4.0.0</modelVersion>
     <groupId>pl.com.sages</groupId>
     <artifactId>hadoop</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
+    <name>Sages Big Data Training</name>
 
     <modules>
         <module>cascading</module>
+        <module>data-model</module>
         <module>flume</module>
         <module>hbase</module>
         <module>hdfs</module>
         <module>hive</module>
+        <module>kafka</module>
+        <module>mahout</module>
         <module>mapreduce</module>
         <module>oozie</module>
         <module>pig</module>
-        <module>mahout</module>
-        <module>data-model</module>
-        <module>kafka</module>
         <module>spark</module>
     </modules>
 
