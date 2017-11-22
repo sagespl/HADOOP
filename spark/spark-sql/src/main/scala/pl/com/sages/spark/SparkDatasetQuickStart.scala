@@ -2,7 +2,7 @@ package pl.com.sages.spark
 
 import org.apache.spark.sql.SparkSession
 
-object SparkDatasetQuickStart {
+object SparkDatasetQuickStart extends GlobalParameters {
 
   def main(args: Array[String]): Unit = {
 
@@ -11,10 +11,8 @@ object SparkDatasetQuickStart {
     // Implicit methods available in Scala for converting common Scala objects into DataFrames/Datasets
     import spark.implicits._
 
-    spark.version
-
     // reading from HDFS
-    val textFile = spark.read.textFile("/user/sages/dane/lektury-100")
+    val textFile = spark.read.textFile(bookPath)
 
     textFile.count()
     textFile.first()
@@ -33,6 +31,7 @@ object SparkDatasetQuickStart {
     wordCounts.show(10)
     wordCounts.sort($"count(1)".desc).show(10)
 
+    // end
     spark.stop()
   }
 
