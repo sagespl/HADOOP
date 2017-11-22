@@ -14,11 +14,12 @@ object WordCount extends GlobalParameters {
     val booksRdd = sc.textFile(bookPath)
     val wordsRdd = booksRdd.flatMap(_.split(" "))
     val wordCount = wordsRdd.map(x => (x, 1)).reduceByKey((x, y) => x + y)
+    val sortedWordCount = wordCount.sortBy(p => p._2, ascending = false)
 
     // delete result directory and save result on HDFS
     import org.apache.hadoop.fs.{FileSystem, Path}
     FileSystem.get(sc.hadoopConfiguration).delete(new Path(resultPath), true)
-    wordCount.coalesce(1).saveAsTextFile(resultPath)
+    sortedWordCount.coalesce(1).saveAsTextFile(resultPath)
 
     // end
     sc.stop()
