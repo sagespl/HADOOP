@@ -54,6 +54,23 @@ object SparkRddBasic extends GlobalParameters {
     val cartesian = rdd1.cartesian(rdd2)
     println(cartesian.collect().mkString(", "))
 
+    // reduce
+    val reduceSum = nums.reduce((x, y) => x + y)
+    println(reduceSum)
+
+    // fold
+    val foldSum = nums.fold(0)((x, y) => x + y)
+    println(foldSum)
+
+    // aggregate
+    val aggregateResult = nums.aggregate((0, 0))(
+      (acc, value) => (acc._1 + value, acc._2 + 1),
+      (acc1, acc2) => (acc1._1 + acc2._1, acc1._2 + acc2._2)
+    )
+    println(aggregateResult)
+    val aggreagetAvg = aggregateResult._1.toDouble / aggregateResult._2.toDouble
+    println(aggreagetAvg)
+
     // end
     sc.stop()
   }
