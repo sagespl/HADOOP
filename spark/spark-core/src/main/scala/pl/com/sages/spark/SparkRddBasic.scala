@@ -11,22 +11,28 @@ object SparkRddBasic extends GlobalParameters {
     val sc = new SparkContext(conf)
 
     // run
-    val movies = sc.textFile(moviesPath)
-    movies.take(10).foreach(println)
 
-    val result = sc.textFile(moviesPath).
-      map(_.split(movielensSeparator)(2)).
-      flatMap(_.split("\\|")).
-      map(genre => (genre, 1)).
-      reduceByKey((x, y) => x + y)
+    // creating RDD
+    val foodRdd = sc.parallelize(List("pizza", "hamburger", "lasagne"))
 
-    result.take(10).foreach(println)
+    // map
+    val nums = sc.parallelize(List(1, 2, 2, 3, 4, 4, 5))
+    val squared = nums.map(x => x * x)
+    println(squared.collect().mkString("\n"))
 
-    // delete result directory and save result on HDFS
-    import org.apache.hadoop.fs.{FileSystem, Path}
-    var hdfs = FileSystem.get(sc.hadoopConfiguration)
-    hdfs.delete(new Path(resultPath), true)
-    result.saveAsTextFile(resultPath)
+    // flatMap
+    val phraseRdd = sc.parallelize(List("Ala ma kota", "Witaj świecie", "Dwadzieścia tysięcy mil podmorskiej żeglugi"))
+    val words = phraseRdd.flatMap(line => line.split(" "))
+    println(words.collect().mkString("\n"))
+
+    // filter
+    val filteredLines = phraseRdd.filter(line => line.contains("kot"))
+    filteredLines.count()
+    filteredLines.first()
+
+    // distinct
+    val distinct = nums.distinct()
+    println(distinct.collect().mkString(", "))
 
     // end
     sc.stop()
