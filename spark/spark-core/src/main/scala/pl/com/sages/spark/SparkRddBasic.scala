@@ -71,6 +71,12 @@ object SparkRddBasic extends GlobalParameters {
     val aggreagetAvg = aggregateResult._1.toDouble / aggregateResult._2.toDouble
     println(aggreagetAvg)
 
+    // count & countByValue
+    val count = nums.count()
+    print(count)
+    val countByValue = nums.countByValue()
+    print(countByValue)
+
     // end
     sc.stop()
   }
