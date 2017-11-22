@@ -34,6 +34,26 @@ object SparkRddBasic extends GlobalParameters {
     val distinct = nums.distinct()
     println(distinct.collect().mkString(", "))
 
+    // sample
+    val sample = nums.sample(false, 0.5)
+    println(sample.collect().mkString(", "))
+
+    // union, intersection, subtract, cartesian
+    val rdd1 = sc.parallelize(List(1, 2, 3, 4, 5))
+    val rdd2 = sc.parallelize(List(4, 5, 6, 7))
+
+    val union = rdd1.union(rdd2)
+    println(union.collect().mkString(", "))
+
+    val intersection = rdd1.intersection(rdd2)
+    println(intersection.collect().mkString(", "))
+
+    val subtract = rdd1.subtract(rdd2)
+    println(subtract.collect().mkString(", "))
+
+    val cartesian = rdd1.cartesian(rdd2)
+    println(cartesian.collect().mkString(", "))
+
     // end
     sc.stop()
   }
