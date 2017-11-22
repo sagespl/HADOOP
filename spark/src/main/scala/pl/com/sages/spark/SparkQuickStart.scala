@@ -32,6 +32,8 @@ object SparkQuickStart {
 
     // word count (traditional MapReduce)
     val wordCounts = textFile.flatMap(line => line.split(" ")).groupByKey(identity).count()
+    wordCounts.show(10)
+    wordCounts.sort($"count(1)".desc).show(10)
   }
 
 }
