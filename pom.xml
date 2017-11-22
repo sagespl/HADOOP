@@ -21,6 +21,7 @@
         <module>mahout</module>
         <module>data-model</module>
         <module>kafka</module>
+        <module>spark</module>
     </modules>
 
     <properties>
@@ -39,6 +40,7 @@
         <mahout.version>0.9</mahout.version>
         <kafka.version>0.10.1.1</kafka.version>
         <datanucleus.version>4.1.1</datanucleus.version>
+        <spark.version>2.1.1</spark.version>
         <!-- Java 7 -->
         <maven.compiler.source>1.7</maven.compiler.source>
         <maven.compiler.target>1.7</maven.compiler.target>
@@ -223,6 +225,34 @@
                 <groupId>org.scala-lang</groupId>
                 <artifactId>scala-library</artifactId>
                 <version>${scala.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.spark</groupId>
+                <artifactId>spark-core_2.11</artifactId>
+                <version>${spark.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.spark</groupId>
+                <artifactId>spark-sql_2.11</artifactId>
+                <version>${spark.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.spark</groupId>
+                <artifactId>spark-streaming_2.11</artifactId>
+                <version>${spark.version}</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.spark</groupId>
+                <artifactId>spark-mllib_2.11</artifactId>
+                <version>${spark.version}</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.spark</groupId>
+                <artifactId>spark-hive_2.11</artifactId>
+                <version>${spark.version}</version>
             </dependency>
 
             <!-- log4j -->
