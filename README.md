@@ -39,6 +39,7 @@ http://sandbox.hortonworks.com:8080
 
 # Adresy i porty
 
+~~~
 VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 delete "SSH"
 VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 delete "Ambari"
 VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 delete "NameNodeHttp"
@@ -58,3 +59,10 @@ VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 "DataNodeHt
 VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 "DataNodeHttps,tcp,,50475,,50475"
 VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 "ResourceManagerUI,tcp,,8088,,8088"
 VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 "JobHistoryUI,tcp,,19888,,19888"
+~~~
+
+# SSH
+
+~~~
+ssh -L 50070:localhost:50070 sages@localhost -p 2222
+~~~
