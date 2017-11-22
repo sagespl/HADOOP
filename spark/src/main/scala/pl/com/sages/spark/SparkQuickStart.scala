@@ -24,8 +24,10 @@ object SparkQuickStart {
     textFile.first()
 
     // filtering lines
-    val linesWithSpark = textFile.filter(line => line.contains("wolnelektury"))
-    linesWithSpark.count()
+    val filteredDataset = textFile.filter(line => line.contains("wolnelektury"))
+    filteredDataset.count()
+    filteredDataset.cache()
+    filteredDataset.count()
 
     // longest line in dataset (simple MapReduce)
     textFile.map(line => line.split(" ").size).reduce((a, b) => if (a > b) a else b)
