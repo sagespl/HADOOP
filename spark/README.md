@@ -25,3 +25,11 @@ spark-shell --master yarn
 export SPARK_MAJOR_VERSION=2
 pyspark
 ~~~
+
+# Build i SCP
+~~~
+cd $HADOOP_PROJECT/spark
+mvn clean install -DskipTests=true
+scp -r $HADOOP_PROJECT/spark/spark-core/target/spark-core-1.0-SNAPSHOT-job.jar sandbox://tmp
+scp -r $HADOOP_PROJECT/spark/spark-sql/target/spark-sql-1.0-SNAPSHOT-job.jar sandbox://tmp
+~~~
