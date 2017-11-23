@@ -50,6 +50,10 @@ object SparkDatasetBasic extends GlobalParameters {
     val subtract = ds1.except(ds2)
     println(subtract.collect().mkString(", "))
 
+    val cross = ds1.crossJoin(ds2)
+    println(cross.collect().mkString(", "))
+
+    spark.conf.set("spark.sql.crossJoin.enabled", "true")
     val cartesian = ds1.join(ds2)
     println(cartesian.collect().mkString(", "))
 
