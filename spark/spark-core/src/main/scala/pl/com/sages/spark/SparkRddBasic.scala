@@ -14,6 +14,7 @@ object SparkRddBasic extends GlobalParameters {
 
     // creating RDD
     val foodRdd = sc.parallelize(List("pizza", "hamburger", "lasagne"))
+    foodRdd.collect().foreach(println)
 
     // map
     val nums = sc.parallelize(List(1, 2, 2, 3, 4, 4, 5))
