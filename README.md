@@ -56,8 +56,14 @@ VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 delete "Nam
 VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 delete "NameNodeMetadata"
 VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 delete "DataNodeHttp"
 VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 delete "DataNodeHttps"
+VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 delete "DataNodeData"
+VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 delete "DataNodeDatas"
+VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 delete "DataNodeMetadata"
+VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 delete "SecondaryNameNodeHttp"
 VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 delete "ResourceManagerUI"
 VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 delete "JobHistoryUI"
+
+VBoxManage showvminfo "Hortonworks Data Platform Sandbox 2.6" | grep Rule
 
 VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 "SSH,tcp,,2222,,22"
 VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 "Ambari,tcp,,8080,,8080"
@@ -66,8 +72,14 @@ VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 "NameNodeHt
 VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 "NameNodeMetadata,tcp,,8020,,8020"
 VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 "DataNodeHttp,tcp,,50075,,50075"
 VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 "DataNodeHttps,tcp,,50475,,50475"
+VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 "DataNodeData,tcp,,50010,,50010"
+VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 "DataNodeDatas,tcp,,1019,,1019"
+VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 "DataNodeMetadata,tcp,,50020,,50020"
+VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 "SecondaryNameNodeHttp,tcp,,50090,,50090"
 VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 "ResourceManagerUI,tcp,,8088,,8088"
 VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 "JobHistoryUI,tcp,,19888,,19888"
+
+VBoxManage showvminfo "Hortonworks Data Platform Sandbox 2.6" | grep Rule
 ~~~
 
 # SSH
