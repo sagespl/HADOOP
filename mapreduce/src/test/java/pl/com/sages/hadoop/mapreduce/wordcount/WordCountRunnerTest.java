@@ -41,10 +41,11 @@ public class WordCountRunnerTest {
     @Test
     public void shouldCountWords() throws Exception {
         //given
-        FileSystem fs = FileSystem.get(new Configuration());
+        Configuration conf = new Configuration();
+        FileSystem fs = FileSystem.get(conf);
         fs.delete(new Path(outputPath), true);
 
-        Job job = WordCountRunner.createJob(new Path(inputPath), new Path(outputPath));
+        Job job = WordCountRunner.createJob(new Path(inputPath), new Path(outputPath), conf);
 
         //when
         job.waitForCompletion(true);

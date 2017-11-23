@@ -21,16 +21,17 @@ public class WordCountRunner {
         Path outputPath = new Path(args[1]);
         System.out.println(outputPath);
 
-        FileSystem fs = FileSystem.get(new Configuration());
+        Configuration conf = new Configuration();
+
+        FileSystem fs = FileSystem.get(conf);
         fs.delete(outputPath, true);
 
-        Job job = createJob(inputPath, outputPath);
+        Job job = createJob(inputPath, outputPath, conf);
 
         System.exit(job.waitForCompletion(true) ? 0 : 1);
     }
 
-    public static Job createJob(Path inputPath, Path outputPath) throws IOException {
-        Configuration conf = new Configuration();
+    public static Job createJob(final Path inputPath, final Path outputPath, final Configuration conf) throws IOException {
         Job job = Job.getInstance(conf, "word count");
         job.setJarByClass(WordCountRunner.class);
         job.setMapperClass(WordCountMapper.class);
