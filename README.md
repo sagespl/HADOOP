@@ -48,6 +48,8 @@ http://sandbox.hortonworks.com:8080
 
 # Adresy i porty
 
+https://docs.hortonworks.com/HDPDocuments/HDP2/HDP-2.6.2/bk_reference/content/reference_chap2.html
+
 ~~~
 VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 delete "SSH"
 VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 delete "Ambari"
