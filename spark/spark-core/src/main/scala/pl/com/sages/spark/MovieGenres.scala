@@ -12,6 +12,7 @@ object MovieGenres extends GlobalParameters {
 
     // run
     val movies = sc.textFile(moviesPath)
+
     movies.take(10).foreach(println)
 
     val result = sc.textFile(moviesPath).

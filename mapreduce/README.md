@@ -58,3 +58,15 @@ hadoop jar /usr/hdp/2.6.1.0-129/hadoop-mapreduce/hadoop-streaming.jar \
 -input $HADOOP_HDFS_HOME/dane/lektury-one-file \
 -output $HADOOP_HDFS_HOME/wyniki/lektury-one-file-wordcount-python-output
 ~~~
+
+# YARN
+
+https://hadoop.apache.org/docs/stable/hadoop-yarn/hadoop-yarn-site/YarnCommands.html
+
+~~~
+yarn application -list
+
+yarn application -kill application_1511465812466_0004
+
+yarn logs -applicationId application_1511465812466_0004
+~~~
