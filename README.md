@@ -86,7 +86,9 @@ VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 "SparkHisto
 VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 "Spark2HistoryUI,tcp,,18081,,18081"
 
 VBoxManage showvminfo "Hortonworks Data Platform Sandbox 2.6" | grep Rule
+~~~
 
+~~~
 VBoxManage startvm "Hortonworks Data Platform Sandbox 2.6"
 VBoxManage startvm "Hortonworks Data Platform Sandbox 2.6" --type headless
 ~~~
@@ -94,5 +96,6 @@ VBoxManage startvm "Hortonworks Data Platform Sandbox 2.6" --type headless
 # SSH
 
 ~~~
+ssh sages@localhost -p 2222
 ssh -L 50070:localhost:50070 sages@localhost -p 2222
 ~~~
