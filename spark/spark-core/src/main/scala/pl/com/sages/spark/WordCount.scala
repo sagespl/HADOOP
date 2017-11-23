@@ -11,7 +11,8 @@ object WordCount extends GlobalParameters {
     val sc = new SparkContext(conf)
 
     // run
-    val booksRdd = sc.textFile(bookPath)
+    val booksRdd = sc.textFile(bookPath).coalesce(10)
+
     val wordsRdd = booksRdd.flatMap(_.split(" "))
     val wordCount = wordsRdd.map(x => (x, 1)).reduceByKey((x, y) => x + y)
     val sortedWordCount = wordCount.sortBy(p => p._2, ascending = false)
