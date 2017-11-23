@@ -39,9 +39,15 @@ object MovieLensDataset extends GlobalSqlParameters {
       withColumnRenamed("_c2", "genres").
       as[Movie]
 
+    // show
     moviesDataFrame.show(10)
     moviesDataset.show(10)
 
+    // SQL ;)
+    moviesDataFrame.printSchema()
+    moviesDataFrame.select("title").show()
+    moviesDataFrame.groupBy("genres").count().show()
+    moviesDataFrame.filter($"title".contains("2005")).show()
 
     // end
     spark.stop()
