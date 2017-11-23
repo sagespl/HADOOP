@@ -14,6 +14,7 @@ object SparkDatasetBasic extends GlobalSqlParameters {
 
     // creating RDD
     val foodDs = List("pizza", "hamburger", "lasagne").toDS()
+    foodDs.show
 
     // map
     val nums = List(1, 2, 2, 3, 4, 4, 5).toDS()
