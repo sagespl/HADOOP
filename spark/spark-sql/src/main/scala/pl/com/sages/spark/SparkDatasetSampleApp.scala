@@ -2,12 +2,12 @@ package pl.com.sages.spark
 
 import org.apache.spark.sql.SparkSession
 
-object SparkDatasetSampleApp {
+object SparkDatasetSampleApp extends GlobalSqlParameters {
 
   def main(args: Array[String]) {
-    val spark = SparkSession.builder.appName("Spark Dataset sample App").getOrCreate()
+    val spark = SparkSession.builder.appName(this.getClass.getSimpleName).getOrCreate()
 
-    val fileDataset = spark.read.textFile("/user/sages/dane/lektury-100").cache()
+    val fileDataset = spark.read.textFile(bookPath).cache()
     val numAs = fileDataset.filter(line => line.contains("a")).count()
     val numBs = fileDataset.filter(line => line.contains("b")).count()
     println(s"Lines with a: $numAs, Lines with b: $numBs")

@@ -2,11 +2,11 @@ package pl.com.sages.spark
 
 import org.apache.spark.sql.SparkSession
 
-object SparkDatasetQuickStart extends GlobalParameters {
+object SparkDatasetQuickStart extends GlobalSqlParameters {
 
   def main(args: Array[String]): Unit = {
 
-    val spark = SparkSession.builder.appName("Spark SQL start").getOrCreate()
+    val spark = SparkSession.builder.appName(this.getClass.getSimpleName).getOrCreate()
 
     // Implicit methods available in Scala for converting common Scala objects into DataFrames/Datasets
     import spark.implicits._

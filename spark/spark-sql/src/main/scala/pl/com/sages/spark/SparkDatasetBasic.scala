@@ -2,12 +2,12 @@ package pl.com.sages.spark
 
 import org.apache.spark.sql.SparkSession
 
-object SparkDatasetBasic extends GlobalParameters {
+object SparkDatasetBasic extends GlobalSqlParameters {
 
   def main(args: Array[String]): Unit = {
 
     // prepare
-    val spark = SparkSession.builder.appName("Spark SQL start").getOrCreate()
+    val spark = SparkSession.builder.appName(this.getClass.getSimpleName).getOrCreate()
     import spark.implicits._
 
     // run
