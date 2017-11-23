@@ -54,6 +54,7 @@ object SparkPairRddBasic extends GlobalParameters {
     x.join(y).take(10).foreach(println)
     x.leftOuterJoin(y).take(10).foreach(println)
     x.rightOuterJoin(y).take(10).foreach(println)
+    x.cogroup(y).take(10).foreach(println)
 
     // MapReduce v1
     val booksRdd = sc.textFile(bookPath)
