@@ -17,14 +17,14 @@ public class KafkaConsumerExample {
     public static void main(String[] args) {
 
         Properties consumerConfig = new Properties();
-        consumerConfig.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
+        consumerConfig.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092,localhost:9093,localhost:9094");
 //        consumerConfig.put(ConsumerConfig.GROUP_ID_CONFIG, "my-group" + new Random(System.currentTimeMillis()).nextInt());
         consumerConfig.put(ConsumerConfig.GROUP_ID_CONFIG, "my-group");
         consumerConfig.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
         consumerConfig.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.StringDeserializer");
         consumerConfig.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.StringDeserializer");
         KafkaConsumer<String, String> consumer = new KafkaConsumer<>(consumerConfig);
-        consumer.subscribe(Collections.singletonList("my-partitioned-topic"), new TestConsumerRebalanceListener());
+        consumer.subscribe(Collections.singletonList("my-super-topic"), new TestConsumerRebalanceListener());
 
         while (true) {
             ConsumerRecords<String, String> records = consumer.poll(10000);

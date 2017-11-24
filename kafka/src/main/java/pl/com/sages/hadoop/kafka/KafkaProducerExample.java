@@ -15,7 +15,7 @@ public class KafkaProducerExample {
     public static void main(String[] args) throws Exception {
 
         Properties props = new Properties();
-        props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
+        props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092,localhost:9093,localhost:9094");
         props.put(ProducerConfig.ACKS_CONFIG, "all");
         props.put(ProducerConfig.RETRIES_CONFIG, 0);
         props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.StringSerializer");
@@ -27,7 +27,7 @@ public class KafkaProducerExample {
             TestCallback callback = new TestCallback();
 
             for (long i = 0; i < 10; i++) {
-                ProducerRecord<String, String> data = new ProducerRecord<>("my-partitioned-topic", "key-" + i, "message-" + i);
+                ProducerRecord<String, String> data = new ProducerRecord<>("my-super-topic", "key-" + i, "message-" + i);
                 producer.send(data, callback);
             }
 
