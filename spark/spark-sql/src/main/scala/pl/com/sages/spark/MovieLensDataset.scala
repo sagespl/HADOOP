@@ -22,6 +22,17 @@ object MovieLensDataset extends GlobalSqlParameters {
       withColumnRenamed("_c1", "title").
       withColumnRenamed("_c2", "genres")
 
+    val ratingsDataFrame = spark.read.
+      option("header", "false").
+      option("charset", "UTF8").
+      option("delimiter", movielensSeparator).
+      option("inferSchema", "true").
+      csv(ratingsPath).
+      withColumnRenamed("_c0", "userId").
+      withColumnRenamed("_c1", "movieId").
+      withColumnRenamed("_c2", "rating").
+      withColumnRenamed("_c3", "timestamp")
+
     // data class
     case class Movie(movieId: String, title: String, genres: String)
     val movieEncoder = Seq(Movie("", "", "")).toDS
@@ -54,6 +65,16 @@ object MovieLensDataset extends GlobalSqlParameters {
 
     // transform
     moviesDataFrame.map(movie => "Movie: " + movie(1)).show()
+
+    // aggregation
+    val resultDF = ratingsDataFrame.
+      groupBy("movieId").
+      avg("rating").
+      as("r").
+      join(moviesDataFrame.as("m"), $"m.movieId" === $"r.movieId")
+
+    resultDF.show
+    resultDF.printSchema()
 
     // end
     spark.stop()
