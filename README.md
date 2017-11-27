@@ -54,6 +54,7 @@ https://hortonworks.com/tutorial/sandbox-port-forwarding-guide/section/1/
 ~~~
 VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 delete "SSH"
 VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 delete "Ambari"
+
 VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 delete "NameNodeHttp"
 VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 delete "NameNodeHttps"
 VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 delete "NameNodeMetadata"
@@ -65,6 +66,12 @@ VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 delete "Dat
 VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 delete "SecondaryNameNodeHttp"
 VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 delete "ResourceManagerUI"
 VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 delete "JobHistoryUI"
+
+VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 delete "HMaster"
+VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 delete "HMasterInfoWebUI"
+VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 delete "RegionServer"
+VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 delete "RegionServerInfo"
+
 VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 delete "SparkHistoryUI"
 VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 delete "Spark2HistoryUI"
 
@@ -72,6 +79,7 @@ VBoxManage showvminfo "Hortonworks Data Platform Sandbox 2.6" | grep Rule
 
 VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 "SSH,tcp,127.0.0.1,2222,,22"
 VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 "Ambari,tcp,127.0.0.1,8080,,8080"
+
 VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 "NameNodeHttp,tcp,127.0.0.1,50070,,50070"
 VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 "NameNodeHttps,tcp,127.0.0.1,50470,,50470"
 VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 "NameNodeMetadata,tcp,127.0.0.1,8020,,8020"
@@ -83,6 +91,12 @@ VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 "DataNodeMe
 VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 "SecondaryNameNodeHttp,tcp,127.0.0.1,50090,,50090"
 VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 "ResourceManagerUI,tcp,127.0.0.1,8088,,8088"
 VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 "JobHistoryUI,tcp,127.0.0.1,19888,,19888"
+
+VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 "HMaster,tcp,127.0.0.1,16000,,16000"
+VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 "HMasterInfoWebUI,tcp,127.0.0.1,16010,,16010"
+VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 "RegionServer,tcp,127.0.0.1,16020,,16020"
+VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 "RegionServerInfo,tcp,127.0.0.1,16030,,16030"
+
 VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 "SparkHistoryUI,tcp,127.0.0.1,18080,,18080"
 VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 "Spark2HistoryUI,tcp,127.0.0.1,18081,,18081"
 
@@ -98,6 +112,6 @@ VBoxManage startvm "Hortonworks Data Platform Sandbox 2.6" --type headless
 
 ~~~
 ssh sages@localhost -p 2222
-ssh -L 50070:localhost:50070 sages@localhost -L 8020:localhost:8020 -p 2222
+ssh -L 50070:localhost:50070 root@localhost -L 8020:localhost:8020 -p 2222
 ssh -L 9092:localhost:9092 sages@localhost -L 9093:localhost:9093 -L 9094:localhost:9094 -p 2222
 ~~~
