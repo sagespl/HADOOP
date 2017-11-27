@@ -65,6 +65,7 @@ VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 delete "Dat
 VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 delete "SecondaryNameNodeHttp"
 VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 delete "ResourceManagerUI"
 VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 delete "JobHistoryUI"
+VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 delete "Zookeeper"
 VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 delete "HMaster"
 VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 delete "HMasterInfoWebUI"
 VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 delete "RegionServer"
@@ -87,6 +88,7 @@ VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 "DataNodeMe
 VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 "SecondaryNameNodeHttp,tcp,127.0.0.1,50090,,50090"
 VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 "ResourceManagerUI,tcp,127.0.0.1,8088,,8088"
 VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 "JobHistoryUI,tcp,127.0.0.1,19888,,19888"
+VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 "Zookeeper,tcp,127.0.0.1,2181,,2181"
 VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 "HMaster,tcp,127.0.0.1,16000,,16000"
 VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 "HMasterInfoWebUI,tcp,127.0.0.1,16010,,16010"
 VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 "RegionServer,tcp,127.0.0.1,16020,,16020"
@@ -106,6 +108,6 @@ VBoxManage startvm "Hortonworks Data Platform Sandbox 2.6" --type headless
 
 ~~~
 ssh sages@localhost -p 2222
-ssh -L 50070:localhost:50070 root@localhost -L 8020:localhost:8020 -p 2222
+ssh -L 50070:localhost:50070 root@localhost -L 8020:localhost:8020 -L 2181:localhost:2181 -p 2222
 ssh -L 9092:localhost:9092 sages@localhost -L 9093:localhost:9093 -L 9094:localhost:9094 -p 2222
 ~~~
