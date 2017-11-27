@@ -7,12 +7,7 @@ object MovieLensDataset extends GlobalSqlParameters {
   def main(args: Array[String]): Unit = {
 
     val spark = SparkSession.builder.appName(this.getClass.getSimpleName).getOrCreate()
-
-    val sqlContext = spark.sqlContext
-    import sqlContext.implicits._
-
-    // data class
-//    case class Movie(movieId: String, title: String, genres: String)
+    import spark.implicits._
 
     // reading from HDFS
     val moviesDataset = spark.read.
