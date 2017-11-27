@@ -21,6 +21,18 @@ object MovieLensDataset extends GlobalSqlParameters {
       withColumnRenamed("_c2", "genres").
       as[Movie]
 
+    val ratingsDataset = spark.read.
+      option("header", "false").
+      option("charset", "UTF8").
+      option("delimiter", movielensSeparator).
+      option("inferSchema", "true").
+      csv(ratingsPath).
+      withColumnRenamed("_c0", "userId").
+      withColumnRenamed("_c1", "movieId").
+      withColumnRenamed("_c2", "rating").
+      withColumnRenamed("_c3", "timestamp").
+      as[Rating]
+
     // show
     moviesDataset.show(10)
 
@@ -37,7 +49,7 @@ object MovieLensDataset extends GlobalSqlParameters {
     moviesDataset.map(movie => "Movie: " + movie.title).show()
 
     // aggregation
-    val resultDF = moviesDataset.
+    val resultDF = ratingsDataset.
       groupBy("movieId").
       avg("rating").
       as("r").
