@@ -1,6 +1,7 @@
 package pl.com.sages.spark
 
 import org.apache.spark.sql.SparkSession
+import pl.com.sages.spark.model.{Movie, Rating}
 
 object MovieLensDataset extends GlobalSqlParameters {
 
