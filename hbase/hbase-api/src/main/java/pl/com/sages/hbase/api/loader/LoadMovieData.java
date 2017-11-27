@@ -14,7 +14,7 @@ import java.util.List;
 
 public class LoadMovieData extends HBaseLoader {
 
-    private static final String MOVIE_DATA = System.getenv("HADOOP_DATA") + "/movielens/ml-10M100K/movies.dat";
+    private static final String MOVIE_DATA = System.getenv("HADOOP_DATA") + "/ml-10M100K/movies.dat";
 
     public static void main(String[] args) throws IOException {
         new LoadMovieData().load();
