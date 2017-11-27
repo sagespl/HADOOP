@@ -7,12 +7,12 @@ object MovieLensDataset extends GlobalSqlParameters {
   def main(args: Array[String]): Unit = {
 
     val spark = SparkSession.builder.appName(this.getClass.getSimpleName).getOrCreate()
-    import spark.implicits._
+
+    val sqlContext = spark.sqlContext
+    import sqlContext.implicits._
 
     // data class
-    case class Movie(movieId: String, title: String, genres: String)
-    val movieEncoder = Seq(Movie("", "", "")).toDS
-    movieEncoder.show()
+//    case class Movie(movieId: String, title: String, genres: String)
 
     // reading from HDFS
     val moviesDataset = spark.read.
@@ -39,7 +39,7 @@ object MovieLensDataset extends GlobalSqlParameters {
     spark.sql("SELECT * FROM movies").show()
 
     // transform
-    moviesDataset.map(movie => "Movie: " + movie(1)).show()
+    moviesDataset.map(movie => "Movie: " + movie.title).show()
 
     // aggregation
     val resultDF = moviesDataset.
