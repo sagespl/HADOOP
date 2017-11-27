@@ -88,11 +88,11 @@ VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 "DataNodeMe
 VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 "SecondaryNameNodeHttp,tcp,127.0.0.1,50090,,50090"
 VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 "ResourceManagerUI,tcp,127.0.0.1,8088,,8088"
 VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 "JobHistoryUI,tcp,127.0.0.1,19888,,19888"
-VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 "Zookeeper,tcp,127.0.0.1,2181,,2181"
-VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 "HMaster,tcp,127.0.0.1,16000,,16000"
-VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 "HMasterInfoWebUI,tcp,127.0.0.1,16010,,16010"
-VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 "RegionServer,tcp,127.0.0.1,16020,,16020"
-VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 "RegionServerInfo,tcp,127.0.0.1,16030,,16030"
+#VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 "Zookeeper,tcp,127.0.0.1,2181,,2181"
+#VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 "HMaster,tcp,127.0.0.1,16000,,16000"
+#VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 "HMasterInfoWebUI,tcp,127.0.0.1,16010,,16010"
+#VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 "RegionServer,tcp,127.0.0.1,16020,,16020"
+#VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 "RegionServerInfo,tcp,127.0.0.1,16030,,16030"
 VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 "SparkHistoryUI,tcp,127.0.0.1,18080,,18080"
 VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 "Spark2HistoryUI,tcp,127.0.0.1,18081,,18081"
 
@@ -108,6 +108,6 @@ VBoxManage startvm "Hortonworks Data Platform Sandbox 2.6" --type headless
 
 ~~~
 ssh sages@localhost -p 2222
-ssh -L 50070:localhost:50070 root@localhost -L 8020:localhost:8020 -L 2181:localhost:2181 -p 2222
+ssh -L 50070:localhost:50070 root@localhost -L 8020:localhost:8020 -L 2181:localhost:2181 -L 16000:localhost:16000 -L 16010:localhost:16010 -L 16020:localhost:16020 -L 16030:localhost:16030 -p 2222
 ssh -L 9092:localhost:9092 sages@localhost -L 9093:localhost:9093 -L 9094:localhost:9094 -p 2222
 ~~~
