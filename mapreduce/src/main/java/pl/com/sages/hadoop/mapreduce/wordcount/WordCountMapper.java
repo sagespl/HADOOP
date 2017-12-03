@@ -9,7 +9,7 @@ import java.util.StringTokenizer;
 
 public class WordCountMapper extends Mapper<Object, Text, Text, IntWritable> {
 
-    public static final String DELIMITERS = " \t\n\r\f,.:;![]()'*\"„”";
+    private static final String DELIMITERS = " \t\n\r\f,.:;![]()'*\"„”";
 
     private final static IntWritable one = new IntWritable(1);
     private Text word = new Text();
