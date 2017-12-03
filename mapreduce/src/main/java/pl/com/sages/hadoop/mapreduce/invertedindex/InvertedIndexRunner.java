@@ -33,7 +33,6 @@ public class InvertedIndexRunner {
         Job job = Job.getInstance(conf, "inverted index");
         job.setJarByClass(InvertedIndexRunner.class);
         job.setMapperClass(InvertedIndexMapper.class);
-        job.setCombinerClass(InvertedIndexReducer.class);
         job.setReducerClass(InvertedIndexReducer.class);
         job.setOutputKeyClass(Text.class);
         job.setOutputValueClass(Text.class);
