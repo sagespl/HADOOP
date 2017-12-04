@@ -109,7 +109,7 @@ VBoxManage startvm "Hortonworks Data Platform Sandbox 2.6" --type headless
 # SSH
 
 ~~~
-ssh sages@localhost -p 2222
-ssh -L 50070:localhost:50070 root@localhost -L 8020:localhost:8020 -L 2181:localhost:2181 -L 16000:localhost:16000 -L 16020:localhost:16020 -p 2222
-ssh -L 9092:localhost:9092 sages@localhost -L 9093:localhost:9093 -L 9094:localhost:9094 -p 2222
+ssh root@localhost -p 2222
+ssh root@localhost -L 8020:localhost:8020 -L 50070:localhost:50070 -L 2181:localhost:2181 -L 16000:localhost:16000 -L 16020:localhost:16020 -p 2222
+ssh root@localhost -L 9092:localhost:9092 -L 9093:localhost:9093 -L 9094:localhost:9094 -p 2222
 ~~~
