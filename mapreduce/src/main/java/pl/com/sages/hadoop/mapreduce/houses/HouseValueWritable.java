@@ -1,4 +1,4 @@
-package pl.com.sages.hadoop.mapreduce.io;
+package pl.com.sages.hadoop.mapreduce.houses;
 
 import org.apache.hadoop.io.Writable;
 

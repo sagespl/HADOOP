@@ -1,4 +1,4 @@
-package pl.com.sages.hadoop.mapreduce;
+package pl.com.sages.hadoop.mapreduce.wordcount2;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.*;

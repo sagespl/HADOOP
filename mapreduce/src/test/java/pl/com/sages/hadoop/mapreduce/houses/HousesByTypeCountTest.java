@@ -1,4 +1,4 @@
-package pl.com.sages.hadoop.mapreduce;
+package pl.com.sages.hadoop.mapreduce.houses;
 
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.LongWritable;
@@ -6,7 +6,6 @@ import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mrunit.mapreduce.MapDriver;
 import org.apache.hadoop.mrunit.mapreduce.MapReduceDriver;
 import org.apache.hadoop.mrunit.mapreduce.ReduceDriver;
-
 import org.junit.Before;
 import org.junit.Test;
 
@@ -38,11 +37,11 @@ public class HousesByTypeCountTest {
     }
 
     @Test
-    public void testReducer () throws IOException {
+    public void testReducer() throws IOException {
         Text key = new Text(houseType);
         List<IntWritable> values = new ArrayList<>();
         LongWritable sum = new LongWritable(6);
-        for (int i=0; i < sum.get(); i++) {
+        for (int i = 0; i < sum.get(); i++) {
             values.add(new IntWritable(1));
         }
         reduceDriver.withInput(key, values);
@@ -51,7 +50,7 @@ public class HousesByTypeCountTest {
     }
 
     @Test
-    public void testMapReduce () throws IOException {
+    public void testMapReduce() throws IOException {
         LongWritable inKey = new LongWritable(0);
         Text inValue = new Text(dataLine);
 

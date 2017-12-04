@@ -1,4 +1,4 @@
-package pl.com.sages.hadoop.mapreduce;
+package pl.com.sages.hadoop.mapreduce.wordcount2;
 
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.LongWritable;
@@ -8,6 +8,7 @@ import org.apache.hadoop.mrunit.mapreduce.MapReduceDriver;
 import org.apache.hadoop.mrunit.mapreduce.ReduceDriver;
 import org.junit.Before;
 import org.junit.Test;
+import pl.com.sages.hadoop.mapreduce.wordcount2.WordCount;
 
 import java.io.IOException;
 import java.util.ArrayList;

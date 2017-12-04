@@ -1,9 +1,10 @@
-package pl.com.sages.hadoop.mapreduce;
+package pl.com.sages.hadoop.mapreduce.houses;
 
+import pl.com.sages.hadoop.mapreduce.avro.HouseKey;
+import pl.com.sages.hadoop.mapreduce.avro.HouseValue;
+import org.apache.avro.mapreduce.AvroJob;
 import org.apache.avro.mapred.AvroKey;
 import org.apache.avro.mapred.AvroValue;
-import org.apache.avro.mapreduce.AvroJob;
-import org.apache.avro.mapreduce.AvroKeyValueOutputFormat;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.conf.Configured;
 import org.apache.hadoop.fs.Path;
@@ -16,10 +17,9 @@ import org.apache.hadoop.mapreduce.Reducer;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.input.TextInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
+import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat;
 import org.apache.hadoop.util.Tool;
 import org.apache.hadoop.util.ToolRunner;
-import pl.com.sages.hadoop.mapreduce.avro.HouseKey;
-import pl.com.sages.hadoop.mapreduce.avro.HouseValue;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -28,7 +28,7 @@ import java.util.Date;
 /**
  * House Stats Avro
  */
-public class HousesStatsAvroFile extends Configured implements Tool {
+public class HousesStatsAvro extends Configured implements Tool {
 
     public static class Map extends Mapper<LongWritable, Text, AvroKey<HouseKey>, AvroValue<HouseValue>> {
         public static final int HOOD_COLUMN = 1;
@@ -64,18 +64,18 @@ public class HousesStatsAvroFile extends Configured implements Tool {
         }
     }
 
-    public static class Reduce extends Reducer<AvroKey<HouseKey>, AvroValue<HouseValue>, AvroKey<HouseKey>, AvroValue<HouseValue>> {
-        private HouseValue result = new HouseValue();
+    public static class Reduce extends Reducer<AvroKey<HouseKey>, AvroValue<HouseValue>, Text, NullWritable> {
+        private Text result = new Text();
 
         public void reduce (AvroKey<HouseKey> avroKey, Iterable<AvroValue<HouseValue>> avroValues, Context context)
                 throws IOException, InterruptedException {
             HouseKey key = avroKey.datum();
 
             long count = 0;
-            long grossArea = 0;
-            long landArea = 0;
+            float grossArea = 0;
+            float landArea = 0;
             long year = 0;
-            long price = 0;
+            float price = 0;
             for (AvroValue<HouseValue> v : avroValues) {
                 HouseValue value = v.datum();
                 count += value.getCount();
@@ -84,14 +84,10 @@ public class HousesStatsAvroFile extends Configured implements Tool {
                 year += value.getYearBuilt();
                 price += value.getSalePrice();
             }
-
-            result.setCount(count);
-            result.setGrossArea((int)(grossArea/count));
-            result.setLandArea((int) (landArea / count));
-            result.setYearBuilt((int) (year / count));
-            result.setSalePrice((int) (price / count));
-
-            context.write(avroKey, new AvroValue<HouseValue>(result));
+            result.set(String.format("%s\t%s\t%d\t%.2f\t%.2f\t%d\t%.2f",
+                    key.getType(), key.getHood(),
+                    count, grossArea / count, landArea / count, year / count, price / count));
+            context.write(result, NullWritable.get());
         }
     }
 
@@ -99,10 +95,10 @@ public class HousesStatsAvroFile extends Configured implements Tool {
     public int run(String[] args) throws Exception {
         Configuration conf = this.getConf();
 
-        Job job = Job.getInstance(conf, "houses-stats-avro-output");
-        job.setJarByClass(HousesStatsAvroFile.class);
-        job.setMapperClass(HousesStatsAvroFile.Map.class);
-        job.setReducerClass(HousesStatsAvroFile.Reduce.class);
+        Job job = Job.getInstance(conf, "houses-stats-avro");
+        job.setJarByClass(HousesStatsAvro.class);
+        job.setMapperClass(HousesStatsAvro.Map.class);
+        job.setReducerClass(HousesStatsAvro.Reduce.class);
 
         // Specify key / value
         AvroJob.setMapOutputKeySchema(job, HouseKey.getClassSchema());
@@ -118,16 +114,14 @@ public class HousesStatsAvroFile extends Configured implements Tool {
         String timeStamp = new SimpleDateFormat("yyyyMMddhhmmss").format(new Date());
         String outDir = String.format("%s/%s/%s", args[1], job.getJobName(), timeStamp);
         FileOutputFormat.setOutputPath(job, new Path(outDir));
-        AvroJob.setOutputKeySchema(job, HouseKey.getClassSchema());
-        AvroJob.setOutputValueSchema(job, HouseValue.getClassSchema());
-        job.setOutputFormatClass(AvroKeyValueOutputFormat.class);
+        job.setOutputFormatClass(TextOutputFormat.class);
 
         // Execute job and return status
         return job.waitForCompletion(true) ? 0 : 1;
     }
 
     public static void main(String[] args) throws Exception {
-        int res = ToolRunner.run(new Configuration(), new HousesStatsAvroFile(), args);
+        int res = ToolRunner.run(new Configuration(), new HousesStatsAvro(), args);
         System.exit(res);
     }
 }

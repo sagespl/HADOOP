@@ -1,19 +1,12 @@
-package pl.com.sages.hadoop.mapreduce;
+package pl.com.sages.hadoop.mapreduce.houses;
 
-import pl.com.sages.hadoop.mapreduce.avro.HouseKey;
-import pl.com.sages.hadoop.mapreduce.avro.HouseValue;
-import org.apache.avro.mapreduce.AvroJob;
-import org.apache.avro.mapred.AvroKey;
-import org.apache.avro.mapred.AvroValue;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.conf.Configured;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.NullWritable;
 import org.apache.hadoop.io.Text;
-import org.apache.hadoop.mapreduce.Job;
-import org.apache.hadoop.mapreduce.Mapper;
-import org.apache.hadoop.mapreduce.Reducer;
+import org.apache.hadoop.mapreduce.*;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.input.TextInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
@@ -26,11 +19,16 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * House Stats Avro
+ *  House Stats
  */
-public class HousesStatsAvro extends Configured implements Tool {
+public class HousesStats extends Configured implements Tool {
 
-    public static class Map extends Mapper<LongWritable, Text, AvroKey<HouseKey>, AvroValue<HouseValue>> {
+    public static enum KEYS {
+        MAPPED,
+        REDUCED
+    }
+
+    public static class Map extends Mapper<LongWritable, Text, HouseKeyWritable, HouseValueWritable> {
         public static final int HOOD_COLUMN = 1;
         public static final int TYPE_COLUMN = 2;
         public static final int LAND_AREA_COLUMN = 14;
@@ -41,43 +39,45 @@ public class HousesStatsAvro extends Configured implements Tool {
         public static final String NON_DIGIT_REGEX = "[^\\d]";
         public static final String EMPTY_STRING_REGEX = "";
 
-        private HouseKey houseKey = new HouseKey();
-        private HouseValue houseValue = new HouseValue();
+        private HouseKeyWritable houseKey = new HouseKeyWritable();
+        private HouseValueWritable houseValue = new HouseValueWritable();
 
         public void map(LongWritable key, Text value, Context context)
                 throws IOException, InterruptedException {
+            Counter counter = context.getCounter(KEYS.MAPPED);
+
             String[] dataLine = value.toString().split(",");
 
             houseKey.setHood(dataLine[HOOD_COLUMN]);
             houseKey.setType(dataLine[TYPE_COLUMN]);
 
-            //houseValue.setCount(new Long(1));
-            houseValue.setCount(1L);
+            houseValue.setCount(1);
 
             houseValue.setLandArea(Integer.parseInt(dataLine[LAND_AREA_COLUMN].replaceAll(NON_DIGIT_REGEX, EMPTY_STRING_REGEX)));
             houseValue.setGrossArea(Integer.parseInt(dataLine[GROSS_AREA_COLUMN].replaceAll(NON_DIGIT_REGEX, EMPTY_STRING_REGEX)));
             houseValue.setYearBuilt(Integer.parseInt(dataLine[YEAR_COLUMN].replaceAll(NON_DIGIT_REGEX, EMPTY_STRING_REGEX)));
-            houseValue.setSalePrice(Integer.parseInt(dataLine[PRICE_COLUMN].replace("$", EMPTY_STRING_REGEX).replaceAll(NON_DIGIT_REGEX, EMPTY_STRING_REGEX)));
+            houseValue.setSalePrice(Integer.parseInt(dataLine[PRICE_COLUMN].replaceAll(NON_DIGIT_REGEX, EMPTY_STRING_REGEX)));
 
-            context.write(new AvroKey<HouseKey>(houseKey),
-                          new AvroValue<HouseValue>(houseValue));
+            context.write(houseKey, houseValue);
+            counter.increment(1);
         }
     }
 
-    public static class Reduce extends Reducer<AvroKey<HouseKey>, AvroValue<HouseValue>, Text, NullWritable> {
+    public static class Reduce extends Reducer<HouseKeyWritable, HouseValueWritable, Text, NullWritable> {
         private Text result = new Text();
 
-        public void reduce (AvroKey<HouseKey> avroKey, Iterable<AvroValue<HouseValue>> avroValues, Context context)
+        public void reduce (HouseKeyWritable key, Iterable<HouseValueWritable> values, Context context)
                 throws IOException, InterruptedException {
-            HouseKey key = avroKey.datum();
+
+            Configuration conf = context.getConfiguration();
+            String v = conf.get("some.value");
 
             long count = 0;
             float grossArea = 0;
             float landArea = 0;
             long year = 0;
             float price = 0;
-            for (AvroValue<HouseValue> v : avroValues) {
-                HouseValue value = v.datum();
+            for (HouseValueWritable value : values) {
                 count += value.getCount();
                 grossArea += value.getGrossArea();
                 landArea += value.getLandArea();
@@ -88,21 +88,23 @@ public class HousesStatsAvro extends Configured implements Tool {
                     key.getType(), key.getHood(),
                     count, grossArea / count, landArea / count, year / count, price / count));
             context.write(result, NullWritable.get());
+            context.getCounter(KEYS.REDUCED).increment(1);
         }
     }
 
     @Override
     public int run(String[] args) throws Exception {
         Configuration conf = this.getConf();
+        conf.set("some.key", "value");
 
-        Job job = Job.getInstance(conf, "houses-stats-avro");
-        job.setJarByClass(HousesStatsAvro.class);
-        job.setMapperClass(HousesStatsAvro.Map.class);
-        job.setReducerClass(HousesStatsAvro.Reduce.class);
+        Job job = Job.getInstance(conf, "houses-stats");
+        job.setJarByClass(HousesStats.class);
+        job.setMapperClass(HousesStats.Map.class);
+        job.setReducerClass(HousesStats.Reduce.class);
 
         // Specify key / value
-        AvroJob.setMapOutputKeySchema(job, HouseKey.getClassSchema());
-        AvroJob.setMapOutputValueSchema(job, HouseValue.getClassSchema());
+        job.setMapOutputKeyClass(HouseKeyWritable.class);
+        job.setMapOutputValueClass(HouseValueWritable.class);
         job.setOutputKeyClass(Text.class);
         job.setOutputValueClass(NullWritable.class);
 
@@ -117,11 +119,17 @@ public class HousesStatsAvro extends Configured implements Tool {
         job.setOutputFormatClass(TextOutputFormat.class);
 
         // Execute job and return status
-        return job.waitForCompletion(true) ? 0 : 1;
+        int ret = job.waitForCompletion(true) ? 0 : 1;
+
+        Counters counters = job.getCounters();
+        System.out.printf("KEYS.MAPPED=%d\n", counters.findCounter(KEYS.MAPPED).getValue());
+        System.out.printf("KEYS.REDUCED=%d\n", counters.findCounter(KEYS.REDUCED).getValue());
+
+        return ret;
     }
 
     public static void main(String[] args) throws Exception {
-        int res = ToolRunner.run(new Configuration(), new HousesStatsAvro(), args);
+        int res = ToolRunner.run(new Configuration(), new HousesStats(), args);
         System.exit(res);
     }
 }

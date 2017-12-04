@@ -18,11 +18,11 @@
                 </property>
                 <property>
                     <name>mapreduce.map.class</name>
-                    <value>pl.com.sages.hadoop.mapreduce.WordCount$Map</value>
+                    <value>pl.com.sages.hadoop.mapreduce.wordcount2.WordCount$Map</value>
                 </property>
                 <property>
                     <name>mapreduce.reduce.class</name>
-                    <value>pl.com.sages.hadoop.mapreduce.WordCount$Reduce</value>
+                    <value>pl.com.sages.hadoop.mapreduce.wordcount2.WordCount$Reduce</value>
                 </property>
                 <property>
                     <name>mapred.output.key.class</name>

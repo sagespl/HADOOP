@@ -1,7 +1,8 @@
-package pl.com.sages.hadoop.mapreduce;
+package pl.com.sages.hadoop.mapreduce.houses;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.conf.Configured;
+import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
@@ -13,37 +14,37 @@ import org.apache.hadoop.mapreduce.lib.input.TextInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat;
 import org.apache.hadoop.util.Tool;
-import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.util.ToolRunner;
 
 import java.io.IOException;
-import java.util.StringTokenizer;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
- * Word Count
+ * House Count By Type
  */
-public class WordCount extends Configured implements Tool {
+public class HousesByTypeCount extends Configured implements Tool {
 
     public static class Map extends Mapper<LongWritable, Text, Text, IntWritable> {
+        public static final int TYPE_COLUMN = 2;
+
+        private Text houseType = new Text();
         private static IntWritable one = new IntWritable(1);
-        private Text word = new Text();
 
         public void map(LongWritable key, Text value, Context context)
                 throws IOException, InterruptedException {
-            StringTokenizer stringTokenizer = new StringTokenizer(value.toString());
-            while (stringTokenizer.hasMoreTokens()) {
-                word.set(stringTokenizer.nextToken());
-                context.write(word, one);
-            }
+            String[] dataLine = value.toString().split(",");
+            houseType.set(dataLine[TYPE_COLUMN]);
+            context.write(houseType, one);
         }
     }
 
-    public static class Reduce extends Reducer<Text, IntWritable, Text, IntWritable> {
-        private IntWritable result = new IntWritable();
+    public static class Reduce extends Reducer<Text, IntWritable, Text, LongWritable> {
+        private LongWritable result = new LongWritable();
 
         public void reduce (Text key, Iterable<IntWritable> values, Context context)
                 throws IOException, InterruptedException {
-            int sum = 0;
+            long sum = 0;
             for (IntWritable value : values) {
                 sum += value.get();
             }
@@ -56,26 +57,25 @@ public class WordCount extends Configured implements Tool {
     public int run(String[] args) throws Exception {
         Configuration conf = this.getConf();
 
-        Job job = Job.getInstance(conf, "word count");
-        job.setJarByClass(WordCount.class);
-        job.setMapperClass(WordCount.Map.class);
-        job.setCombinerClass(WordCount.Reduce.class);
-        job.setReducerClass(WordCount.Reduce.class);
-
-        //job.setReducerClass(IntSumReducer.class);
-        //job.setCombinerClass(IntSumReducer.class);
+        Job job = Job.getInstance(conf, "houses-by-type-count");
+        job.setJarByClass(HousesByTypeCount.class);
+        job.setMapperClass(HousesByTypeCount.Map.class);
+        job.setReducerClass(HousesByTypeCount.Reduce.class);
 
         // Specify key / value
+        job.setMapOutputKeyClass(Text.class);
+        job.setMapOutputValueClass(IntWritable.class);
         job.setOutputKeyClass(Text.class);
-        job.setOutputValueClass(IntWritable.class);
+        job.setOutputValueClass(LongWritable.class);
 
         // Input
         FileInputFormat.addInputPath(job, new Path(args[0]));
-        //FileInputFormat.addInputPath(job, new Path("/user/hue/jobsub/sample_data/midsummer.txt"));
         job.setInputFormatClass(TextInputFormat.class);
 
         // Output
-        FileOutputFormat.setOutputPath(job, new Path(args[1]));
+        String timeStamp = new SimpleDateFormat("yyyyMMddhhmmss").format(new Date());
+        String outDir = String.format("%s/%s/%s", args[1], job.getJobName(), timeStamp);
+        FileOutputFormat.setOutputPath(job, new Path(outDir));
         job.setOutputFormatClass(TextOutputFormat.class);
 
         // Execute job and return status
@@ -83,10 +83,7 @@ public class WordCount extends Configured implements Tool {
     }
 
     public static void main(String[] args) throws Exception {
-        //Configuration conf = HadoopConfFactory.getConfiguration();
-        Configuration conf = new Configuration();
-        int res = ToolRunner.run(conf, new WordCount(), args);
+        int res = ToolRunner.run(new Configuration(), new HousesByTypeCount(), args);
         System.exit(res);
     }
-
 }
