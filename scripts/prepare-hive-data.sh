@@ -20,3 +20,8 @@ sed -i -e 's/::/@/g' ratings.dat
 
 cd $HADOOP_DATA/movielens/hive/tags
 sed -i -e 's/::/@/g' tags.dat
+
+# Podsumowanie
+
+du -s -h $HADOOP_DATA
+tree -L 2 $HADOOP_DATA
