@@ -1,15 +1,22 @@
 
-cd $HADOOP_DATA
+cd $HADOOP_DATA/movielens
 pwd
 
-cd movielens
-rm -rf movie
-cp -r ml-10M100K movie
+rm -rf hive
+mkdir hive
+mkdir hive/movies
+mkdir hive/ratings
+mkdir hive/tags
 
-cd movie
+cp -r ml-10M100K/movies.dat hive/movies
+cp -r ml-10M100K/ratings.dat hive/ratings
+cp -r ml-10M100K/tags.dat hive/tags
+
+cd $HADOOP_DATA/movielens/hive/movies
 sed -i -e 's/::/@/g' movies.dat
+
+cd $HADOOP_DATA/movielens/hive/ratings
 sed -i -e 's/::/@/g' ratings.dat
+
+cd $HADOOP_DATA/movielens/hive/tags
 sed -i -e 's/::/@/g' tags.dat
-
-
-
