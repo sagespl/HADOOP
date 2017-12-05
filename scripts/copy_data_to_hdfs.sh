@@ -1,5 +1,5 @@
 
-HADOOP_USER_NAME=hdfs
+export HADOOP_USER_NAME=hdfs
 
 hdfs dfs -rm -r -skipTrash /dane
 
