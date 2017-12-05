@@ -6,9 +6,9 @@
 ```
 hdfs dfs -mkdir -p $HADOOP_HDFS_HOME/dane
 
-hdfs dfs -copyFromLocal $HADOOP_DATA/lektury-all $HADOOP_HDFS_HOME/dane/
-hdfs dfs -copyFromLocal $HADOOP_DATA/lektury-100/ $HADOOP_HDFS_HOME/dane/
-hdfs dfs -copyFromLocal $HADOOP_DATA/lektury-one-file/ $HADOOP_HDFS_HOME/dane/
+hdfs dfs -copyFromLocal $HADOOP_DATA/lektury/lektury-all $HADOOP_HDFS_HOME/dane/
+hdfs dfs -copyFromLocal $HADOOP_DATA/lektury/lektury-100/ $HADOOP_HDFS_HOME/dane/
+hdfs dfs -copyFromLocal $HADOOP_DATA/lektury/lektury-one-file/ $HADOOP_HDFS_HOME/dane/
 ```
 
 ## Uruchomienie projektu
@@ -41,7 +41,7 @@ hdfs dfs -put $HADOOP_PROJECT/mapreduce/src/main/python $HADOOP_HDFS_HOME
 ## Testy
 
 ```
-cat $HADOOP_DATA/lektury/aniol.txt | $HADOOP_PROJECT/mapreduce/src/main/python/map.py | sort \
+cat $HADOOP_DATA/lektury/lektury-all/aniol.txt | $HADOOP_PROJECT/mapreduce/src/main/python/map.py | sort \
  | $HADOOP_PROJECT/mapreduce/src/main/python/reduce.py | sort | grep -v 1
 ```
 

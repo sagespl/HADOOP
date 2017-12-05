@@ -17,31 +17,6 @@ export HADOOP_DATA=/home/sages/dane
 export HADOOP_PROJECT=/home/sages/repository/HADOOP
 ```
 
-# Przykładowe zbiory testowe
-
-MovieLens Dataset: https://grouplens.org/datasets/movielens/
-
-```
-cd $HADOOP_DATA
-
-wget http://files.grouplens.org/datasets/movielens/ml-latest.zip
-wget http://files.grouplens.org/datasets/movielens/ml-20m.zip
-wget http://files.grouplens.org/datasets/movielens/ml-10m.zip
-
-unzip ml-latest.zip
-unzip ml-20m.zip
-unzip ml-10m.zip
-```
-
-# Załadowanie na HDFS'a
-~~~
-hdfs dfs -copyFromLocal $HADOOP_DATA/ml-10M100K $HADOOP_HDFS_HOME/dane/
-hdfs dfs -copyFromLocal $HADOOP_DATA/ml-20m $HADOOP_HDFS_HOME/dane/
-hdfs dfs -copyFromLocal $HADOOP_DATA/ml-latest $HADOOP_HDFS_HOME/dane/
-
-hdfs dfs -du -h $HADOOP_HDFS_HOME/dane
-~~~
-
 # Ambari
 
 http://sandbox.hortonworks.com:8080
