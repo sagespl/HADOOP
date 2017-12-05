@@ -8,6 +8,7 @@ rm -rf lektury
 
 wget -O lektury.tar.gz https://github.com/radoslawszmit/BigDataTrainingDataset/blob/master/lektury.tar.gz?raw=true
 tar -zxf lektury.tar.gz
+mv lektury.tar.gz lektury
 
 # MovieLens Dataset: https://grouplens.org/datasets/movielens/
 
