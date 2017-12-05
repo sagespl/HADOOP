@@ -1,5 +1,14 @@
 #!/bin/sh
 
+# Lektury
+
+cd $HADOOP_DATA
+pwd
+rm -rf lektury
+
+wget -O lektury.tar.gz https://github.com/radoslawszmit/BigDataTrainingDataset/blob/master/lektury.tar.gz?raw=true
+tar -zxf lektury.tar.gz
+
 # MovieLens Dataset: https://grouplens.org/datasets/movielens/
 
 cd $HADOOP_DATA
@@ -28,15 +37,6 @@ cd mysql
 #wget http://downloads.mysql.com/docs/world_x-db.tar.gz
 wget http://downloads.mysql.com/docs/sakila-db.tar.gz
 #wget http://downloads.mysql.com/docs/menagerie-db.tar.gz
-
-# Lektury
-
-cd $HADOOP_DATA
-pwd
-rm -rf lektury
-
-wget https://github.com/radoslawszmit/BigDataTrainingDataset/blob/master/lektury.tar.gz?raw=true lektury.tar.gz
-tar -zxf lektury.tar.gz
 
 # Podsumowanie
 
