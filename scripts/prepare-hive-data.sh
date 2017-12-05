@@ -1,5 +1,8 @@
 
 cd $HADOOP_DATA
+pwd
+
+cd movielens
 rm -rf movie
 cp -r ml-10M100K movie
 
