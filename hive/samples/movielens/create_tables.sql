@@ -2,18 +2,19 @@
 set hive.cli.print.current.db=true;
 
 -- wyczyszczenie bazy danych
-use radek;
+use sages;
 drop table if exists movies;
 drop table if exists ratings;
 drop table if exists tags;
 drop table if exists emovies;
 drop table if exists eratings;
 drop table if exists etags;
+show tables;
 
 -- stworzenie bazy danych
-DROP database if exists radek;
-CREATE database radek;
-use radek;
+DROP database if exists sages;
+CREATE database sages;
+use sages;
 
 
 
@@ -27,7 +28,7 @@ Title STRING,
 Genres STRING)
 ROW FORMAT DELIMITED FIELDS TERMINATED BY '@';
 
-LOAD DATA LOCAL INPATH '/home/radek/dane/movielens/hive/movies/movies.dat'
+LOAD DATA LOCAL INPATH '/home/sages/dane/movielens/hive/movies/movies.dat'
 OVERWRITE INTO TABLE movies;
 
 -- tabela ocen
@@ -40,7 +41,7 @@ Rating STRING,
 Time STRING)
 ROW FORMAT DELIMITED FIELDS TERMINATED BY '@';
 
-LOAD DATA LOCAL INPATH '/home/radek/dane/movielens/hive/ratings/ratings.dat'
+LOAD DATA LOCAL INPATH '/home/sages/dane/movielens/hive/ratings/ratings.dat'
 OVERWRITE INTO TABLE ratings;
 
 -- tabela takgów
@@ -53,7 +54,7 @@ Tag STRING,
 Time STRING)
 ROW FORMAT DELIMITED FIELDS TERMINATED BY '@';
 
-LOAD DATA LOCAL INPATH '/home/radek/dane/movielens/hive/tags/tags.dat'
+LOAD DATA LOCAL INPATH '/home/sages/dane/movielens/hive/tags/tags.dat'
 OVERWRITE INTO TABLE tags;
 
 
@@ -67,7 +68,7 @@ MovieID STRING,
 Title STRING,
 Genres STRING)
 ROW FORMAT DELIMITED FIELDS TERMINATED BY '@'
-LOCATION '/user/radek/dane/movielens/hive/movies';
+LOCATION '/dane/movielens/hive/movies';
 
 
 drop table if exists eratings;
@@ -78,7 +79,7 @@ MovieID STRING,
 Rating STRING,
 Time STRING)
 ROW FORMAT DELIMITED FIELDS TERMINATED BY '@'
-LOCATION '/user/radek/dane/movielens/hive/ratings';
+LOCATION '/dane/movielens/hive/ratings';
 
 
 drop table if exists etags;
@@ -89,6 +90,6 @@ MovieID STRING,
 Tag STRING,
 Time STRING)
 ROW FORMAT DELIMITED FIELDS TERMINATED BY '@'
-LOCATION '/user/radek/dane/movielens/hive/tags';
+LOCATION '/dane/movielens/hive/tags';
 
 show tables;
