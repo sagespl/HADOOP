@@ -39,7 +39,7 @@ select * from movies
 LATERAL VIEW explode(split(genres,"\\|")) adTable AS adid;
 
 -- lateral view z grupowaniem
-select *, count(1) from movies
+select gen, count(1) from movies
 LATERAL VIEW explode(split(genres,"\\|")) latview AS gen
 GROUP BY gen;
 
