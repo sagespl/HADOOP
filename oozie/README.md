@@ -17,6 +17,11 @@ hdfs dfs -copyFromLocal -f $HADOOP_PROJECT/oozie/src/main/resources/workflow.xml
 ```
 oozie job -oozie http://localhost:11000/oozie -config $HADOOP_PROJECT/oozie/src/main/resources/job.properties -run
 ```
+lub
+```
+export OOZIE_URL=http://localhost:11000/oozie
+oozie job -config $HADOOP_PROJECT/oozie/src/main/resources/job.properties -run
+```
 
 
 
