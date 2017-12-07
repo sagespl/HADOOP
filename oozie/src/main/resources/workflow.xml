@@ -1,8 +1,22 @@
 <workflow-app xmlns="uri:oozie:workflow:0.4" name="sages-oozie">
 
-    <start to="sqoop"/>
+    <start to="hive"/>
 
-    <action name="sqoop">
+    <action name="hive">
+        <hive xmlns="uri:oozie:hive-action:0.2">
+            <job-tracker>${jobTracker}</job-tracker>
+            <name-node>${nameNode}</name-node>
+            <prepare>
+                <delete path="${hiveOutputPath}"/>
+            </prepare>
+            <script>hive-script.hql</script>
+            <param>OUTPUT=${hiveOutputPath}</param>
+        </hive>
+        <ok to="sqoopa"/>
+        <error to="fail"/>
+    </action>
+
+    <action name="sqoopa">
         <sqoop xmlns="uri:oozie:sqoop-action:0.2">
             <job-tracker>${jobTracker}</job-tracker>
             <name-node>${nameNode}</name-node>
