@@ -47,6 +47,7 @@ VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 delete "Reg
 VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 delete "RegionServerInfo"
 VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 delete "SparkHistoryUI"
 VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 delete "Spark2HistoryUI"
+VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 delete "Oozie"
 VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 delete "Kafka"
 
 VBoxManage showvminfo "Hortonworks Data Platform Sandbox 2.6" | grep Rule
@@ -71,6 +72,7 @@ VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 "RegionServ
 VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 "RegionServerInfo,tcp,127.0.0.1,16030,,16030"
 VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 "SparkHistoryUI,tcp,127.0.0.1,18080,,18080"
 VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 "Spark2HistoryUI,tcp,127.0.0.1,18081,,18081"
+VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 "Oozie,tcp,127.0.0.1,11000,,11000"
 VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 "Kafka,tcp,127.0.0.1,9092,,9092"
 
 VBoxManage showvminfo "Hortonworks Data Platform Sandbox 2.6" | grep Rule
