@@ -17,6 +17,39 @@
             </configuration>
             <command>import --connect jdbc:mysql://localhost:3306/sakila --table customer --username sages --password password --driver com.mysql.jdbc.Driver --warehouse-dir /user/sages/sqoop/  --num-mappers 1</command>
         </sqoop>
+        <ok to="sqoopb"/>
+        <error to="fail"/>
+    </action>
+
+    <action name="sqoopb">
+        <sqoop xmlns="uri:oozie:sqoop-action:0.2">
+            <job-tracker>${jobTracker}</job-tracker>
+            <name-node>${nameNode}</name-node>
+            <prepare>
+                <delete path="${sqoopOutputPath}"/>
+            </prepare>
+            <configuration>
+                <property>
+                    <name>mapred.compress.map.output</name>
+                    <value>true</value>
+                </property>
+            </configuration>
+            <arg>import</arg>
+            <arg>--connect</arg>
+            <arg>jdbc:mysql://localhost:3306/sakila</arg>
+            <arg>--table</arg>
+            <arg>customer</arg>
+            <arg>--username</arg>
+            <arg>sages</arg>
+            <arg>--password</arg>
+            <arg>password</arg>
+            <arg>--driver</arg>
+            <arg>com.mysql.jdbc.Driver</arg>
+            <arg>--warehouse-dir</arg>
+            <arg>/user/sages/sqoop/</arg>
+            <arg>--num-mappers</arg>
+            <arg>1</arg>
+        </sqoop>
         <ok to="distcp"/>
         <error to="fail"/>
     </action>
