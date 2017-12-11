@@ -1,6 +1,6 @@
 package pl.com.sages.spark
 
-trait GlobalParameters {
+trait GlobalMlParameters {
 
   val bookPath: String = "/user/sages/dane/lektury/lektury-all"
 
