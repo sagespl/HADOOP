@@ -38,6 +38,8 @@ cd mysql
 wget http://downloads.mysql.com/docs/sakila-db.tar.gz
 #wget http://downloads.mysql.com/docs/menagerie-db.tar.gz
 
+tar -zxf sakila-db.tar.gz
+
 # Podsumowanie
 
 du -s -h $HADOOP_DATA
