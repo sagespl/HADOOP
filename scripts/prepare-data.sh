@@ -1,11 +1,14 @@
 #!/bin/sh
 
-# Lektury
-
+# czyszczenie
 cd $HADOOP_DATA
 pwd
 rm -rf lektury
+rm -rf movielens
+rm -rf mysql
 
+# Lektury
+cd $HADOOP_DATA
 wget -O lektury.tar.gz https://github.com/radoslawszmit/BigDataTrainingDataset/blob/master/lektury.tar.gz?raw=true
 tar -zxf lektury.tar.gz
 mv lektury.tar.gz lektury
@@ -13,8 +16,6 @@ mv lektury.tar.gz lektury
 # MovieLens Dataset: https://grouplens.org/datasets/movielens/
 
 cd $HADOOP_DATA
-pwd
-rm -rf movielens
 mkdir movielens
 cd movielens
 
@@ -29,8 +30,6 @@ unzip ml-10m.zip
 # Dane z https://dev.mysql.com/doc/index-other.html
 
 cd $HADOOP_DATA
-pwd
-rm -rf mysql
 mkdir mysql
 cd mysql
 
