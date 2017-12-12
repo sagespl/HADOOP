@@ -18,7 +18,7 @@ object CollaborativeFiltering extends GlobalMlParameters {
   def main(args: Array[String]) {
 
     // prepare
-    val spark = SparkSession.builder.master("local").appName(this.getClass.getSimpleName).getOrCreate()
+    val spark = SparkSession.builder.master(master).appName(this.getClass.getSimpleName).getOrCreate()
     import spark.implicits._
 
     val ratings = spark.read.textFile(sparkSampleMovielensRatingsData)
@@ -30,6 +30,7 @@ object CollaborativeFiltering extends GlobalMlParameters {
     val als = new ALS()
       .setMaxIter(5)
       .setRegParam(0.01)
+      //      .setImplicitPrefs(true)
       .setUserCol("userId")
       .setItemCol("movieId")
       .setRatingCol("rating")
