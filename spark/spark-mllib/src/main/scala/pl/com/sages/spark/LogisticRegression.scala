@@ -7,6 +7,7 @@ object LogisticRegression extends GlobalMlParameters {
 
   def main(args: Array[String]): Unit = {
 
+    // prepare
     val spark = SparkSession.builder.master("local").appName(this.getClass.getSimpleName).getOrCreate()
 
     val training = spark.read.format("libsvm").load(sparkSampleLibsvmData)
