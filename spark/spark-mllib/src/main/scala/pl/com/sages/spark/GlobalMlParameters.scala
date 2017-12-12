@@ -14,8 +14,7 @@ trait GlobalMlParameters {
   val movielensSeparator: String = "@"
 
   // Spark test data
-  //  val sparkSampleData: String = System.getenv("HADOOP_DATA") + "/spark-data"
-  val sparkSampleData: String = "/home/radek/Sages/dane/spark-data"
+  val sparkSampleData: String = System.getenv("HADOOP_DATA") + "/spark-data"
   val sparkSampleLibsvmData: String = sparkSampleData + "/mllib/sample_libsvm_data.txt"
   val sparkSampleMovielensRatingsData: String = sparkSampleData + "/mllib/als/sample_movielens_ratings.txt"
   val sparkAlsTestData: String = sparkSampleData + "/mllib/als/test.data"

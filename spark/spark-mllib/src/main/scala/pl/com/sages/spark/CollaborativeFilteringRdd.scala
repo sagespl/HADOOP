@@ -1,5 +1,8 @@
 package pl.com.sages.spark
 
+import java.io.File
+
+import org.apache.commons.io.FileUtils
 import org.apache.spark.mllib.recommendation.{ALS, MatrixFactorizationModel, Rating}
 import org.apache.spark.{SparkConf, SparkContext}
 
@@ -18,30 +21,33 @@ object CollaborativeFilteringRdd extends GlobalMlParameters {
     })
 
     // Build the recommendation model using ALS
-    val rank = 10
-    val numIterations = 10
-    val model = ALS.train(ratings, rank, numIterations, 0.01)
+    val rank = 10 // vector size, bigger better but longer, default 10
+    val numIterations = 10 // number of iterations
+    val lambda = 0.01 // regulation parameter
+    val model = ALS.train(ratings, rank, numIterations, lambda)
 
     // Evaluate the model on rating data
-    val usersProducts = ratings.map { case Rating(user, product, rate) =>
-      (user, product)
-    }
-    val predictions =
-      model.predict(usersProducts).map { case Rating(user, product, rate) =>
-        ((user, product), rate)
-      }
-    val ratesAndPreds = ratings.map { case Rating(user, product, rate) =>
-      ((user, product), rate)
-    }.join(predictions)
+    val usersProducts = ratings.map { case Rating(user, product, rate) => (user, product) }
+
+    val predictions = model.
+      predict(usersProducts).
+      map { case Rating(user, product, rate) => ((user, product), rate) }
+
+    val ratesAndPreds = ratings.map { case Rating(user, product, rate) => ((user, product), rate) }.
+      join(predictions)
+
+    ratesAndPreds.take(10).foreach(println)
+
     val MSE = ratesAndPreds.map { case ((user, product), (r1, r2)) =>
-      val err = (r1 - r2)
+      val err = r1 - r2
       err * err
     }.mean()
     println("Mean Squared Error = " + MSE)
 
     // Save and load model
-    model.save(sc, "target/tmp/myCollaborativeFilter")
-    val sameModel = MatrixFactorizationModel.load(sc, "target/tmp/myCollaborativeFilter")
+    FileUtils.deleteDirectory(new File("/tmp/myCollaborativeFilter"))
+    model.save(sc, "/tmp/myCollaborativeFilter")
+    val sameModel = MatrixFactorizationModel.load(sc, "/tmp/myCollaborativeFilter")
   }
 
 }
