@@ -3,13 +3,13 @@ package pl.com.sages.spark
 import org.apache.spark.ml.classification.LogisticRegression
 import org.apache.spark.sql.SparkSession
 
-object LogisticRegression {
+object LogisticRegression extends GlobalMlParameters {
 
   def main(args: Array[String]): Unit = {
 
     val spark = SparkSession.builder.master("local").appName(this.getClass.getSimpleName).getOrCreate()
 
-    val training = spark.read.format("libsvm").load("/home/radek/Sages/repository/dane/spark-data/mllib/sample_libsvm_data.txt")
+    val training = spark.read.format("libsvm").load(sparkSampleLibsvmData)
 
     val lr = new LogisticRegression()
       .setMaxIter(10)
