@@ -17,6 +17,7 @@
     <modules>
         <module>spark-sql</module>
         <module>spark-core</module>
+        <module>spark-mllib</module>
     </modules>
 
 </project>
