@@ -11,8 +11,9 @@ trait GlobalMlParameters {
 
   val resultPath: String = "/user/sages/wyniki/spark"
 
-//  val sparkSampleLibsvmData: String = System.getenv("HADOOP_DATA") + "/spark-data/mllib/sample_libsvm_data.txt"
-  val sparkSampleLibsvmData: String = "/home/radek/Sages/dane/spark-data/mllib/sample_libsvm_data.txt"
-  val sparkSampleMovielensRatingsData: String = "/home/radek/Sages/dane/spark-data/mllib/als/sample_movielens_ratings.txt"
+  //  val sparkSampleData: String = System.getenv("HADOOP_DATA") + "/spark-data"
+  val sparkSampleData: String = "/home/radek/Sages/dane/spark-data"
+  val sparkSampleLibsvmData: String = sparkSampleData + "/mllib/sample_libsvm_data.txt"
+  val sparkSampleMovielensRatingsData: String = sparkSampleData + "/mllib/als/sample_movielens_ratings.txt"
 
 }
