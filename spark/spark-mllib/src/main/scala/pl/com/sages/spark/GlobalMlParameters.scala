@@ -11,6 +11,7 @@ trait GlobalMlParameters {
 
   val resultPath: String = "/user/sages/wyniki/spark"
 
-  val sparkSampleLibsvmData = System.getenv("HADOOP_DATA") + "/spark-data/mllib/sample_libsvm_data.txt";
+//  val sparkSampleLibsvmData: String = System.getenv("HADOOP_DATA") + "/spark-data/mllib/sample_libsvm_data.txt";
+  val sparkSampleLibsvmData: String = "/home/radek/Sages/dane/spark-data/mllib/sample_libsvm_data.txt";
 
 }
