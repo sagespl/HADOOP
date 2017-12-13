@@ -1,5 +1,5 @@
 
-CREATE VIEW moviesWithTag AS
+CREATE VIEW movies_with_tag AS
 SELECT m.movieid, m.title, m.genres, t.tag
 from movies m
 JOIN etags t on t.movieid = m.movieid;
