@@ -19,6 +19,7 @@ trait GlobalMlParameters {
   val sparkSampleMovielensRatingsData: String = sparkSampleData + "/mllib/als/sample_movielens_ratings.txt"
   val sparkAlsTestData: String = sparkSampleData + "/mllib/als/test.data"
   val sparkKMeansData: String = sparkSampleData + "/mllib/kmeans_data.txt"
+  val sparkSampleKMeansData: String = sparkSampleData + "/mllib/sample_kmeans_data.txt"
 
   // results
   val resultPath: String = "/user/sages/wyniki/spark"

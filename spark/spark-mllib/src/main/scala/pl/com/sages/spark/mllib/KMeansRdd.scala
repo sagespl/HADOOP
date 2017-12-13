@@ -1,4 +1,4 @@
-package pl.com.sages.spark
+package pl.com.sages.spark.mllib
 
 import java.io.File
 
@@ -6,6 +6,7 @@ import org.apache.commons.io.FileUtils
 import org.apache.spark.mllib.clustering.{KMeans, KMeansModel}
 import org.apache.spark.mllib.linalg.Vectors
 import org.apache.spark.{SparkConf, SparkContext}
+import pl.com.sages.spark.GlobalMlParameters
 
 object KMeansRdd extends GlobalMlParameters {
 
