@@ -11,6 +11,9 @@ ROW FORMAT DELIMITED FIELDS TERMINATED BY '@';
 LOAD DATA LOCAL INPATH '/home/sages/dane/movielens/hive/movies/movies.dat'
 OVERWRITE INTO TABLE movies;
 
+-- LOAD DATA INPATH '/user/sages/dane/movielens/hive/movies/movies.dat'
+-- OVERWRITE INTO TABLE movies;
+
 -- tabela ocen
 drop table if exists ratings;
 
