@@ -14,6 +14,8 @@ object KMeans extends GlobalMlParameters {
     // Loads data.
     val dataset = spark.read.format("libsvm").load(sparkSampleKMeansData)
 
+    dataset.show(10, truncate = false)
+
     // Trains a k-means model.
     val kmeans = new KMeans().setK(2).setSeed(1L)
     val model = kmeans.fit(dataset)
@@ -25,6 +27,13 @@ object KMeans extends GlobalMlParameters {
     // Shows the result.
     println("Cluster Centers: ")
     model.clusterCenters.foreach(println)
+
+    println("Prediction: ")
+    val transformed =  model.transform(dataset)
+    transformed.show(10, truncate = false)
+
+    println("Prediction2: ")
+    model.summary.predictions.show
 
     // stop
     spark.stop()
