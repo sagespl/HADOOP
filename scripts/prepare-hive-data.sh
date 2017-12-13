@@ -23,5 +23,5 @@ sed -i -e 's/::/@/g' tags.dat
 
 # Podsumowanie
 
-du -s -h $HADOOP_DATA
-tree -L 2 $HADOOP_DATA
+du -s -h $HADOOP_DATA/movielens
+tree -L 2 $HADOOP_DATA/movielens
