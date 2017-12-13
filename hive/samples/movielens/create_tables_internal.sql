@@ -3,7 +3,7 @@
 drop table if exists movies;
 
 CREATE TABLE IF NOT EXISTS movies (
-MovieID STRING,
+MovieID INT,
 Title STRING,
 Genres STRING)
 ROW FORMAT DELIMITED FIELDS TERMINATED BY '@';
@@ -20,7 +20,7 @@ drop table if exists ratings;
 CREATE TABLE IF NOT EXISTS ratings (
 UserID STRING,
 MovieID STRING,
-Rating STRING,
+Rating DOUBLE,
 Time STRING)
 ROW FORMAT DELIMITED FIELDS TERMINATED BY '@';
 
