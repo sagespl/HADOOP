@@ -18,7 +18,7 @@ su hdfs -c 'hdfs dfs -mkdir /user/sages'
 su hdfs -c 'hdfs dfs -chown sages /user/sages'
 
 # hive
-
+# dane
 # maven repository
 # maven project
 # /var/log
