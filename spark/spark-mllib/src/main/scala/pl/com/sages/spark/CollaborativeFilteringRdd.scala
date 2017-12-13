@@ -45,9 +45,13 @@ object CollaborativeFilteringRdd extends GlobalMlParameters {
     println("Mean Squared Error = " + MSE)
 
     // Save and load model
-    FileUtils.deleteDirectory(new File("/tmp/myCollaborativeFilter"))
-    model.save(sc, "/tmp/myCollaborativeFilter")
-    val sameModel = MatrixFactorizationModel.load(sc, "/tmp/myCollaborativeFilter")
+    val outputDir = "/tmp/myCollaborativeFilter"
+    FileUtils.deleteDirectory(new File(outputDir))
+    model.save(sc, outputDir)
+    val sameModel = MatrixFactorizationModel.load(sc, outputDir)
+
+    // stop
+    sc.stop()
   }
 
 }
