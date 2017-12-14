@@ -40,9 +40,10 @@ object MovieLensDataFrame extends GlobalSqlParameters {
 
     // SQL ;)
     moviesDataFrame.select("title").show()
-    moviesDataFrame.select("title","genre").show()
     moviesDataFrame.groupBy("genres").count().show()
     moviesDataFrame.filter($"title".contains("2005")).show()
+
+    ratingsDataFrame.select($"userid",$"movieid", $"rating" + 1).show()
 
     moviesDataFrame.createOrReplaceTempView("movies")
     spark.sql("SELECT * FROM movies").show()
