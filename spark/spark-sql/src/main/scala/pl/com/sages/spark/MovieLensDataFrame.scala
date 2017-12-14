@@ -50,6 +50,10 @@ object MovieLensDataFrame extends GlobalSqlParameters {
     moviesDataFrame.createOrReplaceTempView("movies")
     spark.sql("SELECT * FROM movies").show()
 
+    // global view
+    moviesDataFrame.createGlobalTempView("gmovies")
+    spark.sql("SELECT * FROM global_temp.gmovies").show()
+
     // transform
     moviesDataFrame.map(movie => "Movie: " + movie(1)).show()
 
