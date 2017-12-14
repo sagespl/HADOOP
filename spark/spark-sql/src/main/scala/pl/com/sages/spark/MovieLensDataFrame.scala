@@ -58,12 +58,12 @@ object MovieLensDataFrame extends GlobalSqlParameters {
       "order by counted desc").show()
     spark.sql(
       """
-      SELECT m.title, count(*) as votes
+      SELECT m.title, count(*) as votes, avg(rating) rate
       FROM movies m
       left join ratings r on m.movieid = r.movieid
       group by m.title
       having votes > 100
-      order by votes desc
+      order by rate desc
       """).show()
 
     // global view
