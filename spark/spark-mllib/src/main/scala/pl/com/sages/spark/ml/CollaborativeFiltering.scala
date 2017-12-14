@@ -39,6 +39,7 @@ object CollaborativeFiltering extends GlobalMlParameters {
 
     // Evaluate the model by computing the RMSE on the test data
     val predictions = model.transform(test)
+    predictions.show(10)
 
     val evaluator = new RegressionEvaluator()
       .setMetricName("rmse")
