@@ -20,6 +20,7 @@ trait GlobalMlParameters {
   val sparkAlsTestData: String = sparkSampleData + "/mllib/als/test.data"
   val sparkKMeansData: String = sparkSampleData + "/mllib/kmeans_data.txt"
   val sparkSampleKMeansData: String = sparkSampleData + "/mllib/sample_kmeans_data.txt"
+  val sparkSampleLinearRegressionData: String = sparkSampleData + "/mllib/sample_linear_regression_data.txt"
 
   // results
   val resultPath: String = "/user/sages/wyniki/spark"
