@@ -12,6 +12,7 @@ object LogisticRegression extends GlobalMlParameters {
     val spark = SparkSession.builder.master("local").appName(this.getClass.getSimpleName).getOrCreate()
 
     val training = spark.read.format("libsvm").load(sparkSampleLibsvmData)
+    training.show(10)
 
     val lr = new LogisticRegression()
       .setMaxIter(10)
@@ -20,6 +21,7 @@ object LogisticRegression extends GlobalMlParameters {
 
     // Fit the model
     val lrModel = lr.fit(training)
+    lrModel.evaluate(training).predictions.show(10)
 
     // Print the coefficients and intercept for logistic regression
     println(s"Coefficients: ${lrModel.coefficients} Intercept: ${lrModel.intercept}")
