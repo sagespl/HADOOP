@@ -33,10 +33,14 @@ object MovieLensDataFrame extends GlobalSqlParameters {
 
     // show
     moviesDataFrame.show(10)
+    moviesDataFrame.printSchema()
+
+    ratingsDataFrame.show(10)
+    ratingsDataFrame.printSchema()
 
     // SQL ;)
-    moviesDataFrame.printSchema()
     moviesDataFrame.select("title").show()
+    moviesDataFrame.select("title","genre").show()
     moviesDataFrame.groupBy("genres").count().show()
     moviesDataFrame.filter($"title".contains("2005")).show()
 

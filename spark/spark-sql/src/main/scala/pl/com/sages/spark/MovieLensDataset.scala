@@ -36,9 +36,12 @@ object MovieLensDataset extends GlobalSqlParameters {
 
     // show
     moviesDataset.show(10)
+    moviesDataset.printSchema()
+
+    ratingsDataset.show(10)
+    ratingsDataset.printSchema()
 
     // SQL ;)
-    moviesDataset.printSchema()
     moviesDataset.select("title").show()
     moviesDataset.groupBy("genres").count().show()
     moviesDataset.filter($"title".contains("2005")).show()
