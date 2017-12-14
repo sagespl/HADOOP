@@ -48,7 +48,19 @@ object MovieLensDataFrame extends GlobalSqlParameters {
 
     // view
     moviesDataFrame.createOrReplaceTempView("movies")
+    ratingsDataFrame.createOrReplaceTempView("ratings")
     spark.sql("SELECT * FROM movies").show()
+    spark.sql("SELECT * FROM ratings").show()
+    spark.sql("SELECT * FROM ratings group by movieId").show()
+    spark.sql("SELECT movieId, count(*) as counted " +
+      "FROM ratings " +
+      "group by movieId " +
+      "order by counted desc").show()
+    spark.sql("SELECT m.title, count(*) as counted " +
+      "FROM ratings r " +
+      "left join movies m on m.movieid = r.movieid " +
+      "group by m.title " +
+      "order by counted desc").show()
 
     // global view
     moviesDataFrame.createGlobalTempView("gmovies")
