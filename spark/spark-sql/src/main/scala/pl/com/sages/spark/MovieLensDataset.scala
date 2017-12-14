@@ -43,11 +43,13 @@ object MovieLensDataset extends GlobalSqlParameters {
 
     // SQL ;)
     moviesDataset.select("title").show()
-    moviesDataset.groupBy("genres").count().show()
     moviesDataset.filter($"title".contains("2005")).show()
 
     ratingsDataset.select($"userid",$"movieid", $"rating" + 1).show()
+    ratingsDataset.filter($"rating" < 2).show()
+    ratingsDataset.groupBy("movieid").count().show()
 
+    // view
     moviesDataset.createOrReplaceTempView("movies")
     spark.sql("SELECT * FROM movies").show()
 
