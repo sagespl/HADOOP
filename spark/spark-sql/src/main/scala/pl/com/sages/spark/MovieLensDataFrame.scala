@@ -42,7 +42,7 @@ object MovieLensDataFrame extends GlobalSqlParameters {
     moviesDataFrame.select("title").show()
     moviesDataFrame.filter($"title".contains("2005")).show()
 
-    ratingsDataFrame.select($"userid",$"movieid", $"rating" + 1).show()
+    ratingsDataFrame.select($"userid", $"movieid", $"rating" + 1).show()
     ratingsDataFrame.filter($"rating" < 2).show()
     ratingsDataFrame.groupBy("movieid").count().show()
 
@@ -56,11 +56,15 @@ object MovieLensDataFrame extends GlobalSqlParameters {
       "FROM ratings " +
       "group by movieId " +
       "order by counted desc").show()
-    spark.sql("SELECT m.title, count(*) as counted " +
-      "FROM ratings r " +
-      "left join movies m on m.movieid = r.movieid " +
-      "group by m.title " +
-      "order by counted desc").show()
+    spark.sql(
+      """
+      SELECT m.title, count(*) as counted
+      FROM ratings r
+      left join movies m on m.movieid = r.movieid
+      group by m.title
+      having counted > 100
+      order by counted desc
+      """).show()
 
     // global view
     moviesDataFrame.createGlobalTempView("gmovies")
