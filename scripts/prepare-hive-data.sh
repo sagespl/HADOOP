@@ -13,6 +13,7 @@ cp -r ml-10M100K/ratings.dat hive/ratings
 cp -r ml-10M100K/tags.dat hive/tags
 
 cd $HADOOP_DATA/movielens/hive/movies
+sed -i -e 's/@//g' movies.dat
 sed -i -e 's/::/@/g' movies.dat
 
 cd $HADOOP_DATA/movielens/hive/ratings
