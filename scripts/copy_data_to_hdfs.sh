@@ -1,3 +1,4 @@
+#!/bin/sh
 
 export HADOOP_USER_NAME=hdfs
 

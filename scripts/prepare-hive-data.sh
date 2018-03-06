@@ -1,3 +1,4 @@
+#!/bin/sh
 
 cd $HADOOP_DATA/movielens
 pwd
