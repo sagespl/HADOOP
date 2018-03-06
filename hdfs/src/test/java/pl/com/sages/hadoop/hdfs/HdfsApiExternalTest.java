@@ -138,7 +138,7 @@ public class HdfsApiExternalTest {
         FSDataOutputStream outputStream = fs.create(new Path(HDFS_OUTPUT_PATH), new Progressable() {
             @Override
             public void progress() {
-                System.out.println("Trawa zapis pliku...");
+                System.out.println("Trwa zapis pliku...");
             }
         });
         try {
@@ -166,7 +166,7 @@ public class HdfsApiExternalTest {
     public void shouldCreateWholeDirectoryPath() throws Exception {
         // given
         fs.delete(new Path(USER_HOME + "/very"), true);
-        String veryLongDirecotryPath = USER_HOME + "/very/long/direcotry/path";
+        String veryLongDirecotryPath = USER_HOME + "/very/long/directory/path";
 
         // when
         boolean created = fs.mkdirs(new Path(veryLongDirecotryPath));
