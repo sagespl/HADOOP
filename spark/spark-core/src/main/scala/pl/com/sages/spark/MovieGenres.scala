@@ -13,15 +13,16 @@ object MovieGenres extends GlobalParameters {
     // run
     val movies = sc.textFile(moviesPath)
 
-//    movies.take(10).foreach(println)
+    //    movies.take(10).foreach(println)
 
     val result = sc.textFile(moviesPath).
       map(_.split(movielensSeparator)(2)).
       flatMap(_.split("\\|")).
       map(genre => (genre, 1)).
-      reduceByKey((x, y) => x + y)
+      reduceByKey((x, y) => x + y).
+      sortBy(-_._2)
 
-//    result.take(10).foreach(println)
+    //    result.take(10).foreach(println)
 
     // delete result directory and save result on HDFS
     import org.apache.hadoop.fs.{FileSystem, Path}
