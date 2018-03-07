@@ -4,7 +4,7 @@ import org.apache.spark.ml.regression.LinearRegression
 import org.apache.spark.sql.SparkSession
 import pl.com.sages.spark.GlobalMlParameters
 
-object LinearRegression extends GlobalMlParameters {
+object LinearRegressionExample extends GlobalMlParameters {
 
   def main(args: Array[String]): Unit = {
 

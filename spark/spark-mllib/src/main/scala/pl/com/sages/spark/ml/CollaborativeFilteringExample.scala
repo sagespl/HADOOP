@@ -6,7 +6,7 @@ import org.apache.spark.sql.SparkSession
 import pl.com.sages.spark.GlobalMlParameters
 
 
-object CollaborativeFiltering extends GlobalMlParameters {
+object CollaborativeFilteringExample extends GlobalMlParameters {
 
   case class Rating(userId: Int, movieId: Int, rating: Float, timestamp: Long)
 

@@ -7,7 +7,7 @@ import org.apache.spark.mllib.recommendation.{ALS, MatrixFactorizationModel, Rat
 import org.apache.spark.{SparkConf, SparkContext}
 import pl.com.sages.spark.GlobalMlParameters
 
-object CollaborativeFilteringRdd extends GlobalMlParameters {
+object CollaborativeFilteringRddExample extends GlobalMlParameters {
 
   def main(args: Array[String]): Unit = {
 

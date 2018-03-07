@@ -8,7 +8,7 @@ import org.apache.spark.mllib.linalg.Vectors
 import org.apache.spark.{SparkConf, SparkContext}
 import pl.com.sages.spark.GlobalMlParameters
 
-object KMeansRdd extends GlobalMlParameters {
+object KMeansRddExample extends GlobalMlParameters {
 
   def main(args: Array[String]) {
 

@@ -4,7 +4,7 @@ import org.apache.spark.ml.classification.LogisticRegression
 import org.apache.spark.sql.SparkSession
 import pl.com.sages.spark.GlobalMlParameters
 
-object LogisticRegression extends GlobalMlParameters {
+object LogisticRegressionExample extends GlobalMlParameters {
 
   def main(args: Array[String]): Unit = {
 

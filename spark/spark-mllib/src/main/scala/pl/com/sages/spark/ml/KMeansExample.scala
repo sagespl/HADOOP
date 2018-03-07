@@ -4,7 +4,7 @@ import org.apache.spark.ml.clustering.KMeans
 import org.apache.spark.sql.SparkSession
 import pl.com.sages.spark.GlobalMlParameters
 
-object KMeans extends GlobalMlParameters {
+object KMeansExample extends GlobalMlParameters {
 
   def main(args: Array[String]): Unit = {
 
