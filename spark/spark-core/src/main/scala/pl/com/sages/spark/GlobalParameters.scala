@@ -4,6 +4,8 @@ trait GlobalParameters {
 
   val user: String = System.getProperty("user.name")
   val master: String = "local"
+  val hostname: String = "localhost"
+  val port: String = "9999"
 
   // books
   val bookPath: String = "/dane/lektury/lektury-all"
