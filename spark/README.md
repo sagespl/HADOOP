@@ -30,6 +30,8 @@ pyspark
 ~~~
 cd $HADOOP_PROJECT/spark
 mvn clean install -DskipTests=true
-scp -r $HADOOP_PROJECT/spark/spark-core/target/spark-core-1.0-SNAPSHOT-job.jar sandbox://tmp
-scp -r $HADOOP_PROJECT/spark/spark-sql/target/spark-sql-1.0-SNAPSHOT-job.jar sandbox://tmp
+scp -r $HADOOP_PROJECT/spark/spark-core/target/spark-core-1.0-SNAPSHOT-jar-with-dependencies.jar sandbox://tmp
+scp -r $HADOOP_PROJECT/spark/spark-mllib/target/spark-mllib-1.0-SNAPSHOT-jar-with-dependencies.jar sandbox://tmp
+scp -r $HADOOP_PROJECT/spark/spark-sql/target/spark-sql-1.0-SNAPSHOT-jar-with-dependencies.jar sandbox://tmp
+scp -r $HADOOP_PROJECT/spark/spark-streaming/target/spark-streaming-1.0-SNAPSHOT-jar-with-dependencies.jar sandbox://tmp
 ~~~

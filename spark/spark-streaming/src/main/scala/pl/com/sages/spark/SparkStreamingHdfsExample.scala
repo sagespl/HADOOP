@@ -4,7 +4,7 @@ package pl.com.sages.spark
 import org.apache.spark.SparkConf
 import org.apache.spark.streaming.{Seconds, StreamingContext}
 
-object SparkStreamingHdfsExample {
+object SparkStreamingHdfsExample extends GlobalParameters {
 
   def main(args: Array[String]) {
     if (args.length < 1) {
