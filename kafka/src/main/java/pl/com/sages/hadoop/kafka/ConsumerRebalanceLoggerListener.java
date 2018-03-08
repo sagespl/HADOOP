@@ -6,9 +6,9 @@ import org.apache.log4j.Logger;
 
 import java.util.Collection;
 
-public class TestConsumerRebalanceListener implements ConsumerRebalanceListener {
+public class ConsumerRebalanceLoggerListener implements ConsumerRebalanceListener {
 
-    private static final Logger LOGGER = Logger.getLogger(TestConsumerRebalanceListener.class);
+    private static final Logger LOGGER = Logger.getLogger(ConsumerRebalanceLoggerListener.class);
 
     @Override
     public void onPartitionsRevoked(Collection<TopicPartition> partitions) {

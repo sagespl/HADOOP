@@ -1,14 +1,15 @@
 package pl.com.sages.hadoop.kafka;
 
-import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.log4j.Logger;
 
 import java.util.Collections;
-import java.util.Properties;
-import java.util.Random;
+
+import static pl.com.sages.hadoop.kafka.KafkaConfigurationFactory.TIMEOUT;
+import static pl.com.sages.hadoop.kafka.KafkaConfigurationFactory.TOPIC;
+import static pl.com.sages.hadoop.kafka.KafkaConfigurationFactory.createConsumerConfig;
 
 public class KafkaConsumerExample {
 
@@ -16,18 +17,11 @@ public class KafkaConsumerExample {
 
     public static void main(String[] args) {
 
-        Properties consumerConfig = new Properties();
-        consumerConfig.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092,localhost:9093,localhost:9094");
-//        consumerConfig.put(ConsumerConfig.GROUP_ID_CONFIG, "my-group" + new Random(System.currentTimeMillis()).nextInt());
-        consumerConfig.put(ConsumerConfig.GROUP_ID_CONFIG, "my-group");
-        consumerConfig.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
-        consumerConfig.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.StringDeserializer");
-        consumerConfig.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.StringDeserializer");
-        KafkaConsumer<String, String> consumer = new KafkaConsumer<>(consumerConfig);
-        consumer.subscribe(Collections.singletonList("my-super-topic"), new TestConsumerRebalanceListener());
+        KafkaConsumer<String, String> consumer = new KafkaConsumer<>(createConsumerConfig());
+        consumer.subscribe(Collections.singletonList(TOPIC), new ConsumerRebalanceLoggerListener());
 
         while (true) {
-            ConsumerRecords<String, String> records = consumer.poll(10000);
+            ConsumerRecords<String, String> records = consumer.poll(TIMEOUT);
             if (records.count() > 0) {
                 LOGGER.info("Poll records: " + records.count());
 
