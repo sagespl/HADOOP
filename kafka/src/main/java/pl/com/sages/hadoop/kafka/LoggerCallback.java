@@ -4,9 +4,9 @@ import org.apache.kafka.clients.producer.Callback;
 import org.apache.kafka.clients.producer.RecordMetadata;
 import org.apache.log4j.Logger;
 
-public class TestCallback implements Callback {
+public class LoggerCallback implements Callback {
 
-    private static final Logger LOGGER = Logger.getLogger(TestCallback.class);
+    private static final Logger LOGGER = Logger.getLogger(LoggerCallback.class);
 
     @Override
     public void onCompletion(RecordMetadata recordMetadata, Exception e) {

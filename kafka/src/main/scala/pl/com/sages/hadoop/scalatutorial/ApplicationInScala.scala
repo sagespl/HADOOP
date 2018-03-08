@@ -7,7 +7,7 @@ import scala.io.Source
   */
 object ApplicationInScala extends App {
 
-  println("To jest wnętrz naszej aplikacji")
+  println("To jest wnętrze naszej aplikacji")
 
   val source = Source.fromFile("/home/radek/Sages/repository/HADOOP/mapreduce/src/test/resources/20-000-mil-podmorskiej-zeglugi.txt", "UTF-8")
 

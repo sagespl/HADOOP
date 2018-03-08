@@ -21,7 +21,7 @@ object KafkaProducerScalaExample {
       for (i <- 1 to 10) {
 
         val data: ProducerRecord[String, String] = new ProducerRecord[String, String]("my-partitioned-topic", "key-" + i, "message-" + i)
-        producer.send(data, new TestCallback())
+        producer.send(data, new LoggerCallback())
 
       }
 

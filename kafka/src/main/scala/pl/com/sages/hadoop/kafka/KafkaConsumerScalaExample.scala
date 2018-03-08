@@ -19,7 +19,7 @@ object KafkaConsumerScalaExample {
     consumerConfig.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.StringDeserializer")
 
     val consumer: KafkaConsumer[String, String] = new KafkaConsumer[String, String](consumerConfig)
-    consumer.subscribe(Collections.singletonList("my-partitioned-topic"), new TestConsumerRebalanceListener)
+    consumer.subscribe(Collections.singletonList("my-partitioned-topic"), new ConsumerRebalanceLoggerListener)
 
     while (true) {
       val records: ConsumerRecords[String, String] = consumer.poll(10000)
