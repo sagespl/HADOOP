@@ -28,7 +28,16 @@ bin/kafka-topics.sh --delete  --zookeeper localhost:2181  --topic test-topic
 
 
 ### send message
-bin/kafka-console-producer.sh --broker-list localhost:9092 --topic test
+bin/kafka-console-producer.sh --broker-list localhost:9092 --topic test-topic
 
 ### receive messages
 bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic test --from-beginning
+
+bin/kafka-console-consumer.sh --bootstrap-server localhost:6667 \
+    --topic test-topic-out \
+    --from-beginning \
+    --formatter kafka.tools.DefaultMessageFormatter \
+    --property print.key=true \
+    --property print.value=true \
+    --property key.deserializer=org.apache.kafka.common.serialization.StringDeserializer \
+    --property value.deserializer=org.apache.kafka.common.serialization.StringDeserializer
