@@ -9,7 +9,7 @@ import org.apache.kafka.streams.kstream.KTable;
 import java.util.Arrays;
 import java.util.Properties;
 
-import static pl.com.sages.hadoop.kafka.KafkaConfigurationFactory.getStreamConfig;
+import static pl.com.sages.hadoop.kafka.KafkaConfigurationFactory.*;
 
 public class WordCountApplication {
 
@@ -18,12 +18,12 @@ public class WordCountApplication {
         Properties config = getStreamConfig();
 
         KStreamBuilder builder = new KStreamBuilder();
-        KStream<String, String> textLines = builder.stream("TextLinesTopic");
+        KStream<String, String> textLines = builder.stream(TOPIC);
         KTable<String, Long> wordCounts = textLines
                 .flatMapValues(textLine -> Arrays.asList(textLine.toLowerCase().split("\\W+")))
                 .groupBy((key, word) -> word)
                 .count("Counts");
-        wordCounts.to(Serdes.String(), Serdes.Long(), "WordsWithCountsTopic");
+        wordCounts.to(Serdes.String(), Serdes.Long(), TOPIC_OUT);
 
         KafkaStreams streams = new KafkaStreams(builder, config);
         streams.start();

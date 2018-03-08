@@ -19,7 +19,7 @@ object KafkaProducerScalaExample {
         while (true) {
           var i = 0
           for (i <- 1 to 10) {
-            val data = new ProducerRecord[String, String](TOPIC, "key-" + messageId, "message-" + messageId)
+            val data = new ProducerRecord[String, String](TOPIC, "key-" + messageId, "message-" + messageId + " Ala ma kota")
             producer.send(data, callback)
             messageId += 1
           }
