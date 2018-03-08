@@ -55,9 +55,9 @@ VBoxManage showvminfo "Hortonworks Data Platform Sandbox 2.6" | grep Rule
 
 VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 "SSH,tcp,127.0.0.1,2222,,22"
 VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 "Ambari,tcp,127.0.0.1,8080,,8080"
-VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 "NameNodeHttp,tcp,127.0.0.1,50070,,50070"
+#VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 "NameNodeHttp,tcp,127.0.0.1,50070,,50070"
 VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 "NameNodeHttps,tcp,127.0.0.1,50470,,50470"
-VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 "NameNodeMetadata,tcp,127.0.0.1,8020,,8020"
+#VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 "NameNodeMetadata,tcp,127.0.0.1,8020,,8020"
 VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 "DataNodeHttp,tcp,127.0.0.1,50075,,50075"
 VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 "DataNodeHttps,tcp,127.0.0.1,50475,,50475"
 VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 "DataNodeData,tcp,127.0.0.1,50010,,50010"
@@ -74,8 +74,8 @@ VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 "RegionServ
 VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 "SparkHistoryUI,tcp,127.0.0.1,18080,,18080"
 VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 "Spark2HistoryUI,tcp,127.0.0.1,18081,,18081"
 VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 "Oozie,tcp,127.0.0.1,11000,,11000"
-VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 "Kafka,tcp,127.0.0.1,9092,,9092"
-VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 "KafkaAmbari,tcp,127.0.0.1,6667,,6667"
+#VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 "Kafka,tcp,127.0.0.1,9092,,9092"
+#VBoxManage modifyvm "Hortonworks Data Platform Sandbox 2.6" --natpf1 "KafkaAmbari,tcp,127.0.0.1,6667,,6667"
 
 VBoxManage showvminfo "Hortonworks Data Platform Sandbox 2.6" | grep Rule
 ~~~
@@ -101,6 +101,8 @@ Host hsandbox
     User root
     LocalForward 8020 localhost:8020
     LocalForward 50070 localhost:50070
+    LocalForward 9092 localhost:9092
+    LocalForward 6667 localhost:6667
 ~~~
 
 # SSHFS

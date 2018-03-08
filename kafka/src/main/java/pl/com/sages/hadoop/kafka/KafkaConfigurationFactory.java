@@ -9,7 +9,8 @@ import java.util.Properties;
 
 public class KafkaConfigurationFactory {
 
-    public static final String KAFKA_SERVER = "localhost:9092";
+//    public static final String KAFKA_SERVER = "localhost:9092";
+    public static final String KAFKA_SERVER = "localhost:6667";
     public static final String TOPIC = "test-topic";
     public static final int TIMEOUT = 10000;
     public static final int SLEEP = 5000;
