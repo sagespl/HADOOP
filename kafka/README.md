@@ -2,6 +2,7 @@
 # Apache Kafka
 
 cd kafka_2.11-1.0.0/
+cd /usr/hdp/2.6.2.0-205/kafka/bin/
 
 ### Zookeeper
 bin/zookeeper-server-start.sh config/zookeeper.properties
