@@ -1,36 +1,40 @@
 package pl.com.sages.hadoop.kafka
 
-import java.util.{Collections, Properties}
+import java.util.Collections
 
-import org.apache.kafka.clients.consumer.{ConsumerConfig, ConsumerRecords, KafkaConsumer}
-
-import scala.collection.JavaConversions._
+import org.apache.kafka.clients.consumer.KafkaConsumer
+import org.apache.log4j.Logger
+import pl.com.sages.hadoop.kafka.KafkaConfigurationFactory.{TIMEOUT, TOPIC, createConsumerConfig}
 
 object KafkaConsumerScalaExample {
 
+  private val LOGGER = Logger.getLogger(classOf[KafkaConsumerExample])
+
   def main(args: Array[String]): Unit = {
 
-    val consumerConfig: Properties = new Properties
-    consumerConfig.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092")
-    //        consumerConfig.put(ConsumerConfig.GROUP_ID_CONFIG, "my-group" + new Random(System.currentTimeMillis()).nextInt());
-    consumerConfig.put(ConsumerConfig.GROUP_ID_CONFIG, "my-group")
-    consumerConfig.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest")
-    consumerConfig.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.StringDeserializer")
-    consumerConfig.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.StringDeserializer")
+    import scala.collection.JavaConversions._
 
-    val consumer: KafkaConsumer[String, String] = new KafkaConsumer[String, String](consumerConfig)
-    consumer.subscribe(Collections.singletonList("my-partitioned-topic"), new ConsumerRebalanceLoggerListener)
+    val consumer = new KafkaConsumer[String, String](createConsumerConfig)
+    consumer.subscribe(Collections.singletonList(TOPIC), new ConsumerRebalanceLoggerListener)
 
-    while (true) {
-      val records: ConsumerRecords[String, String] = consumer.poll(10000)
-      if (records.count > 0) {
-        println("Poll records: " + records.count)
+    try
+        while (true) {
 
-        for (record <- records) {
-          printf("Received Message topic = %s, partition = %s, offset = %d, key = %s, value = %s\n", record.topic, record.partition, record.offset, record.key, record.value)
+          val records = consumer.poll(TIMEOUT)
+          if (records.count > 0) {
+            LOGGER.info("Poll records: " + records.count)
+            for (record <- records) {
+              printf("Received Message topic = %s, partition = %s, offset = %d, key = %s, value = %s\n", record.topic, record.partition, record.offset, record.key, record.value)
+            }
+          }
+          consumer.commitAsync()
         }
-      }
+
+    catch {
+      case e: Exception => LOGGER.error("Błąd...", e)
+    } finally {
       consumer.commitSync()
+      consumer.close()
     }
 
   }
