@@ -2,7 +2,7 @@ package pl.com.sages.spark
 
 import org.apache.spark.sql.SparkSession
 
-object MovieLensDataFrame extends GlobalSqlParameters {
+object MovieLensDataFrame extends GlobalParameters {
 
   def main(args: Array[String]): Unit = {
 

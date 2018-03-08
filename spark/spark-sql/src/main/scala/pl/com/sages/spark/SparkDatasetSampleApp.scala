@@ -2,7 +2,7 @@ package pl.com.sages.spark
 
 import org.apache.spark.sql.SparkSession
 
-object SparkDatasetSampleApp extends GlobalSqlParameters {
+object SparkDatasetSampleApp extends GlobalParameters {
 
   def main(args: Array[String]) {
     val spark = SparkSession.builder.appName(this.getClass.getSimpleName).getOrCreate()

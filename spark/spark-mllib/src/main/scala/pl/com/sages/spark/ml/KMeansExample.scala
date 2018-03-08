@@ -2,9 +2,9 @@ package pl.com.sages.spark.ml
 
 import org.apache.spark.ml.clustering.KMeans
 import org.apache.spark.sql.SparkSession
-import pl.com.sages.spark.GlobalMlParameters
+import pl.com.sages.spark.GlobalParameters
 
-object KMeans extends GlobalMlParameters {
+object KMeansExample extends GlobalParameters {
 
   def main(args: Array[String]): Unit = {
 

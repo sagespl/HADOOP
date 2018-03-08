@@ -2,7 +2,7 @@ package pl.com.sages.spark
 
 import org.apache.spark.sql.SparkSession
 
-object SparkDatasetBasic extends GlobalSqlParameters {
+object SparkDatasetBasic extends GlobalParameters {
 
   def main(args: Array[String]): Unit = {
 

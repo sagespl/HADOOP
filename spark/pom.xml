@@ -15,9 +15,10 @@
     </parent>
 
     <modules>
-        <module>spark-sql</module>
         <module>spark-core</module>
+        <module>spark-sql</module>
         <module>spark-mllib</module>
+        <module>spark-streaming</module>
     </modules>
 
 </project>
