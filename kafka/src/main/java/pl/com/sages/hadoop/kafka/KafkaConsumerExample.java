@@ -16,7 +16,7 @@ public class KafkaConsumerExample {
     public static void main(String[] args) {
 
         KafkaConsumer<String, String> consumer = new KafkaConsumer<>(createConsumerConfig());
-        consumer.subscribe(Collections.singletonList(TOPIC), new ConsumerRebalanceLoggerListener());
+        consumer.subscribe(Collections.singletonList(TOPIC_OUT), new ConsumerRebalanceLoggerListener());
 
         try {
             while (true) {

@@ -22,7 +22,7 @@ public class KafkaProducerExample {
             while (true) {
 
                 for (long i = 0; i < 10; i++) {
-                    ProducerRecord<String, String> data = new ProducerRecord<>(TOPIC, "key-" + messageId, "message-" + messageId);
+                    ProducerRecord<String, String> data = new ProducerRecord<>(TOPIC, "key-" + messageId, " Ala ma kota, Ela ma psa");
                     producer.send(data, callback);
                     messageId++;
                 }
