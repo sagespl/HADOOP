@@ -5,9 +5,7 @@ import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.log4j.Logger;
 
-import static pl.com.sages.hadoop.kafka.KafkaConfigurationFactory.SLEEP;
-import static pl.com.sages.hadoop.kafka.KafkaConfigurationFactory.TOPIC;
-import static pl.com.sages.hadoop.kafka.KafkaConfigurationFactory.createProducerConfig;
+import static pl.com.sages.hadoop.kafka.KafkaConfigurationFactory.*;
 
 public class KafkaProducerExample {
 
@@ -20,21 +18,25 @@ public class KafkaProducerExample {
 
         int messageId = 1;
 
-        while (true) {
+        try {
+            while (true) {
 
-            for (long i = 0; i < 10; i++) {
-                ProducerRecord<String, String> data = new ProducerRecord<>(TOPIC, "key-" + messageId, "message-" + messageId);
-                producer.send(data, callback);
-                messageId++;
+                for (long i = 0; i < 10; i++) {
+                    ProducerRecord<String, String> data = new ProducerRecord<>(TOPIC, "key-" + messageId, "message-" + messageId);
+                    producer.send(data, callback);
+                    messageId++;
+                }
+
+                LOGGER.info("Sended messages");
+                Thread.sleep(SLEEP);
             }
-
-
-            LOGGER.info("Sended messages");
-            Thread.sleep(SLEEP);
+        } catch (Exception e) {
+            LOGGER.error("Błąd...", e);
+        } finally {
+            producer.flush();
+            producer.close();
         }
 
-//        producer.flush();
-//        producer.close();
     }
 
 
