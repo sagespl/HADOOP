@@ -24,6 +24,7 @@ public class HdfsSnapshotRemover {
             for (SnapshottableDirectoryStatus stat : stats) {
 
                 Path snapshotableDirectory = stat.getFullPath();
+                System.out.println("Deleting snapshotable directory: " + snapshotableDirectory);
 
                 FileStatus[] fileStatuses = dfs.listStatus(new Path(snapshotableDirectory, ".snapshot"));
                 for (FileStatus fileStatus : fileStatuses) {
