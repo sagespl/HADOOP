@@ -1,0 +1,32 @@
+<products>
+    <product id="1">
+        <name>iPhone 6</name>
+        <category>phone</category>
+        <price>600</price>
+        <stock>14</stock>
+        <features>
+            <storage>64GB</storage>
+            <battery>20Hrs</battery>
+        </features>
+    </product>
+    <product id="2">
+        <name>iPhone 6 Plus</name>
+        <category>phone</category>
+        <price>800</price>
+        <stock>15</stock>
+        <features>
+            <storage>64GB</storage>
+            <battery>10Hrs</battery>
+        </features>
+    </product>
+    <product id="3">
+        <name>Samsung S6</name>
+        <category>phone</category>
+        <price>650</price>
+        <stock>12</stock>
+        <features>
+            <storage>16GB</storage>
+            <battery>10Hrs</battery>
+        </features>
+    </product>
+</products>
