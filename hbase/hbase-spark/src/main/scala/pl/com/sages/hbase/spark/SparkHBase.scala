@@ -13,7 +13,7 @@ object SparkHBase {
   def main(args: Array[String]): Unit = {
 
     // prepare
-    val conf = new SparkConf().setAppName(this.getClass.getSimpleName + "4")
+    val conf = new SparkConf().setAppName(this.getClass.getSimpleName + "5")
     val sc = new SparkContext(conf)
 
     val tableName = "sages:movies"
