@@ -1,6 +1,7 @@
 package pl.com.sages.hbase.spark
 
-import org.apache.hadoop.hbase.TableName
+import java.util.Date
+
 import org.apache.hadoop.hbase.client._
 import org.apache.hadoop.hbase.io.ImmutableBytesWritable
 import org.apache.hadoop.hbase.mapreduce.TableInputFormat
@@ -13,7 +14,7 @@ object SparkHBase {
   def main(args: Array[String]): Unit = {
 
     // prepare
-    val conf = new SparkConf().setAppName(this.getClass.getSimpleName + "5")
+    val conf = new SparkConf().setAppName(this.getClass.getSimpleName + new Date())
     val sc = new SparkContext(conf)
 
     val tableName = "sages:movies"
@@ -22,21 +23,15 @@ object SparkHBase {
     val hbaseConf = HbaseConfigurationFactory.getConfiguration
     hbaseConf.set(TableInputFormat.INPUT_TABLE, tableName)
 
-    // test
-    val connection = ConnectionFactory.createConnection(hbaseConf)
-    val table = connection.getTable(TableName.valueOf(tableName))
-
-    val scan: Scan = new Scan().setMaxVersions(10)
-    val scanner: ResultScanner = table.getScanner(scan)
-    import scala.collection.JavaConversions._
-    for (result <- scanner) {
-      println(result.toString)
-    }
-
     val hbaseTableRdd = sc.newAPIHadoopRDD(hbaseConf, classOf[TableInputFormat], classOf[ImmutableBytesWritable], classOf[Result])
     val moviesRdd = hbaseTableRdd.map(result => MovieDao.createMovie(result._2))
-    val genresRdd = moviesRdd.flatMap(movie => movie.getGenres.split("\\|"))
-    genresRdd.distinct().saveAsTextFile("/user/sages/hbase-spark/result")
+    val genresRdd = moviesRdd.flatMap(movie => movie.getGenres.split("\\|")).distinct
+
+    // delete result directory and save result on HDFS
+    val resultPath = "/user/sages/hbase-spark/result"
+    import org.apache.hadoop.fs.{FileSystem, Path}
+    FileSystem.get(sc.hadoopConfiguration).delete(new Path(resultPath), true)
+    genresRdd.coalesce(1).saveAsTextFile(resultPath)
 
     // end
     sc.stop()
