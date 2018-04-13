@@ -19,6 +19,7 @@
         <module>hbase-jdo</module>
         <module>hbase-jpa-kundera</module>
         <module>phoenix</module>
+        <module>hbase-spark</module>
     </modules>
 
 </project>

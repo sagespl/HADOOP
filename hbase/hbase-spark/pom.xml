@@ -4,11 +4,11 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>spark-mllib</artifactId>
-    <name>Apache Spark - MLlib</name>
+    <artifactId>hbase-spark</artifactId>
+    <name>Apache HBase - Spark</name>
 
     <parent>
-        <artifactId>spark</artifactId>
+        <artifactId>hbase</artifactId>
         <groupId>pl.com.sages</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
@@ -17,31 +17,31 @@
 
         <dependency>
             <groupId>pl.com.sages</groupId>
-            <artifactId>data-model</artifactId>
+            <artifactId>hbase-api</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
+
         <dependency>
-            <groupId>pl.com.sages</groupId>
-            <artifactId>spark-core</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <groupId>org.apache.hbase</groupId>
+            <artifactId>hbase-client</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.hbase</groupId>
+            <artifactId>hbase-common</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.hbase</groupId>
+            <artifactId>hbase-server</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
         </dependency>
 
         <dependency>
             <groupId>org.apache.spark</groupId>
             <artifactId>spark-core_${scala.binary.version}</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.spark</groupId>
-            <artifactId>spark-sql_${scala.binary.version}</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.spark</groupId>
-            <artifactId>spark-mllib_${scala.binary.version}</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.scala-lang</groupId>
-            <artifactId>scala-library</artifactId>
         </dependency>
 
     </dependencies>
@@ -58,5 +58,6 @@
             </plugin>
         </plugins>
     </build>
+
 
 </project>
