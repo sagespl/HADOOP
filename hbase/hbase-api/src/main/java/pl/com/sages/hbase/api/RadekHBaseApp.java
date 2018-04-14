@@ -37,12 +37,14 @@ public class RadekHBaseApp {
         // 2. dodać do tabeli java dwa wiersze: dwie kolumny, każda dwie wartości
         Table table = connection.getTable(TABLE_NAME);
 
-        table.put(new Put(toBytes("id"))
-                .addColumn(toBytes(FAMILY_NAME), toBytes("kol1"), toBytes("wersja 1a"))
-                .addColumn(toBytes(FAMILY_NAME), toBytes("kol2"), toBytes("wersja 1b")));
-        table.put(new Put(toBytes("id"))
-                .addColumn(toBytes(FAMILY_NAME), toBytes("kol1"), toBytes("wersja 2a"))
-                .addColumn(toBytes(FAMILY_NAME), toBytes("kol2"), toBytes("wersja 2b")));
+        for (int i = 0; i < 2; i++) {
+            table.put(new Put(toBytes(i))
+                    .addColumn(toBytes(FAMILY_NAME), toBytes("kol1"), toBytes("wersja 1a"))
+                    .addColumn(toBytes(FAMILY_NAME), toBytes("kol2"), toBytes("wersja 1b")));
+            table.put(new Put(toBytes(i))
+                    .addColumn(toBytes(FAMILY_NAME), toBytes("kol1"), toBytes("wersja 2a"))
+                    .addColumn(toBytes(FAMILY_NAME), toBytes("kol2"), toBytes("wersja 2b")));
+        }
 
         // 3. pobrać dane z bazy i wyświetlić na konsoli (system out)
         // a) GET
