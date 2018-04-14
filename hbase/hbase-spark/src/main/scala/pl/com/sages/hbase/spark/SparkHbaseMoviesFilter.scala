@@ -7,7 +7,7 @@ import org.apache.hadoop.hbase.io.ImmutableBytesWritable
 import org.apache.hadoop.hbase.mapreduce.{TableInputFormat, TableOutputFormat}
 import org.apache.spark.{SparkConf, SparkContext}
 import pl.com.sages.hbase.api.dao.MovieDao
-import pl.com.sages.hbase.api.util.HbaseConfigurationFactory
+import pl.com.sages.hbase.api.util.{HBaseTableBuilder, HbaseConfigurationFactory}
 
 object SparkHbaseMoviesFilter {
 
@@ -29,9 +29,10 @@ object SparkHbaseMoviesFilter {
     val actionMoviesRdd = moviesRdd.filter(movie => movie.getGenres.contains("Action"))
     val utputTableRdd = actionMoviesRdd.map(movie => (movie.getMovieId, MovieDao.createPut(movie)))
 
-    import org.apache.hadoop.mapreduce.Job
-    // new Hadoop API configuration// new Hadoop API configuration
+    new HBaseTableBuilder().withTable(outputTable).withFamily(MovieDao.CF).rebuild()
 
+    // new Hadoop API configuration// new Hadoop API configuration
+    import org.apache.hadoop.mapreduce.Job
     val newAPIJobConfiguration1 = Job.getInstance(hbaseConf)
     newAPIJobConfiguration1.getConfiguration.set(TableOutputFormat.OUTPUT_TABLE, outputTable)
     newAPIJobConfiguration1.setOutputFormatClass(classOf[TableOutputFormat[_]])
