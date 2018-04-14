@@ -1,11 +1,12 @@
 package pl.com.sages.hbase.api;
 
 import org.apache.hadoop.conf.Configuration;
-import org.apache.hadoop.hbase.HColumnDescriptor;
-import org.apache.hadoop.hbase.HTableDescriptor;
-import org.apache.hadoop.hbase.TableName;
+import org.apache.hadoop.hbase.*;
 import org.apache.hadoop.hbase.client.*;
+import org.apache.hadoop.hbase.util.Bytes;
 import pl.com.sages.hbase.api.util.HBaseUtil;
+
+import java.util.List;
 
 import static org.apache.hadoop.hbase.util.Bytes.toBytes;
 import static pl.com.sages.hbase.api.util.HbaseConfigurationFactory.getConfiguration;
@@ -36,15 +37,23 @@ public class RadekHBaseApp {
         Table table = connection.getTable(TABLE_NAME);
 
         table.put(new Put(toBytes("id"))
-                .addColumn(toBytes(FAMILY_NAME), toBytes("kol1"), toBytes("wersja 1"))
-                .addColumn(toBytes(FAMILY_NAME), toBytes("kol2"), toBytes("wersja 1")));
+                .addColumn(toBytes(FAMILY_NAME), toBytes("kol1"), toBytes("wersja 1a"))
+                .addColumn(toBytes(FAMILY_NAME), toBytes("kol2"), toBytes("wersja 1b")));
         table.put(new Put(toBytes("id"))
-                .addColumn(toBytes(FAMILY_NAME), toBytes("kol1"), toBytes("wersja 2"))
-                .addColumn(toBytes(FAMILY_NAME), toBytes("kol2"), toBytes("wersja 2")));
+                .addColumn(toBytes(FAMILY_NAME), toBytes("kol1"), toBytes("wersja 2a"))
+                .addColumn(toBytes(FAMILY_NAME), toBytes("kol2"), toBytes("wersja 2b")));
 
         // 3. pobrać dane z bazy i wyświetlić na konsoli (system out)
         // a) GET
         // b*) Scan
+        ResultScanner scanner = table.getScanner(new Scan().setMaxVersions(10));
+        for (Result result : scanner) {
+            List<Cell> cells = result.listCells();
+            for (Cell cell : cells) {
+                System.out.println(Bytes.toString(CellUtil.cloneValue(cell)));
+            }
+        }
+
     }
 
 }
