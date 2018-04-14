@@ -23,7 +23,6 @@ object SparkHbaseMoviesFilter {
     // run
     val hbaseConf = HbaseConfigurationFactory.getConfiguration
     hbaseConf.set(TableInputFormat.INPUT_TABLE, inputTable)
-    hbaseConf.set(TableOutputFormat.OUTPUT_TABLE, outputTable)
 
     val inputTableRdd = sc.newAPIHadoopRDD(hbaseConf, classOf[TableInputFormat], classOf[ImmutableBytesWritable], classOf[Result])
     val moviesRdd = inputTableRdd.map(result => MovieDao.createMovie(result._2))
@@ -34,7 +33,7 @@ object SparkHbaseMoviesFilter {
     // new Hadoop API configuration// new Hadoop API configuration
 
     val newAPIJobConfiguration1 = Job.getInstance(hbaseConf)
-    newAPIJobConfiguration1.getConfiguration.set(TableOutputFormat.OUTPUT_TABLE, "tableName")
+    newAPIJobConfiguration1.getConfiguration.set(TableOutputFormat.OUTPUT_TABLE, outputTable)
     newAPIJobConfiguration1.setOutputFormatClass(classOf[TableOutputFormat[_]])
     utputTableRdd.saveAsNewAPIHadoopDataset(newAPIJobConfiguration1.getConfiguration)
 
