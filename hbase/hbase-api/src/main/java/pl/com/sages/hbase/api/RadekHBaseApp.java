@@ -54,7 +54,7 @@ public class RadekHBaseApp {
             List<Cell> cells = result.listCells();
             for (Cell cell : cells) {
 
-                String id = Bytes.toString(CellUtil.cloneRow(cell));
+                int id = Bytes.toInt(CellUtil.cloneRow(cell));
                 String family = Bytes.toString(CellUtil.cloneFamily(cell));
                 String qualifier = Bytes.toString(CellUtil.cloneQualifier(cell));
                 String value = Bytes.toString(CellUtil.cloneValue(cell));
