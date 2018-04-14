@@ -29,7 +29,7 @@ public abstract class HBaseUtil {
 
     @Deprecated
     public static void recreateTable(TableName tableName, String familyName) {
-        new HBaseTableBuilder().withTable(tableName).withFamily(familyName).build();
+        new HBaseTableBuilder().withTable(tableName).withFamily(familyName).rebuild();
     }
 
     public static TableName getUserTableName(String tableName) {

@@ -20,7 +20,7 @@ public class HBaseTableBuilder {
     private Connection connection;
 
     private TableName tableName;
-    private String familyName = "cf";
+    private List<String> families = new ArrayList<>();
     private Compression.Algorithm compressionType = Compression.Algorithm.GZ;
 
     public HBaseTableBuilder() {
@@ -56,12 +56,12 @@ public class HBaseTableBuilder {
     }
 
     public HBaseTableBuilder withFamily(String familyName) {
-        this.familyName = familyName;
+        this.families.add(familyName);
         return this;
     }
 
     public HBaseTableBuilder withFamily(byte[] familyName) {
-        this.familyName = Bytes.toString(familyName);
+        this.families.add(Bytes.toString(familyName));
         return this;
     }
 
@@ -85,11 +85,13 @@ public class HBaseTableBuilder {
 
             HTableDescriptor table = new HTableDescriptor(tableName);
 
-            HColumnDescriptor columnFamily = new HColumnDescriptor(familyName);
-            columnFamily.setMaxVersions(1);
-            columnFamily.setCompressionType(compressionType);
+            for (String family : families) {
+                HColumnDescriptor columnFamily = new HColumnDescriptor(family);
+                columnFamily.setMaxVersions(1);
+                columnFamily.setCompressionType(compressionType);
 
-            table.addFamily(columnFamily);
+                table.addFamily(columnFamily);
+            }
 
             admin.createTable(table);
             admin.close();

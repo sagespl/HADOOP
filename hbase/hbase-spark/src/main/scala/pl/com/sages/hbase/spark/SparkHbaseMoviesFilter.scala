@@ -4,14 +4,15 @@ import java.util.Date
 
 import org.apache.hadoop.hbase.client._
 import org.apache.hadoop.hbase.io.ImmutableBytesWritable
-import org.apache.hadoop.hbase.mapreduce.TableInputFormat
+import org.apache.hadoop.hbase.mapreduce.{TableInputFormat, TableOutputFormat}
 import org.apache.spark.{SparkConf, SparkContext}
 import pl.com.sages.hbase.api.dao.MovieDao
 import pl.com.sages.hbase.api.util.HbaseConfigurationFactory
 
 object SparkHbaseMoviesFilter {
 
-  val tableName = "sages:movies"
+  val inputTable = "radek:movies"
+  val outputTable = "radek:movies_action"
 
   def main(args: Array[String]): Unit = {
 
@@ -21,17 +22,21 @@ object SparkHbaseMoviesFilter {
 
     // run
     val hbaseConf = HbaseConfigurationFactory.getConfiguration
-    hbaseConf.set(TableInputFormat.INPUT_TABLE, tableName)
+    hbaseConf.set(TableInputFormat.INPUT_TABLE, inputTable)
+    hbaseConf.set(TableOutputFormat.OUTPUT_TABLE, outputTable)
 
-    val hbaseTableRdd = sc.newAPIHadoopRDD(hbaseConf, classOf[TableInputFormat], classOf[ImmutableBytesWritable], classOf[Result])
-    val moviesRdd = hbaseTableRdd.map(result => MovieDao.createMovie(result._2))
-    val genresRdd = moviesRdd.flatMap(movie => movie.getGenres.split("\\|")).distinct
+    val inputTableRdd = sc.newAPIHadoopRDD(hbaseConf, classOf[TableInputFormat], classOf[ImmutableBytesWritable], classOf[Result])
+    val moviesRdd = inputTableRdd.map(result => MovieDao.createMovie(result._2))
+    val actionMoviesRdd = moviesRdd.filter(movie => movie.getGenres.contains("Action"))
+    val utputTableRdd = actionMoviesRdd.map(movie => (movie.getMovieId, MovieDao.createPut(movie)))
 
-    // delete result directory and save result on HDFS
-    val resultPath = "/user/sages/hbase-spark/result"
-    import org.apache.hadoop.fs.{FileSystem, Path}
-    FileSystem.get(sc.hadoopConfiguration).delete(new Path(resultPath), true)
-    genresRdd.coalesce(1).saveAsTextFile(resultPath)
+    import org.apache.hadoop.mapreduce.Job
+    // new Hadoop API configuration// new Hadoop API configuration
+
+    val newAPIJobConfiguration1 = Job.getInstance(hbaseConf)
+    newAPIJobConfiguration1.getConfiguration.set(TableOutputFormat.OUTPUT_TABLE, "tableName")
+    newAPIJobConfiguration1.setOutputFormatClass(classOf[TableOutputFormat[_]])
+    utputTableRdd.saveAsNewAPIHadoopDataset(newAPIJobConfiguration1.getConfiguration)
 
     // end
     sc.stop()

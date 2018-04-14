@@ -46,11 +46,11 @@ public class MovieDao {
         table.close();
     }
 
-    private Put createPut(Movie movie) {
+    public static Put createPut(Movie movie) {
         return createPut(movie.getMovieId(), movie.getTitle(), movie.getGenres());
     }
 
-    private Put createPut(int movieId, String title, String genres) {
+    public static Put createPut(int movieId, String title, String genres) {
         Put put = new Put(Bytes.toBytes(movieId));
         put.addColumn(CF, TITLE, Bytes.toBytes(title));
         put.addColumn(CF, GENRES, Bytes.toBytes(genres));

@@ -34,7 +34,7 @@ public class AllMovieDataExternalTest {
                 .withFamily(FAMILY_NAME)
                 .withFamily(MovieDao.CF)
                 .withFamily(RatingDao.CF)
-                .build();
+                .rebuild();
     }
 
     @Test

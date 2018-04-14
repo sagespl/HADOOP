@@ -11,7 +11,8 @@ import pl.com.sages.hbase.api.util.HbaseConfigurationFactory
 
 object SparkHbaseMoviesGenres {
 
-  val tableName = "sages:movies"
+  val tableName = "radek:movies"
+  val resultPath = "/user/radek/hbase-spark/result"
 
   def main(args: Array[String]): Unit = {
 
@@ -28,7 +29,6 @@ object SparkHbaseMoviesGenres {
     val genresRdd = moviesRdd.flatMap(movie => movie.getGenres.split("\\|")).distinct
 
     // delete result directory and save result on HDFS
-    val resultPath = "/user/sages/hbase-spark/result"
     import org.apache.hadoop.fs.{FileSystem, Path}
     FileSystem.get(sc.hadoopConfiguration).delete(new Path(resultPath), true)
     genresRdd.coalesce(1).saveAsTextFile(resultPath)
