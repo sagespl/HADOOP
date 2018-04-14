@@ -6,6 +6,7 @@ import org.apache.hadoop.hbase.client.*;
 import org.apache.hadoop.hbase.util.Bytes;
 import pl.com.sages.hbase.api.util.HBaseUtil;
 
+import java.text.MessageFormat;
 import java.util.List;
 
 import static org.apache.hadoop.hbase.util.Bytes.toBytes;
@@ -50,7 +51,15 @@ public class RadekHBaseApp {
         for (Result result : scanner) {
             List<Cell> cells = result.listCells();
             for (Cell cell : cells) {
-                System.out.println(Bytes.toString(CellUtil.cloneValue(cell)));
+
+                String id = Bytes.toString(CellUtil.cloneRow(cell));
+                String family = Bytes.toString(CellUtil.cloneFamily(cell));
+                String qualifier = Bytes.toString(CellUtil.cloneQualifier(cell));
+                String value = Bytes.toString(CellUtil.cloneValue(cell));
+                long timestamp = cell.getTimestamp();
+
+                System.out.println(MessageFormat.format("id: {0}, col: {1}:{2}, value: {3}, t: {4}",
+                        id, family, qualifier, value, timestamp));
             }
         }
 
