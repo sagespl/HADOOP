@@ -30,7 +30,7 @@ public class RadekHBaseApp {
         }
 
         // 1. stworzyc tabelkę java w swoim namespace
-        HBaseUtil.createNamespaceIfNotExists(TABLE_NAME.getNamespaceAsString(), admin);
+        HBaseUtil.createNamespaceIfNotExists(TABLE_NAME.getNamespaceAsString());
         admin.createTable(new HTableDescriptor(TABLE_NAME)
                 .addFamily(new HColumnDescriptor(FAMILY_NAME).setMaxVersions(10)));
 

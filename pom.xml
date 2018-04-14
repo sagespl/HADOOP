@@ -310,6 +310,12 @@
                 <scope>test</scope>
             </dependency>
 
+            <dependency>
+                <groupId>io.vavr</groupId>
+                <artifactId>vavr</artifactId>
+                <version>0.9.2</version>
+            </dependency>
+
             <!-- log4j -->
             <dependency>
                 <groupId>log4j</groupId>

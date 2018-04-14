@@ -48,7 +48,7 @@ public class HBaseTableBuilder {
 
             // recreating namespace
             String namespace = tableName.getNamespaceAsString();
-            HBaseUtil.createNamespaceIfNotExists(namespace, admin);
+            HBaseUtil.createNamespaceIfNotExists(namespace);
 
             if (admin.tableExists(tableName)) {
                 if (!admin.isTableDisabled(tableName)) {

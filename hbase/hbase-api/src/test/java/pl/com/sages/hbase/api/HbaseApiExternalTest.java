@@ -46,7 +46,7 @@ public class HbaseApiExternalTest {
         columnFamily2.setMaxVersions(10);
         table.addFamily(columnFamily2);
 
-        HBaseUtil.createNamespaceIfNotExists(TEST_TABLE_NAME.getNamespaceAsString(), admin);
+        HBaseUtil.createNamespaceIfNotExists(TEST_TABLE_NAME.getNamespaceAsString());
         admin.createTable(table);
     }
 
