@@ -9,15 +9,15 @@ import org.apache.spark.{SparkConf, SparkContext}
 import pl.com.sages.hbase.api.dao.MovieDao
 import pl.com.sages.hbase.api.util.HbaseConfigurationFactory
 
-object SparkHBase {
+object SparkHbaseMoviesGenres {
+
+  val tableName = "sages:movies"
 
   def main(args: Array[String]): Unit = {
 
     // prepare
     val conf = new SparkConf().setAppName(this.getClass.getSimpleName + new Date())
     val sc = new SparkContext(conf)
-
-    val tableName = "sages:movies"
 
     // run
     val hbaseConf = HbaseConfigurationFactory.getConfiguration
