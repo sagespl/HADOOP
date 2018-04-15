@@ -38,6 +38,7 @@ public class RadekBooksLoader {
         Admin admin = connection.getAdmin();
 
         // ponowne utworzenie tabeli
+        HBaseUtil.createNamespaceIfNotExists(TABLE_NAME.getNamespaceAsString());
         if (admin.tableExists(TABLE_NAME)) {
             admin.disableTable(TABLE_NAME);
             admin.deleteTable(TABLE_NAME);
