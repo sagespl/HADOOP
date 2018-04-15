@@ -50,7 +50,6 @@ public class RadekSearchMapperTest {
                 null,
                 null,
                 job);
-        // Na wyjściu tabela z komediami
         TableMapReduceUtil.initTableReducerJob(
                 TABLE_NAME.getNameAsString(),
                 null,
