@@ -52,6 +52,7 @@ public class RadekBooksLoader {
                 String content = IOUtils.toString(new FileInputStream(file));
 
                 table.put(new Put(toBytes(file.getName()))
+                        .addColumn(toBytes(FAMILY_NAME), toBytes("name"), toBytes(file.getName()))
                         .addColumn(toBytes(FAMILY_NAME), toBytes("content"), toBytes(content)));
 
             }
