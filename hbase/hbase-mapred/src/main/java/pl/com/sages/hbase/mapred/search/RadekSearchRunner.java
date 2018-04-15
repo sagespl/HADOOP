@@ -9,6 +9,11 @@ import org.apache.hadoop.mapreduce.Job;
 import pl.com.sages.hbase.api.RadekBooksLoader;
 import pl.com.sages.hbase.api.util.HBaseUtil;
 
+/**
+ * scp -r hbase-mapred-1.0-SNAPSHOT-jar-with-dependencies.jar login@hdp3:/home/login
+ *
+ * yarn jar hbase-mapred-1.0-SNAPSHOT-jar-with-dependencies.jar pl.com.sages.hbase.mapred.search.RadekSearchRunner
+ */
 public class RadekSearchRunner {
 
     public static final TableName TABLE_NAME = HBaseUtil.getUserTableName("search_index");
