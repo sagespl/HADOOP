@@ -56,6 +56,9 @@ public class RadekBooksLoader {
 
             }
         }
+
+        admin.close();
+        table.close();
     }
 
 }
