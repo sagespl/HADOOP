@@ -24,10 +24,10 @@ import static pl.com.sages.hbase.api.util.HbaseConfigurationFactory.getConfigura
 public class RadekBooksLoader {
 
 //    private static final String BOOKS = "/home/users/login/bigdata/lektury/lektury-all";
-    public static final String BOOKS = "/home/radek/Sages/dane/lektury/lektury-all";
+    private static final String BOOKS = "/home/radek/Sages/dane/lektury/lektury-all";
 
-    private static final TableName TABLE_NAME = HBaseUtil.getUserTableName("books");
-    private static final String FAMILY_NAME = "cf";
+    public static final TableName TABLE_NAME = HBaseUtil.getUserTableName("books");
+    public static final String FAMILY_NAME = "cf";
 
     // psvm
     public static void main(String[] args) throws Exception {
