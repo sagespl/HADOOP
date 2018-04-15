@@ -9,9 +9,9 @@ import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.List;
 
-public class HBaseCompactionScheduler {
+public class HBaseCompactionRunner {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(HBaseCompactionScheduler.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(HBaseCompactionRunner.class);
 
     public void run() throws IOException {
         try {
@@ -42,7 +42,7 @@ public class HBaseCompactionScheduler {
     }
 
     public static void main(String[] args) throws IOException {
-        new HBaseCompactionScheduler().run();
+        new HBaseCompactionRunner().run();
     }
 
 }
