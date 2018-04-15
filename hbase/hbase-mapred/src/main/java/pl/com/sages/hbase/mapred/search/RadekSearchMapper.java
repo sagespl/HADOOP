@@ -27,9 +27,11 @@ public class RadekSearchMapper extends TableMapper<ImmutableBytesWritable, Put> 
         while (itr.hasMoreTokens()) {
             String word = itr.nextToken();
 
-
-            Put put = new Put(Bytes.toBytes(word));
-            // TODO
+            Put put = new Put(Bytes.toBytes(word))
+                    .addColumn(
+                            Bytes.toBytes(RadekBooksLoader.FAMILY_NAME),
+                            Bytes.toBytes(filename),
+                            Bytes.toBytes(1));
             context.write(null, put);
         }
     }
