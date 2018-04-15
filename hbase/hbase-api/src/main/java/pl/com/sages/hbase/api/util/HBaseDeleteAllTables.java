@@ -30,7 +30,7 @@ public class HBaseDeleteAllTables {
                                 table.getAverageLocality()));
                         try {
                             if (admin.tableExists(table.getName())) {
-//                                admin.disableTable(table.getName());
+                                admin.disableTable(table.getName());
                                 admin.deleteTable(table.getName());
                             }
                         } catch (Exception e) {
