@@ -9,8 +9,8 @@
     <name>Apache Spark</name>
 
     <parent>
-        <artifactId>hadoop</artifactId>
         <groupId>pl.com.sages</groupId>
+        <artifactId>hadoop</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
 

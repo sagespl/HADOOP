@@ -7,13 +7,17 @@ trait GlobalParameters {
   val hostname: String = "localhost"
   val port: String = "9999"
 
+  // AWS / Hadoop / Local Scheme
+  val fileSystemScheme = "s3a://sages-aws"
+  val useAws = true;
+
   // books
   val bookPath: String = "/dane/lektury/lektury-all"
 
   // movielens
-  val moviesPath: String = "/dane/movielens/hive/movies/movies.dat"
-  val tagsPath: String = "/dane/movielens/hive/tags/tags.dat"
-  val ratingsPath: String = "/dane/movielens/hive/ratings/ratings.dat"
+  val moviesPath: String = fileSystemScheme + "/dane/movielens/hive/movies/movies.dat"
+  val tagsPath: String = fileSystemScheme + "/dane/movielens/hive/tags/tags.dat"
+  val ratingsPath: String = fileSystemScheme + "/dane/movielens/hive/ratings/ratings.dat"
   val movielensSeparator: String = "@"
 
   // Spark test data

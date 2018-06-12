@@ -28,9 +28,10 @@
 
     <properties>
 
+        <!--HDP 2.6-->
+        <!--emr-5.5.2-->
         <hadoop.version>[2.7.1]</hadoop.version>
         <spark.version>[2.1.1]</spark.version>
-        <avro.version>1.7.7</avro.version>
         <hive.version>1.2.1</hive.version>
         <pig.version>0.15.0</pig.version>
         <hbase.version>[1.1.2]</hbase.version>
@@ -44,6 +45,8 @@
         <kafka.version>0.10.1.1</kafka.version>
         <nifi.version>1.5.0</nifi.version>
         <datanucleus.version>4.1.1</datanucleus.version>
+        <avro.version>1.7.7</avro.version>
+        <jackson.version>2.6.5</jackson.version>
 
         <!-- Java 8 -->
         <maven.compiler.source>1.8</maven.compiler.source>
@@ -104,19 +107,6 @@
                 <groupId>org.apache.hadoop</groupId>
                 <artifactId>hadoop-mapreduce-client-core</artifactId>
                 <version>${hadoop.version}</version>
-            </dependency>
-
-            <!-- Avro -->
-            <dependency>
-                <groupId>org.apache.avro</groupId>
-                <artifactId>avro</artifactId>
-                <version>${avro.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.avro</groupId>
-                <artifactId>avro-mapred</artifactId>
-                <version>${avro.version}</version>
-                <classifier>hadoop2</classifier>
             </dependency>
 
             <!-- Hive-->
@@ -310,10 +300,41 @@
                 <scope>test</scope>
             </dependency>
 
+            <!--Vavr for Java-->
             <dependency>
                 <groupId>io.vavr</groupId>
                 <artifactId>vavr</artifactId>
                 <version>0.9.2</version>
+            </dependency>
+
+            <!-- Avro -->
+            <dependency>
+                <groupId>org.apache.avro</groupId>
+                <artifactId>avro</artifactId>
+                <version>${avro.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.avro</groupId>
+                <artifactId>avro-mapred</artifactId>
+                <version>${avro.version}</version>
+                <classifier>hadoop2</classifier>
+            </dependency>
+
+            <!--Jackson-->
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-core</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-databind</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-annotations</artifactId>
+                <version>${jackson.version}</version>
             </dependency>
 
             <!-- log4j -->

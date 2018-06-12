@@ -1,12 +1,10 @@
 package pl.com.sages.spark
 
-import org.apache.spark.sql.SparkSession
-
-object MovieLensDataFrame extends GlobalParameters {
+object MovieLensDataFrame extends BaseSparkSqlApp with GlobalParameters {
 
   def main(args: Array[String]): Unit = {
 
-    val spark = SparkSession.builder.appName(this.getClass.getSimpleName).getOrCreate()
+    val spark = createSparkSession
     import spark.implicits._
 
     // reading from HDFS
@@ -31,6 +29,10 @@ object MovieLensDataFrame extends GlobalParameters {
       withColumnRenamed("_c2", "rating").
       withColumnRenamed("_c3", "timestamp")
 
+    // persist
+    moviesDataFrame.persist()
+    ratingsDataFrame.persist()
+
     // show
     moviesDataFrame.show(10)
     moviesDataFrame.printSchema()
@@ -51,7 +53,7 @@ object MovieLensDataFrame extends GlobalParameters {
     ratingsDataFrame.createOrReplaceTempView("ratings")
     spark.sql("SELECT * FROM movies").show()
     spark.sql("SELECT * FROM ratings").show()
-    spark.sql("SELECT * FROM ratings group by movieId").show()
+    spark.sql("SELECT movieId, avg(rating) as rating FROM ratings group by movieId").show()
     spark.sql("SELECT movieId, count(*) as counted " +
       "FROM ratings " +
       "group by movieId " +
