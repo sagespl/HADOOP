@@ -23,7 +23,7 @@ trait BaseSparkSqlApp extends GlobalParameters {
 
     val spark = SparkSession.builder().
       config(conf).
-      master("local").
+      master(master).
       getOrCreate()
 
     val sc = spark.sparkContext

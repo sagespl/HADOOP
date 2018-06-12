@@ -3,13 +3,13 @@ package pl.com.sages.spark
 trait GlobalParameters {
 
   val user: String = System.getProperty("user.name")
-  val master: String = "local"
+  val master: String = "yarn"
   val hostname: String = "localhost"
   val port: String = "9999"
 
   // AWS / Hadoop / Local Scheme
   val fileSystemScheme = "s3a://sages-aws"
-  val useAws = true;
+  val useAws = false
 
   // books
   val bookPath: String = "/dane/lektury/lektury-all"
