@@ -27,7 +27,7 @@ object SparkHbaseMoviesFilter {
     val inputTableRdd = sc.newAPIHadoopRDD(hbaseConf, classOf[TableInputFormat], classOf[ImmutableBytesWritable], classOf[Result])
     val moviesRdd = inputTableRdd.map(result => MovieDao.createMovie(result._2))
     val actionMoviesRdd = moviesRdd.filter(movie => movie.getGenres.contains("Action"))
-    val utputTableRdd = actionMoviesRdd.map(movie => (movie.getMovieId, MovieDao.createPut(movie)))
+    val outputTableRdd = actionMoviesRdd.map(movie => (movie.getMovieId, MovieDao.createPut(movie)))
 
     new HBaseTableBuilder().withTable(outputTable).withFamily(MovieDao.CF).rebuild()
 
@@ -36,7 +36,7 @@ object SparkHbaseMoviesFilter {
     val newAPIJobConfiguration1 = Job.getInstance(hbaseConf)
     newAPIJobConfiguration1.getConfiguration.set(TableOutputFormat.OUTPUT_TABLE, outputTable)
     newAPIJobConfiguration1.setOutputFormatClass(classOf[TableOutputFormat[_]])
-    utputTableRdd.saveAsNewAPIHadoopDataset(newAPIJobConfiguration1.getConfiguration)
+    outputTableRdd.saveAsNewAPIHadoopDataset(newAPIJobConfiguration1.getConfiguration)
 
     // end
     sc.stop()
