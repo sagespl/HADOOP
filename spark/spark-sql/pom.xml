@@ -35,6 +35,7 @@
             <artifactId>spark-sql_${scala.binary.version}</artifactId>
         </dependency>
 
+        <!--Hadoop on AWS-->
         <dependency>
             <groupId>org.apache.hadoop</groupId>
             <artifactId>hadoop-aws</artifactId>
