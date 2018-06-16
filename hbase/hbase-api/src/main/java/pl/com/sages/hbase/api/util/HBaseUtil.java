@@ -37,6 +37,10 @@ public abstract class HBaseUtil {
         return TableName.valueOf(userName, tableName);
     }
 
+    public static void createNamespaceIfNotExists(final String namespace, Admin admin) throws IOException {
+        createNamespaceIfNotExists(namespace);
+    }
+
     public static void createNamespaceIfNotExists(final String namespace) throws IOException {
         final Admin admin = connection.getAdmin();
         NamespaceDescriptor namespaceDescriptor;
@@ -57,18 +61,6 @@ public abstract class HBaseUtil {
         }
         admin.close();
         return false;
-    }
-
-    public List<String> listTablesNames() {
-        return Try.of(() -> {
-
-            final Admin admin = connection.getAdmin();
-            List<String> tables = Arrays.stream(admin.listTables()).map(HTableDescriptor::getNameAsString).collect(Collectors.toList());
-            admin.close();
-
-            return tables;
-
-        }).get();
     }
 
     public static double getTableAverageLocality(TableName tableName) {
@@ -164,6 +156,18 @@ public abstract class HBaseUtil {
             admin.close();
 
             return tables;
+        }).get();
+    }
+
+    public List<String> listTablesNames() {
+        return Try.of(() -> {
+
+            final Admin admin = connection.getAdmin();
+            List<String> tables = Arrays.stream(admin.listTables()).map(HTableDescriptor::getNameAsString).collect(Collectors.toList());
+            admin.close();
+
+            return tables;
+
         }).get();
     }
 
