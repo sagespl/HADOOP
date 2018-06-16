@@ -26,12 +26,13 @@ object SparkHbaseMoviesGenres {
 
     val hbaseTableRdd = sc.newAPIHadoopRDD(hbaseConf, classOf[TableInputFormat], classOf[ImmutableBytesWritable], classOf[Result])
     val moviesRdd = hbaseTableRdd.map(result => MovieDao.createMovie(result._2))
-    val genresRdd = moviesRdd.flatMap(movie => movie.getGenres.split("\\|")).distinct
+    val genresRdd = moviesRdd.flatMap(movie => movie.getGenres.split("\\|"))
+    val resultRDD = genresRdd.distinct
 
     // delete result directory and save result on HDFS
     import org.apache.hadoop.fs.{FileSystem, Path}
     FileSystem.get(sc.hadoopConfiguration).delete(new Path(resultPath), true)
-    genresRdd.coalesce(1).saveAsTextFile(resultPath)
+    resultRDD.coalesce(1).saveAsTextFile(resultPath)
 
     // end
     sc.stop()
