@@ -15,7 +15,6 @@ import pl.com.sages.hbase.api.util.HbaseConfigurationFactory
 object SparkHbaseMoviesDataFrame {
 
   val inputTable = "radek:movies"
-  val outputTable = "radek:movies_action"
 
   def main(args: Array[String]): Unit = {
 

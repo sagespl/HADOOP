@@ -8,6 +8,7 @@ import org.apache.hadoop.hbase.mapreduce.{TableInputFormat, TableOutputFormat}
 import org.apache.spark.{SparkConf, SparkContext}
 import pl.com.sages.hbase.api.dao.MovieDao
 import pl.com.sages.hbase.api.util.{HBaseTableBuilder, HbaseConfigurationFactory}
+import org.apache.hadoop.mapreduce.Job
 
 object SparkHbaseMoviesFilter {
 
@@ -32,7 +33,6 @@ object SparkHbaseMoviesFilter {
     new HBaseTableBuilder().withTable(outputTable).withFamily(MovieDao.CF).rebuild()
 
     // new Hadoop API configuration// new Hadoop API configuration
-    import org.apache.hadoop.mapreduce.Job
     val newAPIJobConfiguration1 = Job.getInstance(hbaseConf)
     newAPIJobConfiguration1.getConfiguration.set(TableOutputFormat.OUTPUT_TABLE, outputTable)
     newAPIJobConfiguration1.setOutputFormatClass(classOf[TableOutputFormat[_]])

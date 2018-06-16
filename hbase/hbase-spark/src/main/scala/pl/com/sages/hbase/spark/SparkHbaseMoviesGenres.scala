@@ -2,6 +2,7 @@ package pl.com.sages.hbase.spark
 
 import java.util.Date
 
+import org.apache.hadoop.fs.{FileSystem, Path}
 import org.apache.hadoop.hbase.client._
 import org.apache.hadoop.hbase.io.ImmutableBytesWritable
 import org.apache.hadoop.hbase.mapreduce.TableInputFormat
@@ -30,7 +31,6 @@ object SparkHbaseMoviesGenres {
     val resultRDD = genresRdd.distinct
 
     // delete result directory and save result on HDFS
-    import org.apache.hadoop.fs.{FileSystem, Path}
     FileSystem.get(sc.hadoopConfiguration).delete(new Path(resultPath), true)
     resultRDD.coalesce(1).saveAsTextFile(resultPath)
 
