@@ -10,21 +10,20 @@ import static pl.com.sages.hadoop.kafka.KafkaConfigurationFactory.*;
 public class KafkaProducerExample {
 
     private static final Logger LOGGER = Logger.getLogger(KafkaProducerExample.class);
+    private static int MESSAGE_ID = 1;
 
     public static void main(String[] args) throws Exception {
 
         Producer<String, String> producer = new KafkaProducer<>(createProducerConfig());
         LoggerCallback callback = new LoggerCallback();
 
-        int messageId = 1;
-
         try {
             while (true) {
 
                 for (long i = 0; i < 10; i++) {
-                    ProducerRecord<String, String> data = new ProducerRecord<>(TOPIC, "key-" + messageId, " Ala ma kota, Ela ma psa");
+                    ProducerRecord<String, String> data = new ProducerRecord<>(TOPIC, "key-" + MESSAGE_ID, " Ala ma kota, Ela ma psa");
                     producer.send(data, callback);
-                    messageId++;
+                    MESSAGE_ID++;
                 }
 
                 LOGGER.info("Sended messages");
