@@ -11,11 +11,14 @@ import java.util.Properties;
 
 public class KafkaConfigurationFactory {
 
-    //    public static final String KAFKA_SERVER = "localhost:9092";
-    public static final String KAFKA_SERVER = "localhost:6667";
+    public static final String KAFKA_SERVER = "localhost:9092";
+//    public static final String KAFKA_SERVER = "localhost:6667";
+
     public static final String ZOOKEEPER_SERVER = "localhost:2181";
+
     public static final String TOPIC = "test-topic";
     public static final String TOPIC_OUT = "test-topic-out";
+
     public static final int TIMEOUT = 10000;
     public static final int SLEEP = 5000;
 
