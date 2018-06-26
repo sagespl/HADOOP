@@ -1,0 +1,63 @@
+version: '3.5'
+
+services:
+
+  zookeeper:
+      image: wurstmeister/zookeeper
+      ports:
+        - "2181:2181"
+      container_name: cluster_zookeeper
+      networks:
+        - elk
+
+  kafka1:
+      image: wurstmeister/kafka:1.0.0
+      ports:
+        - "9092:9092"
+      hostname: cluster_kafka1
+      networks:
+        - elk
+      environment:
+        KAFKA_ADVERTISED_LISTENERS: cluster_kafka1
+        KAFKA_ZOOKEEPER_CONNECT: cluster_zookeeper:2181
+      volumes:
+        - /var/run/docker.sock:/var/run/docker.sock
+      container_name: cluster_kafka1
+      depends_on:
+        - zookeeper
+
+  kafka2:
+      image: wurstmeister/kafka:1.0.0
+      ports:
+        - "9093:9092"
+      hostname: cluster_kafka2
+      networks:
+        - elk
+      environment:
+        KAFKA_ADVERTISED_LISTENERS: cluster_kafka2
+        KAFKA_ZOOKEEPER_CONNECT: cluster_zookeeper:2181
+      volumes:
+        - /var/run/docker.sock:/var/run/docker.sock
+      container_name: cluster_kafka2
+      depends_on:
+        - zookeeper
+  kafka3:
+      image: wurstmeister/kafka:1.0.0
+      ports:
+        - "9094:9092"
+      hostname: cluster_kafka3
+      networks:
+        - elk
+      environment:
+        KAFKA_ADVERTISED_LISTENERS: cluster_kafka3
+        KAFKA_ZOOKEEPER_CONNECT: cluster_zookeeper:2181
+      volumes:
+        - /var/run/docker.sock:/var/run/docker.sock
+      container_name: cluster_kafka3
+      depends_on:
+        - zookeeper
+
+networks:
+  elk:
+    driver: bridge
+
