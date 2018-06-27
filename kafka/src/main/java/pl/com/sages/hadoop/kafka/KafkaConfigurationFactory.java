@@ -17,7 +17,7 @@ public class KafkaConfigurationFactory {
 
     public static final String ZOOKEEPER_SERVER = "cluster_zookeeper:2181";
 
-    public static final String TOPIC = "test";
+    public static final String TOPIC = "test-topic";
     public static final String TOPIC_OUT = "test-topic-out";
 
     public static final int TIMEOUT = 10000;
