@@ -8,16 +8,16 @@ services:
       ports:
         - "2181:2181"
       networks:
-        - elk
+        - kafkanetwork
 
   kafka1:
       container_name: cluster_kafka1
-      image: wurstmeister/kafka:1.1.0
+      image: wurstmeister/kafka:1.0.0
       ports:
         - "9092:9092"
       hostname: cluster_kafka1
       networks:
-        - elk
+        - kafkanetwork
       environment:
         KAFKA_ADVERTISED_LISTENERS: cluster_kafka1
         KAFKA_ZOOKEEPER_CONNECT: cluster_zookeeper:2181
@@ -26,12 +26,12 @@ services:
 
   kafka2:
       container_name: cluster_kafka2
-      image: wurstmeister/kafka:1.1.0
+      image: wurstmeister/kafka:1.0.0
       ports:
         - "9093:9092"
       hostname: cluster_kafka2
       networks:
-        - elk
+        - kafkanetwork
       environment:
         KAFKA_ADVERTISED_LISTENERS: cluster_kafka2
         KAFKA_ZOOKEEPER_CONNECT: cluster_zookeeper:2181
@@ -39,12 +39,12 @@ services:
         - kafka1
   kafka3:
       container_name: cluster_kafka3
-      image: wurstmeister/kafka:1.1.0
+      image: wurstmeister/kafka:1.0.0
       ports:
         - "9094:9092"
       hostname: cluster_kafka3
       networks:
-        - elk
+        - kafkanetwork
       environment:
         KAFKA_ADVERTISED_LISTENERS: cluster_kafka3
         KAFKA_ZOOKEEPER_CONNECT: cluster_zookeeper:2181
@@ -52,5 +52,5 @@ services:
         - kafka2
 
 networks:
-  elk:
+  kafkanetwork:
     driver: bridge
