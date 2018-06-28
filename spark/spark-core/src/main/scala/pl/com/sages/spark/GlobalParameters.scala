@@ -9,6 +9,10 @@ trait GlobalParameters {
   val hostname: String = "localhost"
   val port: String = "9999"
 
+  // Kafka
+  val kafkaBootstrapServers = "cluster_kafka1:9092,cluster_kafka2:9092,cluster_kafka3:9092"
+  val kafkaTopics = "test-topic"
+
   // AWS / Hadoop / Local Scheme
   val fileSystemScheme = "s3a://sages-aws"
   val useAws = false

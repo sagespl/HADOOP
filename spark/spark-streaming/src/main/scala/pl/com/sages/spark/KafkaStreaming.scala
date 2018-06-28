@@ -10,7 +10,7 @@ object KafkaStreaming extends BaseSparkStreamingApp with GlobalParameters {
     val ssc = createStreamingContext
 
     val kafkaParams = Map[String, Object](
-      "bootstrap.servers" -> "cluster_kafka1:9092,cluster_kafka2:9092,cluster_kafka3:9092",
+      "bootstrap.servers" -> kafkaBootstrapServers,
       "key.deserializer" -> classOf[StringDeserializer],
       "value.deserializer" -> classOf[StringDeserializer],
       "group.id" -> "spark-streaming",
@@ -18,7 +18,7 @@ object KafkaStreaming extends BaseSparkStreamingApp with GlobalParameters {
       "enable.auto.commit" -> (false: java.lang.Boolean)
     )
 
-    val topics = Array("test-topic")
+    val topics = Array(kafkaTopics)
 
     val messages = KafkaUtils.createDirectStream[String, String](
       ssc,
