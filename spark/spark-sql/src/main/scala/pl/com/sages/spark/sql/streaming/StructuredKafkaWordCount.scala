@@ -20,6 +20,7 @@ object StructuredKafkaWordCount extends BaseSparkSqlApp with GlobalParameters {
       .format("kafka")
       .option("kafka.bootstrap.servers", kafkaBootstrapServers)
       .option("subscribe", kafkaTopics)
+      .option("group.id", kafkaGroupId)
       .load()
       .selectExpr("CAST(value AS STRING)")
       .as[String]

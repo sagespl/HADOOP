@@ -12,6 +12,7 @@ trait GlobalParameters {
   // Kafka
   val kafkaBootstrapServers = "cluster_kafka1:9092,cluster_kafka2:9092,cluster_kafka3:9092"
   val kafkaTopics = "test-topic"
+  val kafkaGroupId = "spark-streaming"
 
   // AWS / Hadoop / Local Scheme
   val fileSystemScheme = "s3a://sages-aws"

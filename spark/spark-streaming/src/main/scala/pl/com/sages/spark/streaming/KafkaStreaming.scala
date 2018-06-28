@@ -14,7 +14,7 @@ object KafkaStreaming extends BaseSparkStreamingApp with GlobalParameters {
       "bootstrap.servers" -> kafkaBootstrapServers,
       "key.deserializer" -> classOf[StringDeserializer],
       "value.deserializer" -> classOf[StringDeserializer],
-      "group.id" -> "spark-streaming",
+      "group.id" -> kafkaGroupId,
       "auto.offset.reset" -> "latest",
       "enable.auto.commit" -> (false: java.lang.Boolean)
     )
