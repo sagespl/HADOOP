@@ -1,7 +1,7 @@
 package pl.com.sages.spark.sql
 
 import pl.com.sages.spark.GlobalParameters
-import pl.com.sages.spark.model.{Movie, Rating}
+import pl.com.sages.spark.sql.model.{Movie, Rating}
 
 object MovieLensDataset extends BaseSparkSqlApp with GlobalParameters {
 
