@@ -1,7 +1,8 @@
-package pl.com.sages.spark
+package pl.com.sages.spark.streaming
 
 import org.apache.spark.SparkConf
 import org.apache.spark.streaming.{Seconds, StreamingContext}
+import pl.com.sages.spark.GlobalParameters
 
 trait BaseSparkStreamingApp extends GlobalParameters {
 
