@@ -11,7 +11,7 @@ trait BaseSparkStreamingApp extends GlobalParameters {
       setMaster(master).
       setAppName(user + " " + this.getClass.getSimpleName)
 
-    val ssc = new StreamingContext(conf, Seconds(5))
+    val ssc = new StreamingContext(conf, Seconds(10))
 
     ssc
   }
