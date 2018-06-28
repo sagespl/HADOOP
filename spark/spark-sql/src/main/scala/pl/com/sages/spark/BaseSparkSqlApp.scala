@@ -13,7 +13,7 @@ trait BaseSparkSqlApp extends GlobalParameters {
     val secretAccessKey = System.getenv("AWS_SECRET_ACCESS_KEY")
     val fsImpl = classOf[S3AFileSystem].getCanonicalName
 
-    val conf = new SparkConf().setAppName("Sages " + this.getClass.getSimpleName)
+    val conf = new SparkConf().setAppName(user + " " + this.getClass.getSimpleName)
 
     if (useAws) {
       conf.set("spark.hadoop.fs.s3a.access.key", accessKeyId).
