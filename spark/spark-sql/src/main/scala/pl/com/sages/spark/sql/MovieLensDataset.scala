@@ -1,13 +1,13 @@
-package pl.com.sages.spark
+package pl.com.sages.spark.sql
 
-import org.apache.spark.sql.SparkSession
+import pl.com.sages.spark.GlobalParameters
 import pl.com.sages.spark.model.{Movie, Rating}
 
-object MovieLensDataset extends GlobalParameters {
+object MovieLensDataset extends BaseSparkSqlApp with GlobalParameters {
 
   def main(args: Array[String]): Unit = {
 
-    val spark = SparkSession.builder.appName(this.getClass.getSimpleName).getOrCreate()
+    val spark = createSparkSession
     import spark.implicits._
 
     // reading from HDFS

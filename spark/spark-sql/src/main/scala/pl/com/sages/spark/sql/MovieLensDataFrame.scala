@@ -1,4 +1,6 @@
-package pl.com.sages.spark
+package pl.com.sages.spark.sql
+
+import pl.com.sages.spark.GlobalParameters
 
 object MovieLensDataFrame extends BaseSparkSqlApp with GlobalParameters {
 

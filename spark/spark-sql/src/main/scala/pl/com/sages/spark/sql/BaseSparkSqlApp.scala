@@ -1,8 +1,9 @@
-package pl.com.sages.spark
+package pl.com.sages.spark.sql
 
 import org.apache.hadoop.fs.s3a.S3AFileSystem
 import org.apache.spark.SparkConf
 import org.apache.spark.sql.SparkSession
+import pl.com.sages.spark.GlobalParameters
 
 trait BaseSparkSqlApp extends GlobalParameters {
 

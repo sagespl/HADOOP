@@ -1,11 +1,12 @@
-package pl.com.sages.spark
+package pl.com.sages.spark.sql
 
-import org.apache.spark.sql.SparkSession
+import pl.com.sages.spark.GlobalParameters
 
-object SparkDatasetSampleApp extends GlobalParameters {
+object SparkDatasetSampleApp extends BaseSparkSqlApp with GlobalParameters {
 
   def main(args: Array[String]) {
-    val spark = SparkSession.builder.appName(this.getClass.getSimpleName).getOrCreate()
+
+    val spark = createSparkSession
 
     val fileDataset = spark.read.textFile(bookPath).cache()
     val numAs = fileDataset.filter(line => line.contains("a")).count()
