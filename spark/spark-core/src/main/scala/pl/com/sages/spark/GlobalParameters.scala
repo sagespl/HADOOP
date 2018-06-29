@@ -3,7 +3,9 @@ package pl.com.sages.spark
 trait GlobalParameters {
 
   val user: String = System.getProperty("user.name")
-  val master: String = "local"
+  //  val master: String = "local"
+  val master: String = "local[4]"
+  //  val master: String = "yarn"
 
   // Streaming TCP
   val hostname: String = "localhost"

@@ -29,9 +29,17 @@ object KafkaStreaming extends BaseSparkStreamingApp with GlobalParameters {
 
     // Get the lines, split them into words, count the words and print
     val lines = messages.map(_.value)
+    lines.print()
+    lines.count().print()
+
     val words = lines.flatMap(_.split(" "))
+    words.print()
+    words.count().print()
+
     val wordCounts = words.map(x => (x, 1L)).reduceByKey(_ + _)
+
     wordCounts.print()
+    wordCounts.count().print()
 
     // Start the computation
     ssc.start()
