@@ -19,6 +19,7 @@ public class KafkaConsumerExample {
     public static void main(String[] args) {
 
         KafkaConsumer<String, String> consumer = new KafkaConsumer<>(createConsumerConfig());
+
         consumer.subscribe(Collections.singletonList(TOPIC), new ConsumerRebalanceLoggerListener());
         // consumer.subscribe(Arrays.asList(TOPIC, TOPIC2), new ConsumerRebalanceLoggerListener());
 
@@ -35,12 +36,12 @@ public class KafkaConsumerExample {
                     }
                 }
 
-                consumer.commitAsync();
+                consumer.commitAsync(); // async commit (+ callback)
             }
         } catch (Exception e) {
             LOGGER.error("Błąd...", e);
         } finally {
-            consumer.commitSync();
+            consumer.commitSync(); // sync commit
             consumer.close();
         }
     }

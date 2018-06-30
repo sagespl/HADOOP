@@ -15,6 +15,7 @@ public class KafkaProducerExample {
     public static void main(String[] args) {
 
         Producer<String, String> producer = new KafkaProducer<>(createProducerConfig());
+
         LoggerCallback callback = new LoggerCallback();
 
         try {

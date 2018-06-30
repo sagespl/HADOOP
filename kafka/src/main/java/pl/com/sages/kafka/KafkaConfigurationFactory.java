@@ -37,7 +37,7 @@ public class KafkaConfigurationFactory {
         consumerConfig.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
 
         consumerConfig.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
-        consumerConfig.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, true);
+        consumerConfig.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, true); // if true manual commit is no needed
 
         return consumerConfig;
     }
