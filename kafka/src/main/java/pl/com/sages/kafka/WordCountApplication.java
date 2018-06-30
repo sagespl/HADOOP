@@ -1,4 +1,4 @@
-package pl.com.sages.hadoop.kafka;
+package pl.com.sages.kafka;
 
 import org.apache.kafka.streams.KafkaStreams;
 import org.apache.kafka.streams.KeyValue;
@@ -9,7 +9,7 @@ import java.util.Arrays;
 import java.util.Properties;
 import java.util.regex.Pattern;
 
-import static pl.com.sages.hadoop.kafka.KafkaConfigurationFactory.*;
+import static pl.com.sages.kafka.KafkaConfigurationFactory.*;
 
 public class WordCountApplication {
 

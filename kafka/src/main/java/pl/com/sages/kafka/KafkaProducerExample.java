@@ -1,18 +1,18 @@
-package pl.com.sages.hadoop.kafka;
+package pl.com.sages.kafka;
 
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.log4j.Logger;
 
-import static pl.com.sages.hadoop.kafka.KafkaConfigurationFactory.*;
+import static pl.com.sages.kafka.KafkaConfigurationFactory.*;
 
 public class KafkaProducerExample {
 
     private static final Logger LOGGER = Logger.getLogger(KafkaProducerExample.class);
     private static int MESSAGE_ID = 1;
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
 
         Producer<String, String> producer = new KafkaProducer<>(createProducerConfig());
         LoggerCallback callback = new LoggerCallback();

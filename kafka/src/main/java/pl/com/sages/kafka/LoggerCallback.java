@@ -1,4 +1,4 @@
-package pl.com.sages.hadoop.kafka;
+package pl.com.sages.kafka;
 
 import org.apache.kafka.clients.producer.Callback;
 import org.apache.kafka.clients.producer.RecordMetadata;

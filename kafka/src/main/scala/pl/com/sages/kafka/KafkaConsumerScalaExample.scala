@@ -1,10 +1,10 @@
-package pl.com.sages.hadoop.kafka
+package pl.com.sages.kafka
 
 import java.util.Collections
 
 import org.apache.kafka.clients.consumer.KafkaConsumer
 import org.apache.log4j.Logger
-import pl.com.sages.hadoop.kafka.KafkaConfigurationFactory.{TIMEOUT, TOPIC, createConsumerConfig}
+import pl.com.sages.kafka.KafkaConfigurationFactory.{TIMEOUT, TOPIC, createConsumerConfig}
 
 object KafkaConsumerScalaExample {
 

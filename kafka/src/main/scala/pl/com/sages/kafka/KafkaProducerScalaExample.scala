@@ -1,8 +1,8 @@
-package pl.com.sages.hadoop.kafka
+package pl.com.sages.kafka
 
 import org.apache.kafka.clients.producer.{KafkaProducer, ProducerRecord}
 import org.apache.log4j.Logger
-import pl.com.sages.hadoop.kafka.KafkaConfigurationFactory.{SLEEP, TOPIC, createProducerConfig}
+import pl.com.sages.kafka.KafkaConfigurationFactory.{SLEEP, TOPIC, createProducerConfig}
 
 object KafkaProducerScalaExample {
 

@@ -1,4 +1,4 @@
-package pl.com.sages.hadoop.kafka;
+package pl.com.sages.kafka;
 
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
@@ -7,7 +7,7 @@ import org.apache.log4j.Logger;
 
 import java.util.Collections;
 
-import static pl.com.sages.hadoop.kafka.KafkaConfigurationFactory.*;
+import static pl.com.sages.kafka.KafkaConfigurationFactory.*;
 
 public class KafkaConsumerExample {
 
