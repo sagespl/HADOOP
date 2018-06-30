@@ -5,7 +5,7 @@ import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.log4j.Logger;
 
-import java.util.Collections;
+import java.util.Arrays;
 
 import static pl.com.sages.kafka.KafkaConfigurationFactory.*;
 
@@ -16,7 +16,8 @@ public class KafkaConsumerExample {
     public static void main(String[] args) {
 
         KafkaConsumer<String, String> consumer = new KafkaConsumer<>(createConsumerConfig());
-        consumer.subscribe(Collections.singletonList(TOPIC), new ConsumerRebalanceLoggerListener());
+        // consumer.subscribe(Collections.singletonList(TOPIC), new ConsumerRebalanceLoggerListener());
+        consumer.subscribe(Arrays.asList(TOPIC, TOPIC2), new ConsumerRebalanceLoggerListener());
 
         try {
             while (true) {
