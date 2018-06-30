@@ -4,6 +4,7 @@ import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.log4j.Logger;
+import pl.com.sages.kafka.callback.LoggerCallback;
 
 import static pl.com.sages.kafka.KafkaConfigurationFactory.*;
 

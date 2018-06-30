@@ -4,6 +4,7 @@ import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.log4j.Logger;
+import pl.com.sages.kafka.listener.ConsumerRebalanceLoggerListener;
 
 import java.util.Collections;
 

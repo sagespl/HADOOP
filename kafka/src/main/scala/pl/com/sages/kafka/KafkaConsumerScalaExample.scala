@@ -5,6 +5,7 @@ import java.util.Collections
 import org.apache.kafka.clients.consumer.KafkaConsumer
 import org.apache.log4j.Logger
 import pl.com.sages.kafka.KafkaConfigurationFactory.{TIMEOUT, TOPIC, createConsumerConfig}
+import pl.com.sages.kafka.listener.ConsumerRebalanceLoggerListener
 
 object KafkaConsumerScalaExample {
 

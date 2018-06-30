@@ -3,6 +3,7 @@ package pl.com.sages.kafka
 import org.apache.kafka.clients.producer.{KafkaProducer, ProducerRecord}
 import org.apache.log4j.Logger
 import pl.com.sages.kafka.KafkaConfigurationFactory.{SLEEP, TOPIC, createProducerConfig}
+import pl.com.sages.kafka.callback.LoggerCallback
 
 object KafkaProducerScalaExample {
 

@@ -1,4 +1,4 @@
-package pl.com.sages.kafka;
+package pl.com.sages.kafka.streams;
 
 import org.apache.kafka.streams.KafkaStreams;
 import org.apache.kafka.streams.KeyValue;

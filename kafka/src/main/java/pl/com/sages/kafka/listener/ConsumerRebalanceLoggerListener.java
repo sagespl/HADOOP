@@ -1,4 +1,4 @@
-package pl.com.sages.kafka;
+package pl.com.sages.kafka.listener;
 
 import org.apache.kafka.clients.consumer.ConsumerRebalanceListener;
 import org.apache.kafka.common.TopicPartition;
