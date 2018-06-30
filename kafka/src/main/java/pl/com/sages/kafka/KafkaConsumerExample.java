@@ -9,6 +9,9 @@ import java.util.Collections;
 
 import static pl.com.sages.kafka.KafkaConfigurationFactory.*;
 
+/**
+ * The consumer is designed to be run in its own thread!!!
+ */
 public class KafkaConsumerExample {
 
     private static final Logger LOGGER = Logger.getLogger(KafkaConsumerExample.class);
