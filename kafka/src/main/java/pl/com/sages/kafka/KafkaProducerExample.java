@@ -22,7 +22,11 @@ public class KafkaProducerExample {
 
                 for (long i = 0; i < 10; i++) {
                     ProducerRecord<String, String> data = new ProducerRecord<>(TOPIC, "key-" + MESSAGE_ID, " Ala ma kota, Ela ma psa");
-                    producer.send(data, callback);
+
+                    producer.send(data, callback); // async with callback
+                    // producer.send(data); // async without callback
+                    // producer.send(data).get(); // sync send
+
                     MESSAGE_ID++;
                 }
 
