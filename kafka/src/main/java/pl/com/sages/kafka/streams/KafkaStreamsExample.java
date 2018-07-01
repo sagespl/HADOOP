@@ -41,7 +41,7 @@ public class KafkaStreamsExample {
         // streams.close();
 
         // Eleganckie zamknięcie
-        Runtime.getRuntime().addShutdownHook(new Thread(streams::close));
+        // Runtime.getRuntime().addShutdownHook(new Thread(streams::close));
     }
 
 }
