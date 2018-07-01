@@ -29,7 +29,16 @@ public class KafkaStreamsExample {
         wordCounts.toStream().to(TOPIC_OUT, Produced.with(Serdes.String(), Serdes.Long()));
 
         KafkaStreams streams = new KafkaStreams(builder.build(), config);
+
+        // Nie używać na produkcji, czyści stan strumieni
+        // streams.cleanUp();
+
+        // start Kafka Streams
         streams.start();
+
+        // jeśli chcemy zamknać aplikację po jakimś czasie to najprościej dajemy sleep i close
+        // Thread.sleep(5000L);
+        // streams.close();
     }
 
 }
