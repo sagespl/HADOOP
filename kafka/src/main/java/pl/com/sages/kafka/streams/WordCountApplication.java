@@ -2,8 +2,8 @@ package pl.com.sages.kafka.streams;
 
 import org.apache.kafka.streams.KafkaStreams;
 import org.apache.kafka.streams.KeyValue;
+import org.apache.kafka.streams.StreamsBuilder;
 import org.apache.kafka.streams.kstream.KStream;
-import org.apache.kafka.streams.kstream.KStreamBuilder;
 
 import java.util.Arrays;
 import java.util.Properties;
@@ -13,15 +13,17 @@ import static pl.com.sages.kafka.KafkaConfigurationFactory.*;
 
 public class WordCountApplication {
 
+    private static final Pattern pattern = Pattern.compile("\\W+");
+
     public static void main(String[] args) {
 
         Properties config = getStreamConfig();
 
-        KStreamBuilder builder = new KStreamBuilder();
+        StreamsBuilder builder = new StreamsBuilder();
 
         KStream<String, String> source = builder.stream(TOPIC);
 
-        final Pattern pattern = Pattern.compile("\\W+");
+
         KStream counts = source
                 .flatMapValues(value -> Arrays.asList(pattern.split(value.toLowerCase())))
                 .map((key, value) -> new KeyValue<Object, Object>(value, value))
@@ -33,10 +35,8 @@ public class WordCountApplication {
 
         counts.to(TOPIC_OUT);
 
-        KafkaStreams streams = new KafkaStreams(builder, config);
-//        streams.cleanUp();
-
-        // start
+        KafkaStreams streams = new KafkaStreams(builder.build(), config);
+        // streams.cleanUp();
         streams.start();
 
         // run and close

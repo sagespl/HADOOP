@@ -64,12 +64,14 @@ public class KafkaConfigurationFactory {
 
     public static Properties getStreamConfig() {
         Properties config = new Properties();
-        config.put(StreamsConfig.APPLICATION_ID_CONFIG, "wordcount");
         config.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, KAFKA_SERVER);
-        config.put(StreamsConfig.ZOOKEEPER_CONNECT_CONFIG, ZOOKEEPER_SERVER);
-        config.put(StreamsConfig.KEY_SERDE_CLASS_CONFIG, Serdes.String().getClass().getName());
-        config.put(StreamsConfig.VALUE_SERDE_CLASS_CONFIG, Serdes.String().getClass().getName());
+        config.put(StreamsConfig.APPLICATION_ID_CONFIG, "wordcount");
+
+        config.put(StreamsConfig.DEFAULT_KEY_SERDE_CLASS_CONFIG, Serdes.String().getClass().getName());
+        config.put(StreamsConfig.DEFAULT_VALUE_SERDE_CLASS_CONFIG, Serdes.String().getClass().getName());
+
         config.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
+
         return config;
     }
 
