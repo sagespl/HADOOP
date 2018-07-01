@@ -62,6 +62,9 @@ public class KafkaConfigurationFactory {
         return producerConfig;
     }
 
+    /**
+     * https://kafka.apache.org/documentation/#streamsconfigs
+     */
     public static Properties getStreamConfig() {
         Properties config = new Properties();
         config.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, KAFKA_SERVER);
