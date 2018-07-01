@@ -13,6 +13,8 @@ import static pl.com.sages.kafka.KafkaConfigurationFactory.*;
 
 public class WordCountApplication {
 
+    private static final Pattern PATTERN = Pattern.compile("\\W+");
+
     public static void main(String[] args) {
 
         Properties config = getStreamConfig();
@@ -21,9 +23,8 @@ public class WordCountApplication {
 
         KStream<String, String> source = builder.stream(TOPIC);
 
-        final Pattern pattern = Pattern.compile("\\W+");
         KStream counts = source
-                .flatMapValues(value -> Arrays.asList(pattern.split(value.toLowerCase())))
+                .flatMapValues(value -> Arrays.asList(PATTERN.split(value.toLowerCase())))
                 .map((key, value) -> new KeyValue<Object, Object>(value, value))
 //                .filter((key, value) -> (!value.equals("the")))
                 .groupByKey()
@@ -43,7 +44,7 @@ public class WordCountApplication {
 //        Thread.sleep(5000L);
 //        streams.close();
 
-        // forever
+        // Eleganckie zamknięcie
         Runtime.getRuntime().addShutdownHook(new Thread(streams::close));
     }
 

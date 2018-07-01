@@ -39,6 +39,9 @@ public class KafkaStreamsExample {
         // jeśli chcemy zamknać aplikację po jakimś czasie to najprościej dajemy sleep i close
         // Thread.sleep(5000L);
         // streams.close();
+
+        // Eleganckie zamknięcie
+        Runtime.getRuntime().addShutdownHook(new Thread(streams::close));
     }
 
 }
