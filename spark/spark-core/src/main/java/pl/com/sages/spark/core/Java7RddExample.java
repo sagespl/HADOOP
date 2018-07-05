@@ -12,11 +12,11 @@ import scala.Tuple2;
 import java.util.Arrays;
 import java.util.Iterator;
 
-public class JavaRddExample {
+public class Java7RddExample {
 
     public static void main(String[] args) {
 
-        SparkConf conf = new SparkConf().setAppName(JavaRddExample.class.getName());
+        SparkConf conf = new SparkConf().setAppName(Java7RddExample.class.getName());
         JavaSparkContext sc = new JavaSparkContext(conf);
 
 
