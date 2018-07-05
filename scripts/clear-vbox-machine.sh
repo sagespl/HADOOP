@@ -2,23 +2,25 @@
 
 echo "Run as root!!!"
 
+df -h
+
+# yum
 yum clean all
 
-rm -rf /hadoop/yarn/local/filecache
-rm -rf /hadoop/yarn/local/usercache
-
+# Maven
 rm -rf /home/sages/.m2/repository/pl/com/sages
-
-df -h
+cd /home/sages/repository/HADOOP
+mvn clean
 
 # hdfs
 su hdfs -c 'hdfs dfs -rm -r -skipTrash /user/radek'
 su hdfs -c 'hdfs dfs -rm -r -skipTrash /user/sages'
-su hdfs -c 'hdfs dfs -mkdir /user/sages'
-su hdfs -c 'hdfs dfs -chown sages /user/sages'
 
-# hive
-# dane
-# maven repository
-# maven project
+# yarn
+rm -rf /hadoop/yarn/local/filecache
+rm -rf /hadoop/yarn/local/usercache
+
+# logi
 # /var/log
+
+df -h
