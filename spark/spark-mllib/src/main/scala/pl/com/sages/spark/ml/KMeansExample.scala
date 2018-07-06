@@ -2,7 +2,7 @@ package pl.com.sages.spark.ml
 
 import org.apache.spark.ml.clustering.KMeans
 import org.apache.spark.sql.SparkSession
-import pl.com.sages.spark.GlobalParameters
+import pl.com.sages.spark.core.GlobalParameters
 
 object KMeansExample extends GlobalParameters {
 

@@ -6,7 +6,7 @@ import org.apache.commons.io.FileUtils
 import org.apache.spark.mllib.clustering.{KMeans, KMeansModel}
 import org.apache.spark.mllib.linalg.Vectors
 import org.apache.spark.{SparkConf, SparkContext}
-import pl.com.sages.spark.GlobalParameters
+import pl.com.sages.spark.core.GlobalParameters
 
 object KMeansRddExample extends GlobalParameters {
 

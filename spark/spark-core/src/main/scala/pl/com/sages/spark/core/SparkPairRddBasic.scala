@@ -1,4 +1,4 @@
-package pl.com.sages.spark
+package pl.com.sages.spark.core
 
 import org.apache.spark.{SparkConf, SparkContext}
 

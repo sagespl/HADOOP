@@ -5,7 +5,7 @@ import java.io.File
 import org.apache.commons.io.FileUtils
 import org.apache.spark.mllib.recommendation.{ALS, MatrixFactorizationModel, Rating}
 import org.apache.spark.{SparkConf, SparkContext}
-import pl.com.sages.spark.GlobalParameters
+import pl.com.sages.spark.core.GlobalParameters
 
 object CollaborativeFilteringRddExample extends GlobalParameters {
 

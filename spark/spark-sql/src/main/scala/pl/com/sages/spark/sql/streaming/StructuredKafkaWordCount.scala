@@ -2,7 +2,7 @@ package pl.com.sages.spark.sql.streaming
 
 import java.util.UUID
 
-import pl.com.sages.spark.GlobalParameters
+import pl.com.sages.spark.core.GlobalParameters
 import pl.com.sages.spark.sql.BaseSparkSqlApp
 
 object StructuredKafkaWordCount extends BaseSparkSqlApp with GlobalParameters {

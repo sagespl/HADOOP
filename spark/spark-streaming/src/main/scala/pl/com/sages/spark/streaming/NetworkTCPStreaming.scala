@@ -2,7 +2,7 @@ package pl.com.sages.spark.streaming
 
 import org.apache.spark.storage.StorageLevel
 import org.apache.spark.streaming.dstream.DStream
-import pl.com.sages.spark.GlobalParameters
+import pl.com.sages.spark.core.GlobalParameters
 
 /**
   * Run: nc -lk 9999

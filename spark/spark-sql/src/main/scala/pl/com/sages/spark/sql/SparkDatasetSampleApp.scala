@@ -1,6 +1,6 @@
 package pl.com.sages.spark.sql
 
-import pl.com.sages.spark.GlobalParameters
+import pl.com.sages.spark.core.GlobalParameters
 
 object SparkDatasetSampleApp extends BaseSparkSqlApp with GlobalParameters {
 

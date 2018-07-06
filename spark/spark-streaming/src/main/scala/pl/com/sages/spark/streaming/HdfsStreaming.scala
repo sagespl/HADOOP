@@ -1,6 +1,6 @@
 package pl.com.sages.spark.streaming
 
-import pl.com.sages.spark.GlobalParameters
+import pl.com.sages.spark.core.GlobalParameters
 
 object HdfsStreaming extends BaseSparkStreamingApp with GlobalParameters {
 

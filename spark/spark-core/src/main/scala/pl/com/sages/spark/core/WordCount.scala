@@ -1,8 +1,8 @@
-package pl.com.sages.spark
+package pl.com.sages.spark.core
 
 import org.apache.spark.{SparkConf, SparkContext}
 
-object MovieGenres extends GlobalParameters {
+object WordCount extends GlobalParameters {
 
   def main(args: Array[String]): Unit = {
 
@@ -11,23 +11,16 @@ object MovieGenres extends GlobalParameters {
     val sc = new SparkContext(conf)
 
     // run
-    val movies = sc.textFile(moviesPath)
+    val booksRdd = sc.textFile(bookPath).coalesce(10)
 
-    //    movies.take(10).foreach(println)
-
-    val result = sc.textFile(moviesPath).
-      map(_.split(movielensSeparator)(2)).
-      flatMap(_.split("\\|")).
-      map(genre => (genre, 1)).
-      reduceByKey((x, y) => x + y).
-      sortBy(-_._2)
-
-    //    result.take(10).foreach(println)
+    val wordsRdd = booksRdd.flatMap(_.split(" "))
+    val wordCount = wordsRdd.map(x => (x, 1)).reduceByKey((x, y) => x + y)
+    val sortedWordCount = wordCount.sortBy(p => p._2, ascending = false)
 
     // delete result directory and save result on HDFS
     import org.apache.hadoop.fs.{FileSystem, Path}
     FileSystem.get(sc.hadoopConfiguration).delete(new Path(resultPath), true)
-    result.saveAsTextFile(resultPath)
+    sortedWordCount.coalesce(1).saveAsTextFile(resultPath)
 
     // end
     sc.stop()

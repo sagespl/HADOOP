@@ -3,7 +3,7 @@ package pl.com.sages.spark.ml
 import org.apache.spark.ml.evaluation.RegressionEvaluator
 import org.apache.spark.ml.recommendation.ALS
 import org.apache.spark.sql.SparkSession
-import pl.com.sages.spark.GlobalParameters
+import pl.com.sages.spark.core.GlobalParameters
 
 
 object CollaborativeFilteringExample extends GlobalParameters {
