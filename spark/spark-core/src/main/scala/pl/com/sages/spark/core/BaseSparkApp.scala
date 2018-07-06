@@ -1,5 +1,7 @@
 package pl.com.sages.spark.core
 
+import org.apache.spark.{SparkConf, SparkContext}
+
 trait BaseSparkApp {
 
   /**
@@ -67,5 +69,16 @@ trait BaseSparkApp {
     * Output path (results)
     */
   val resultPath: String = "/user/" + user + "/wyniki/spark"
+
+  def createSparkContext: SparkContext = {
+
+    val conf = new SparkConf().
+      setMaster(master).
+      setAppName(user + " " + this.getClass.getSimpleName)
+
+    val sc = new SparkContext(conf)
+
+    sc
+  }
 
 }

@@ -1,14 +1,10 @@
 package pl.com.sages.spark.core
 
-import org.apache.spark.{SparkConf, SparkContext}
-
 object WordCount extends BaseSparkApp {
 
   def main(args: Array[String]): Unit = {
 
-    // prepare
-    val conf = new SparkConf().setAppName(this.getClass.getSimpleName)
-    val sc = new SparkContext(conf)
+    val sc = createSparkContext
 
     // run
     val booksRdd = sc.textFile(bookPath).coalesce(10)
