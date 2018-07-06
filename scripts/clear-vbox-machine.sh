@@ -20,6 +20,13 @@ su hdfs -c 'hdfs dfs -rm -r -skipTrash /user/sages'
 rm -rf /hadoop/yarn/local/filecache
 rm -rf /hadoop/yarn/local/usercache
 
+# docker
+docker rm `docker ps -aq`
+docker rm -f `docker ps -aq`
+
+docker rmi `docker images -q`
+docker rmi -f `docker images -q`
+
 # logi
 # /var/log
 
