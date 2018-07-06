@@ -8,8 +8,7 @@ object MovieGenres extends BaseSparkApp {
 
     // run
     val movies = sc.textFile(moviesPath)
-
-    //    movies.take(10).foreach(println)
+    movies.take(10).foreach(println)
 
     val result = sc.textFile(moviesPath).
       map(_.split(movielensSeparator)(2)).
