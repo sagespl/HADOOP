@@ -2,12 +2,12 @@ package pl.com.sages.spark.streaming
 
 import org.apache.spark.storage.StorageLevel
 import org.apache.spark.streaming.dstream.DStream
-import pl.com.sages.spark.core.GlobalParameters
+import pl.com.sages.spark.core.BaseSparkApp
 
 /**
   * Run: nc -lk 9999
   */
-object NetworkTCPStreaming extends BaseSparkStreamingApp with GlobalParameters {
+object NetworkTCPStreaming extends BaseSparkStreamingApp with BaseSparkApp {
 
   def main(args: Array[String]) {
 

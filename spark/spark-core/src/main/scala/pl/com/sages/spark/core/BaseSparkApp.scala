@@ -1,6 +1,6 @@
 package pl.com.sages.spark.core
 
-trait GlobalParameters {
+trait BaseSparkApp {
 
   /**
     * User name

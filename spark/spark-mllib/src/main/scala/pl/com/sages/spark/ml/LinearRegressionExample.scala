@@ -2,9 +2,9 @@ package pl.com.sages.spark.ml
 
 import org.apache.spark.ml.regression.LinearRegression
 import org.apache.spark.sql.SparkSession
-import pl.com.sages.spark.core.GlobalParameters
+import pl.com.sages.spark.core.BaseSparkApp
 
-object LinearRegressionExample extends GlobalParameters {
+object LinearRegressionExample extends BaseSparkApp {
 
   def main(args: Array[String]): Unit = {
 

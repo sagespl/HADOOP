@@ -3,9 +3,9 @@ package pl.com.sages.spark.sql
 import org.apache.hadoop.fs.s3a.S3AFileSystem
 import org.apache.spark.SparkConf
 import org.apache.spark.sql.SparkSession
-import pl.com.sages.spark.core.GlobalParameters
+import pl.com.sages.spark.core.BaseSparkApp
 
-trait BaseSparkSqlApp extends GlobalParameters {
+trait BaseSparkSqlApp extends BaseSparkApp {
 
   def createSparkSession: SparkSession = {
 

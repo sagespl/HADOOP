@@ -2,9 +2,9 @@ package pl.com.sages.spark.streaming
 
 import org.apache.kafka.common.serialization.StringDeserializer
 import org.apache.spark.streaming.kafka010.{ConsumerStrategies, KafkaUtils, LocationStrategies}
-import pl.com.sages.spark.core.GlobalParameters
+import pl.com.sages.spark.core.BaseSparkApp
 
-object KafkaStreaming extends BaseSparkStreamingApp with GlobalParameters {
+object KafkaStreaming extends BaseSparkStreamingApp with BaseSparkApp {
 
   def main(args: Array[String]) {
 

@@ -1,8 +1,8 @@
 package pl.com.sages.spark.sql
 
-import pl.com.sages.spark.core.GlobalParameters
+import pl.com.sages.spark.core.BaseSparkApp
 
-object MovieLensDataFrame extends BaseSparkSqlApp with GlobalParameters {
+object MovieLensDataFrame extends BaseSparkSqlApp with BaseSparkApp {
 
   def main(args: Array[String]): Unit = {
 

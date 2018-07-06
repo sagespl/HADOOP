@@ -2,7 +2,7 @@ package pl.com.sages.spark.core
 
 import org.apache.spark.{SparkConf, SparkContext}
 
-object WordCount extends GlobalParameters {
+object WordCount extends BaseSparkApp {
 
   def main(args: Array[String]): Unit = {
 

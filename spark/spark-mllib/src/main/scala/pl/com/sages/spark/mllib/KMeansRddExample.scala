@@ -6,9 +6,9 @@ import org.apache.commons.io.FileUtils
 import org.apache.spark.mllib.clustering.{KMeans, KMeansModel}
 import org.apache.spark.mllib.linalg.Vectors
 import org.apache.spark.{SparkConf, SparkContext}
-import pl.com.sages.spark.core.GlobalParameters
+import pl.com.sages.spark.core.BaseSparkApp
 
-object KMeansRddExample extends GlobalParameters {
+object KMeansRddExample extends BaseSparkApp {
 
   def main(args: Array[String]) {
 

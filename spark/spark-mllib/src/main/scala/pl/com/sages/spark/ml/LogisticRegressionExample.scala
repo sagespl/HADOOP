@@ -2,9 +2,9 @@ package pl.com.sages.spark.ml
 
 import org.apache.spark.ml.classification.LogisticRegression
 import org.apache.spark.sql.SparkSession
-import pl.com.sages.spark.core.GlobalParameters
+import pl.com.sages.spark.core.BaseSparkApp
 
-object LogisticRegressionExample extends GlobalParameters {
+object LogisticRegressionExample extends BaseSparkApp {
 
   def main(args: Array[String]): Unit = {
 

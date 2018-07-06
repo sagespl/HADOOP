@@ -1,8 +1,8 @@
 package pl.com.sages.spark.streaming
 
-import pl.com.sages.spark.core.GlobalParameters
+import pl.com.sages.spark.core.BaseSparkApp
 
-object HdfsStreaming extends BaseSparkStreamingApp with GlobalParameters {
+object HdfsStreaming extends BaseSparkStreamingApp with BaseSparkApp {
 
   def main(args: Array[String]) {
 

@@ -2,7 +2,7 @@ package pl.com.sages.spark.core
 
 import org.apache.spark.{SparkConf, SparkContext}
 
-object SparkRddBasic extends GlobalParameters {
+object SparkRddBasic extends BaseSparkApp {
 
   def main(args: Array[String]): Unit = {
 

@@ -3,10 +3,10 @@ package pl.com.sages.spark.ml
 import org.apache.spark.ml.evaluation.RegressionEvaluator
 import org.apache.spark.ml.recommendation.ALS
 import org.apache.spark.sql.SparkSession
-import pl.com.sages.spark.core.GlobalParameters
+import pl.com.sages.spark.core.BaseSparkApp
 
 
-object CollaborativeFilteringExample extends GlobalParameters {
+object CollaborativeFilteringExample extends BaseSparkApp {
 
   case class Rating(userId: Int, movieId: Int, rating: Float, timestamp: Long)
 

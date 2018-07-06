@@ -2,10 +2,10 @@ package pl.com.sages.spark.sql.streaming
 
 import java.util.UUID
 
-import pl.com.sages.spark.core.GlobalParameters
+import pl.com.sages.spark.core.BaseSparkApp
 import pl.com.sages.spark.sql.BaseSparkSqlApp
 
-object StructuredKafkaWordCount extends BaseSparkSqlApp with GlobalParameters {
+object StructuredKafkaWordCount extends BaseSparkSqlApp with BaseSparkApp {
 
   def main(args: Array[String]): Unit = {
 
