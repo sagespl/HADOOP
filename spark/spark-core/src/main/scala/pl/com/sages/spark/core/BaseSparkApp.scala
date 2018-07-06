@@ -37,7 +37,7 @@ trait BaseSparkApp {
   /**
     * Directory path with sample data
     */
-  val dataPath = fileSystemScheme + System.getenv("HADOOP_DATA")
+  val dataPath: String = fileSystemScheme + System.getenv("HADOOP_DATA")
 
   /**
     * Wolne Lektury dataset
