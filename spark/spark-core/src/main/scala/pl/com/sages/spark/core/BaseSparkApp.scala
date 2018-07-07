@@ -12,7 +12,8 @@ trait BaseSparkApp {
   /**
     * Where to run master process
     */
-  val master: String = "local"
+  // val master: String = "local"
+  val master: String = "local[*]"
   // val master: String = "local[4]"
   // val master: String = "yarn"
 
