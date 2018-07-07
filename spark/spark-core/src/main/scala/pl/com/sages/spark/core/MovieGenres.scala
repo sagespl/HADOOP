@@ -17,7 +17,7 @@ object MovieGenres extends BaseSparkApp {
       reduceByKey((x, y) => x + y).
       sortBy(-_._2)
 
-    //    result.take(10).foreach(println)
+    result.take(20).foreach(println)
 
     // delete result directory and save result on HDFS
     import org.apache.hadoop.fs.{FileSystem, Path}
