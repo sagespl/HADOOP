@@ -20,7 +20,7 @@ Przykład:
 ```
 export HADOOP_HDFS_HOME=/user/sages
 export HADOOP_HDFS_USER=sages
-export HADOOP_DATA=/home/sages/dane
+export HADOOP_DATA=/home/sages/repository/dane
 export HADOOP_PROJECT=/home/sages/repository/HADOOP
 ```
 
