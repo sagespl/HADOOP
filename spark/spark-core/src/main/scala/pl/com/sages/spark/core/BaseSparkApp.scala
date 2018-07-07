@@ -40,18 +40,19 @@ trait BaseSparkApp {
     * Directory path with sample data
     */
   val dataPath: String = fileSystemScheme + System.getenv("HADOOP_DATA")
+  // val dataPath: String = fileSystemScheme + "/dane"
 
   /**
     * Wolne Lektury dataset
     */
-  val bookPath: String = dataPath + "/dane/lektury/lektury-all"
+  val bookPath: String = dataPath + "/lektury/lektury-all"
 
   /**
     * Movielens dataset
     */
-  val moviesPath: String = dataPath + "/dane/movielens/hive/movies/movies.dat"
-  val tagsPath: String = dataPath + "/dane/movielens/hive/tags/tags.dat"
-  val ratingsPath: String = dataPath + "/dane/movielens/hive/ratings/ratings.dat"
+  val moviesPath: String = dataPath + "/movielens/hive/movies/movies.dat"
+  val tagsPath: String = dataPath + "/movielens/hive/tags/tags.dat"
+  val ratingsPath: String = dataPath + "/movielens/hive/ratings/ratings.dat"
   val movielensSeparator: String = "@"
 
   /**
@@ -68,7 +69,8 @@ trait BaseSparkApp {
   /**
     * Output path (results)
     */
-  val resultPath: String = "/user/" + user + "/wyniki/spark"
+  val resultPath: String = "/tmp/" + user + "/wyniki/spark"
+  // val resultPath: String = "/user/" + user + "/wyniki/spark"
 
   def createSparkContext: SparkContext = {
 
