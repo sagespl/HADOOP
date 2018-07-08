@@ -40,7 +40,7 @@ trait BaseSparkApp {
   /**
     * Directory path with sample data
     */
-  val dataPath: String = fileSystemScheme + System.getenv("HADOOP_DATA")
+  val dataPath: String = fileSystemScheme + System.getenv("HADOOP_HDFS_HOME")
   // val dataPath: String = fileSystemScheme + "/dane"
 
   /**
