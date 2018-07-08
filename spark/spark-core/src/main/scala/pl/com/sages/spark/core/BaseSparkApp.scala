@@ -2,20 +2,7 @@ package pl.com.sages.spark.core
 
 import org.apache.spark.{SparkConf, SparkContext}
 
-trait BaseSparkApp {
-
-  /**
-    * User name
-    */
-  val user: String = System.getProperty("user.name")
-
-  /**
-    * Where to run master process
-    */
-  // val master: String = "local"
-  val master: String = "local[*]"
-  // val master: String = "local[4]"
-  // val master: String = "yarn"
+trait BaseSparkApp extends LocalApp {
 
   /**
     * Port and hostname for Spark Streaming and TCP connection
@@ -29,19 +16,6 @@ trait BaseSparkApp {
   val kafkaBootstrapServers = "cluster_kafka1:9092,cluster_kafka2:9092,cluster_kafka3:9092"
   val kafkaTopics = "test-topic"
   val kafkaGroupId = "spark-streaming"
-
-  /**
-    * File system schema: local, Hadoop or Amazon S3
-    */
-  val fileSystemScheme = ""
-  // val fileSystemScheme = "s3a://sages-aws"
-  val useAws = false
-
-  /**
-    * Directory path with sample data
-    */
-  val dataPath: String = fileSystemScheme + System.getenv("HADOOP_HDFS_HOME")
-  // val dataPath: String = fileSystemScheme + "/dane"
 
   /**
     * Wolne Lektury dataset
@@ -66,12 +40,6 @@ trait BaseSparkApp {
   val sparkKMeansData: String = sparkSampleData + "/mllib/kmeans_data.txt"
   val sparkSampleKMeansData: String = sparkSampleData + "/mllib/sample_kmeans_data.txt"
   val sparkSampleLinearRegressionData: String = sparkSampleData + "/mllib/sample_linear_regression_data.txt"
-
-  /**
-    * Output path (results)
-    */
-  val resultPath: String = "/tmp/" + user + "/wyniki/spark"
-  // val resultPath: String = "/user/" + user + "/wyniki/spark"
 
   def createSparkContext: SparkContext = {
 
