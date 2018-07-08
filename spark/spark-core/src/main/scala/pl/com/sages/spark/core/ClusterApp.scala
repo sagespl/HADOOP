@@ -5,7 +5,7 @@ trait ClusterApp {
   /**
     * User name
     */
-  val user: String = System.getProperty("user.name")
+  val user: String = "sages"
 
   /**
     * Where to run master process
