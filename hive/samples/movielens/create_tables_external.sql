@@ -6,7 +6,7 @@ MovieID STRING,
 Title STRING,
 Genres STRING)
 ROW FORMAT DELIMITED FIELDS TERMINATED BY '@'
-LOCATION '/user/sages/dane/movielens/hive/movies';
+LOCATION '/dane/movielens/hive/movies';
 
 
 drop table if exists eratings;
@@ -17,7 +17,7 @@ MovieID STRING,
 Rating STRING,
 Time STRING)
 ROW FORMAT DELIMITED FIELDS TERMINATED BY '@'
-LOCATION '/user/sages/dane/movielens/hive/ratings';
+LOCATION '/dane/movielens/hive/ratings';
 
 
 drop table if exists etags;
@@ -28,6 +28,6 @@ MovieID STRING,
 Tag STRING,
 Time STRING)
 ROW FORMAT DELIMITED FIELDS TERMINATED BY '@'
-LOCATION '/user/sages/dane/movielens/hive/tags';
+LOCATION '/dane/movielens/hive/tags';
 
 show tables;
