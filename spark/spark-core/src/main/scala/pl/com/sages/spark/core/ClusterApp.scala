@@ -17,7 +17,7 @@ trait ClusterApp {
   /**
     * Directory path with sample data
     */
-  val dataPath: String = System.getenv("HADOOP_HDFS_HOME")
+  val dataPath: String = "/user/sages/dane"
 
   /**
     * Output path (results)
