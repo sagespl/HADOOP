@@ -35,3 +35,6 @@ spark-submit --master yarn --deploy-mode cluster --num-executors 3 --class pl.co
 
 
 echo "Kafka"
+
+
+echo "Oozie"
