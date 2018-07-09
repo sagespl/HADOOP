@@ -38,3 +38,14 @@ echo "Kafka"
 
 
 echo "Oozie"
+
+hdfs dfs -rm -f -r -skipTrash $HADOOP_HDFS_HOME/oozie
+hdfs dfs -mkdir -p $HADOOP_HDFS_HOME/oozie
+hdfs dfs -mkdir -p $HADOOP_HDFS_HOME/oozie/lib
+
+hdfs dfs -copyFromLocal $HADOOP_PROJECT/mapreduce/target/mapreduce-1.0-SNAPSHOT-jar-with-dependencies.jar $HADOOP_HDFS_HOME/oozie/lib/
+hdfs dfs -copyFromLocal -f $HADOOP_PROJECT/oozie/src/main/resources/hive-script.hql $HADOOP_HDFS_HOME/oozie/
+hdfs dfs -copyFromLocal -f $HADOOP_PROJECT/oozie/src/main/resources/workflow.xml $HADOOP_HDFS_HOME/oozie/
+
+export OOZIE_URL=http://localhost:11000/oozie
+oozie job -config $HADOOP_PROJECT/oozie/src/main/resources/job.properties -run
