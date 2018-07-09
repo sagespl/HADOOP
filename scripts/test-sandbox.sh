@@ -28,5 +28,10 @@ echo "Pig"
 
 echo "Spark"
 
+export SPARK_MAJOR_VERSION=2
+
+spark-submit --master yarn --deploy-mode cluster --num-executors 3 --class pl.com.sages.spark.core.MovieGenres $HADOOP_PROJECT/spark/spark-core/target/spark-core-1.0-SNAPSHOT-jar-with-dependencies.jar
+
+
 
 echo "Kafka"
