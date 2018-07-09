@@ -1,9 +1,4 @@
 
--- engine
-set hive.execution.engine=tez;
-set hive.execution.engine=spark;
-set hive.execution.engine=mr;
-
 -- describe
 describe movies;
 describe formatted movies;
@@ -54,11 +49,9 @@ FROM ratings limit 100;
 
 select * from ratings where rating >= 3 limit 100;
 
-
 select * from movies where title like 'Toy%' limit 10;
 
 select * from movies where title rlike '.*(Hulk|Spiderman|Avengers|Batman).*';
-
 
 select avg(rating) from ratings;
 select userid, avg(rating) from ratings GROUP BY userid limit 10;
