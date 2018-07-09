@@ -18,6 +18,8 @@ yarn jar $HADOOP_PROJECT/mapreduce/target/mapreduce-1.0-SNAPSHOT-jar-with-depend
 echo "Hive"
 hive -f $HADOOP_PROJECT/hive/samples/movielens/create_database.sql
 hive -f $HADOOP_PROJECT/hive/samples/movielens/create_tables_internal.sql
+hive -f $HADOOP_PROJECT/hive/samples/movielens/create_tables_external.sql
+hive -f $HADOOP_PROJECT/hive/samples/movielens/queries.sql
 hive -f $HADOOP_PROJECT/hive/samples/movielens/drop_database.sql
 
 
