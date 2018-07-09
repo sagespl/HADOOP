@@ -8,7 +8,7 @@ df -h
 yum clean all
 
 # Maven
-rm -rf /home/sages/.m2/repository/pl/com/sages
+rm -rf /home/sages/.m2/repository/*
 cd /home/sages/repository/HADOOP
 mvn clean
 
