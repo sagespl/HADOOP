@@ -12,7 +12,7 @@ trait BaseSparkStreamingApp extends BaseSparkApp {
       setMaster(master).
       setAppName(user + " " + this.getClass.getSimpleName)
 
-    val ssc = new StreamingContext(conf, Seconds(10))
+    val ssc = new StreamingContext(conf, Seconds(5))
 
     ssc
   }
