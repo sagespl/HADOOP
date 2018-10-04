@@ -12,3 +12,6 @@ services:
     stdin_open: true
     tty: true
     hostname: localhost
+    environment:
+      GRANT_SUDO: "yes"
+    user: root
