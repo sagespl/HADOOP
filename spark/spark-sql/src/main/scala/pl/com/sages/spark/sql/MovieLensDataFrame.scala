@@ -31,6 +31,17 @@ object MovieLensDataFrame extends BaseSparkSqlApp with BaseSparkApp {
       withColumnRenamed("_c2", "rating").
       withColumnRenamed("_c3", "timestamp")
 
+    val tagsDataFrame = spark.read.
+      option("header", "false").
+      option("charset", "UTF8").
+      option("delimiter", movielensSeparator).
+      option("inferSchema", "true").
+      csv(tagsPath).
+      withColumnRenamed("_c0", "userId").
+      withColumnRenamed("_c1", "movieId").
+      withColumnRenamed("_c2", "tag").
+      withColumnRenamed("_c3", "timestamp")
+
     // persist
     moviesDataFrame.persist()
     ratingsDataFrame.persist()
@@ -41,6 +52,9 @@ object MovieLensDataFrame extends BaseSparkSqlApp with BaseSparkApp {
 
     ratingsDataFrame.show(10)
     ratingsDataFrame.printSchema()
+
+    tagsDataFrame.show(10)
+    tagsDataFrame.printSchema()
 
     // SQL ;)
     moviesDataFrame.select("title").show()
@@ -53,6 +67,9 @@ object MovieLensDataFrame extends BaseSparkSqlApp with BaseSparkApp {
     // view
     moviesDataFrame.createOrReplaceTempView("movies")
     ratingsDataFrame.createOrReplaceTempView("ratings")
+    ratingsDataFrame.createOrReplaceTempView("tags")
+
+    // queries
     spark.sql("SELECT * FROM movies").show()
     spark.sql("SELECT * FROM ratings").show()
     spark.sql("SELECT movieId, avg(rating) as rating FROM ratings group by movieId").show()
