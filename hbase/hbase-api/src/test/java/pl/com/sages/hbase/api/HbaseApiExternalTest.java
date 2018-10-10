@@ -7,7 +7,6 @@ import org.apache.hadoop.hbase.util.Bytes;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import pl.com.sages.hadoop.data.model.users.User;
 import pl.com.sages.hbase.api.util.HBaseUtil;
 
 import java.util.ArrayList;
@@ -155,6 +154,12 @@ public class HbaseApiExternalTest {
         //when
         Delete delete = new Delete(Bytes.toBytes(id));
         delete.addColumn(Bytes.toBytes(FAMILY_NAME_1), Bytes.toBytes(qualifier1));
+        // delete.addColumn(Bytes.toBytes(FAMILY_NAME_1), Bytes.toBytes(qualifier1), 102);
+        // delete.addColumns(Bytes.toBytes(FAMILY_NAME_1), Bytes.toBytes(qualifier1));
+        // delete.addColumns(Bytes.toBytes(FAMILY_NAME_1), Bytes.toBytes(qualifier1), 102);
+        // delete.addFamily(Bytes.toBytes(FAMILY_NAME_1));
+        // delete.addFamily(Bytes.toBytes(FAMILY_NAME_1),102);
+        // delete.addFamilyVersion(Bytes.toBytes(FAMILY_NAME_1),102);
         table.delete(delete);
 
         //then
