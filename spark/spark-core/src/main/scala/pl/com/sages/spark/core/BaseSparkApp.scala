@@ -2,7 +2,7 @@ package pl.com.sages.spark.core
 
 import org.apache.spark.{SparkConf, SparkContext}
 
-trait BaseSparkApp extends ClusterApp {
+trait BaseSparkApp extends LocalApp {
 
   /**
     * Port and hostname for Spark Streaming and TCP connection
