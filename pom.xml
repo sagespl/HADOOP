@@ -542,7 +542,7 @@
             <id>hdp</id>
             <properties>
                 <fs.defaultFS>hdfs://hdp1:8020</fs.defaultFS>
-                <hbase.zookeeper.quorum>hdp1,hdp2,hdp3</hbase.zookeeper.quorum>
+                <hbase.zookeeper.quorum>hdp1.hortonworks.com,hdp2.hortonworks.com,hdp3.hortonworks.com</hbase.zookeeper.quorum>
                 <zookeeper.znode.parent>/hbase-unsecure</zookeeper.znode.parent>
                 <phoenix.connection>jdbc:phoenix:hdp3:/hbase-unsecure</phoenix.connection>
             </properties>
