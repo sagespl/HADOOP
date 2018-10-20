@@ -13,7 +13,7 @@
 
     <property>
         <name>zookeeper.znode.parent</name>
-        <value>/hbase-unsecure</value>
+        <value>${zookeeper.znode.parent}</value>
     </property>
 
 </configuration>
