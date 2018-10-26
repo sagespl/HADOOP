@@ -14,7 +14,7 @@ public class HbaseConfigurationFactoryExternalTest {
         Configuration configuration = getConfiguration();
 
         //when
-        HBaseAdmin.checkHBaseAvailable(configuration);
+        HBaseAdmin.available(configuration);
 
         //then
     }

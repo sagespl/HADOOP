@@ -4,8 +4,8 @@ import io.vavr.control.Try;
 import org.apache.hadoop.hbase.*;
 import org.apache.hadoop.hbase.client.Admin;
 import org.apache.hadoop.hbase.client.Connection;
-import org.apache.hadoop.hbase.protobuf.generated.AdminProtos;
 import org.apache.hadoop.hbase.util.Bytes;
+import org.apache.hadoop.hbase.client.CompactionState;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -109,14 +109,14 @@ public abstract class HBaseUtil {
     }
 
     public static boolean isCompaction(TableName tableName) {
-        return Try.of(() -> getCompaction(tableName).getNumber() > 0).get();
+        return Try.of(() -> getCompaction(tableName) != CompactionState.NONE).get();
     }
 
-    public static AdminProtos.GetRegionInfoResponse.CompactionState getCompaction(TableName tableName) {
+    public static CompactionState getCompaction(TableName tableName) {
         return Try.of(() -> {
 
             final Admin admin = connection.getAdmin();
-            AdminProtos.GetRegionInfoResponse.CompactionState compactionState = admin.getCompactionState(tableName);
+            CompactionState compactionState = admin.getCompactionState(tableName);
             admin.close();
 
             return compactionState;

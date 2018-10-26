@@ -45,7 +45,7 @@ public class AllMovieDataMapper extends TableMapper<ImmutableBytesWritable, Put>
 
             if (family.equals(Bytes.toString(MovieDao.CF))) {
 
-                movieId = Bytes.toString(cell.getRow());
+                movieId = Bytes.toString(CellUtil.cloneValue(cell));
 
                 if (column.equals(Bytes.toString(MovieDao.TITLE))) {
 
@@ -59,7 +59,7 @@ public class AllMovieDataMapper extends TableMapper<ImmutableBytesWritable, Put>
 
             } else if (family.equals(MovieAverageRatingsConstants.FAMILY_NAME)) {
 
-                movieId = Bytes.toString(cell.getRow());
+                movieId = Bytes.toString(CellUtil.cloneValue(cell));
                 System.out.println(movieId);
                 if (column.equals(MovieAverageRatingsConstants.QUALIFIER_NAME)) {
 
