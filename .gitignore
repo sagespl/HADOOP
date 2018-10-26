@@ -24,3 +24,5 @@ bin
 WEB-INF/classes
 WEB-INF/lib
 build
+
+jupyter/*

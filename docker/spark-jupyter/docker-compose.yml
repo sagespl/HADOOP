@@ -6,7 +6,7 @@ services:
     container_name: jupyter-spark
     image: jupyter/all-spark-notebook
     volumes:
-      - /home/sages/repository/dane/jupyter/:/home/jovyan/:rw
+      - ../../notebooks/jupyter/:/home/jovyan/:rw
     ports:
       - "8888:8888"
     stdin_open: true
