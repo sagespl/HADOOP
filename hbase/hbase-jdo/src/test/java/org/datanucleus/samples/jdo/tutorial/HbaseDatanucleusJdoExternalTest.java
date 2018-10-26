@@ -1,6 +1,7 @@
 package org.datanucleus.samples.jdo.tutorial;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import pl.com.sages.hbase.api.util.HBaseUtil;
 import pl.com.sages.hbase.jdo.datanucleus.Inventory;
@@ -13,6 +14,7 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+@Ignore
 public class HbaseDatanucleusJdoExternalTest {
 
     @Before

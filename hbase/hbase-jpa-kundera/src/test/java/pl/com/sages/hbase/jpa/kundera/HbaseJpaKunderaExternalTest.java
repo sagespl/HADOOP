@@ -1,5 +1,6 @@
 package pl.com.sages.hbase.jpa.kundera;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import javax.persistence.EntityManager;
@@ -10,6 +11,7 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+@Ignore
 public class HbaseJpaKunderaExternalTest {
 
     @Test
