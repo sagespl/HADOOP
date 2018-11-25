@@ -11,16 +11,19 @@ import java.util.Properties;
 
 public class KafkaConfigurationFactory {
 
-    public static final String KAFKA_SERVER = "cluster_kafka1:9092,cluster_kafka2:9092,cluster_kafka3:9092";
-//     public static final String KAFKA_SERVER = "localhost:9092";
-//     public static final String KAFKA_SERVER = "localhost:6667";
+    // public static final String KAFKA_SERVER = "cluster_kafka1:9092,cluster_kafka2:9092,cluster_kafka3:9092";
+    // public static final String KAFKA_SERVER = "localhost:6667";
+    // public static final String KAFKA_SERVER = "localhost:9092";
+    public static final String KAFKA_SERVER = "hdp1:6667,hdp2:6667,hdp3:6667";
 
-    public static final String ZOOKEEPER_SERVER = "cluster_zookeeper:2181";
-//     public static final String ZOOKEEPER_SERVER = "localhost:2181";
+    // public static final String ZOOKEEPER_SERVER = "cluster_zookeeper:2181";
+    // public static final String ZOOKEEPER_SERVER = "localhost:2181";
+    public static final String ZOOKEEPER_SERVER = "hdp1:2181,hdp2:2181,hdp3:2181";
 
     public static final String TOPIC = "test-topic";
     public static final String TOPIC2 = "test-topic2";
     public static final String TOPIC_OUT = "test-topic-out";
+    public static final String CONSUMER_GROUP = "my-group";
 
     public static final int TIMEOUT = 10000;
     public static final int SLEEP = 5000;
@@ -31,7 +34,7 @@ public class KafkaConfigurationFactory {
     public static Properties createConsumerConfig() {
         Properties consumerConfig = new Properties();
         consumerConfig.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, KAFKA_SERVER);
-        consumerConfig.put(ConsumerConfig.GROUP_ID_CONFIG, "my-group");
+        consumerConfig.put(ConsumerConfig.GROUP_ID_CONFIG, CONSUMER_GROUP);
 
         consumerConfig.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
         consumerConfig.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
