@@ -20,7 +20,9 @@ public class KafkaStreamsExample {
         Properties config = getStreamConfig();
 
         StreamsBuilder builder = new StreamsBuilder();
+
         KStream<String, String> textLines = builder.stream(TOPIC);
+
         KTable<String, Long> wordCounts = textLines
                 .flatMapValues(textLine -> Arrays.asList(textLine.toLowerCase().split("\\W+")))
                 .groupBy((key, word) -> word)
