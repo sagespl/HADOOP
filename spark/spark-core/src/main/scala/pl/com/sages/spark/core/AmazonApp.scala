@@ -17,7 +17,8 @@ trait AmazonApp {
   /**
     * Directory path with sample data
     */
-  val dataPath: String = "s3a://aws-educate-pw-radek"
+    val dataPath: String = "s3a://aws-educate-pw-radek"
+//  val dataPath: String = "/user/hadoop"
 
   /**
     * Output path (results)
