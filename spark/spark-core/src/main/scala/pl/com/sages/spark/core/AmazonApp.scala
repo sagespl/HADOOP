@@ -17,11 +17,11 @@ trait AmazonApp {
   /**
     * Directory path with sample data
     */
-  val dataPath: String = "s3a://sages-aws/dane"
+  val dataPath: String = "s3a://aws-educate-pw-radek"
 
   /**
     * Output path (results)
     */
-  val resultPath: String = "s3a://sages-aws/wyniki/spark"
-
+  //  val resultPath: String = "s3a://aws-educate-pw-radek/wyniki/spark"
+  val resultPath: String = "/user/hadoop/wyniki/spark"
 }

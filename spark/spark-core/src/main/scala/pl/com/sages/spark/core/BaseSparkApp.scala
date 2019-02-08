@@ -2,7 +2,7 @@ package pl.com.sages.spark.core
 
 import org.apache.spark.{SparkConf, SparkContext}
 
-trait BaseSparkApp extends LocalApp {
+trait BaseSparkApp extends AmazonApp {
 
   /**
     * Port and hostname for Spark Streaming and TCP connection
@@ -25,9 +25,9 @@ trait BaseSparkApp extends LocalApp {
   /**
     * Movielens dataset
     */
-  val moviesPath: String = dataPath + "/movielens/hive/movies/movies.dat"
-  val tagsPath: String = dataPath + "/movielens/hive/tags/tags.dat"
-  val ratingsPath: String = dataPath + "/movielens/hive/ratings/ratings.dat"
+  val moviesPath: String = dataPath + "/movielens/movies/movies.dat"
+  val tagsPath: String = dataPath + "/movielens/tags/tags.dat"
+  val ratingsPath: String = dataPath + "/movielens/ratings/ratings.dat"
   val movielensSeparator: String = "@"
 
   /**

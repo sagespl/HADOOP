@@ -28,14 +28,14 @@
 
     <properties>
 
-        <!-- AWS EMR 5.17.0-->
-        <!--<hadoop.version>[2.8.4]</hadoop.version>-->
-        <!--<spark.version>[2.3.1]</spark.version>-->
-        <!--<hbase.version>[1.4.6]</hbase.version>-->
+        <!-- AWS EMR 5.20.0-->
+        <hadoop.version>[2.8.5]</hadoop.version>
+        <spark.version>[2.4.0]</spark.version>
+        <!--<hbase.version>[1.4.8]</hbase.version>-->
 
         <!--HDP 3.0-->
-        <hadoop.version>[3.1.1]</hadoop.version>
-        <spark.version>[2.3.1]</spark.version>
+        <!--<hadoop.version>[3.1.1]</hadoop.version>-->
+        <!--<spark.version>[2.3.1]</spark.version>-->
         <hbase.version>[2.0.0]</hbase.version>
         <hive.version>[3.1.0]</hive.version>
         <pig.version>[0.16.0]</pig.version>
