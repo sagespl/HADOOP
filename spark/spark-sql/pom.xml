@@ -27,12 +27,6 @@
         </dependency>
 
         <dependency>
-            <groupId>com.amazonaws</groupId>
-            <artifactId>sagemaker-spark_2.11</artifactId>
-            <version>spark_2.2.0-1.0</version>
-        </dependency>
-
-        <dependency>
             <groupId>org.apache.spark</groupId>
             <artifactId>spark-core_${scala.binary.version}</artifactId>
         </dependency>
