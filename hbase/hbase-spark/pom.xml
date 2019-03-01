@@ -29,10 +29,16 @@
             <groupId>org.apache.hbase</groupId>
             <artifactId>hbase-common</artifactId>
         </dependency>
+
+        <!--MapReduce for HBase-->
         <dependency>
             <groupId>org.apache.hbase</groupId>
-            <artifactId>hbase-mapreduce</artifactId>
+            <artifactId>hbase-server</artifactId>
         </dependency>
+        <!--<dependency>-->
+        <!--<groupId>org.apache.hbase</groupId>-->
+        <!--<artifactId>hbase-mapreduce</artifactId>-->
+        <!--</dependency>-->
 
         <dependency>
             <groupId>org.assertj</groupId>
