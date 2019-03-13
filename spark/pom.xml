@@ -19,7 +19,6 @@
         <module>spark-sql</module>
         <module>spark-mllib</module>
         <module>spark-streaming</module>
-        <module>spark-sagemaker</module>
     </modules>
 
 </project>
