@@ -12,8 +12,6 @@ trait ClusterApp {
     */
   val master: String = "yarn"
 
-  val useAws = false
-
   /**
     * Directory path with sample data
     */
