@@ -5,8 +5,7 @@ import org.apache.hadoop.hbase.*;
 import org.apache.hadoop.hbase.client.Admin;
 import org.apache.hadoop.hbase.client.Connection;
 import org.apache.hadoop.hbase.util.Bytes;
-import org.apache.hadoop.hbase.protobuf.generated.AdminProtos.GetRegionInfoResponse.CompactionState;
-//import org.apache.hadoop.hbase.client.CompactionState;
+import org.apache.hadoop.hbase.client.CompactionState;
 
 import java.io.IOException;
 import java.util.Arrays;

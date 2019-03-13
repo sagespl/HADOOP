@@ -1,8 +1,7 @@
 package pl.com.sages.hbase.api.util;
 
 import org.apache.hadoop.hbase.TableName;
-import org.apache.hadoop.hbase.protobuf.generated.AdminProtos.GetRegionInfoResponse.CompactionState;
-//import org.apache.hadoop.hbase.client.CompactionState;
+import org.apache.hadoop.hbase.client.CompactionState;
 
 public class TableInfo {
 

@@ -1,7 +1,6 @@
 package pl.com.sages.hbase.api.util;
 
-import org.apache.hadoop.hbase.protobuf.generated.AdminProtos.GetRegionInfoResponse.CompactionState;
-//import org.apache.hadoop.hbase.client.CompactionState;
+import org.apache.hadoop.hbase.client.CompactionState;
 import org.apache.hadoop.hbase.client.Connection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
