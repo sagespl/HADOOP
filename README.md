@@ -10,6 +10,9 @@
 * http://www.sages.com.pl/szkolenia-big-data
 
 
+# Dystrybucja
+* Hortonworks Data Platform (HDP) 3.1.0
+* Hortonworks DataFlow (HDF) 3.3.1
 
 
 # Ambari
