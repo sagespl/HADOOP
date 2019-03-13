@@ -8,7 +8,7 @@
     <name>Apache Kafka</name>
 
     <parent>
-        <artifactId>hadoop</artifactId>
+        <artifactId>bigdata</artifactId>
         <groupId>pl.com.sages</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>

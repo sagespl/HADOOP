@@ -5,25 +5,28 @@
 
     <modelVersion>4.0.0</modelVersion>
     <groupId>pl.com.sages</groupId>
-    <artifactId>hadoop</artifactId>
+    <artifactId>bigdata</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>Sages Big Data Training</name>
 
     <modules>
-        <module>cascading</module>
+
         <module>data-model</module>
+
+        <module>hadoop</module>
+        <module>spark</module>
+        <module>kafka</module>
+
         <module>flume</module>
         <module>hbase</module>
-        <module>hdfs</module>
         <module>hive</module>
-        <module>kafka</module>
         <module>mahout</module>
-        <module>mapreduce</module>
-        <module>oozie</module>
         <module>pig</module>
-        <module>spark</module>
+        <module>oozie</module>
         <module>nifi</module>
+        <module>cascading</module>
+
     </modules>
 
     <properties>

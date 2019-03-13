@@ -10,7 +10,7 @@
 
     <parent>
         <groupId>pl.com.sages</groupId>
-        <artifactId>hadoop</artifactId>
+        <artifactId>bigdata</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
 
