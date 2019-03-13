@@ -12,8 +12,6 @@ trait LocalApp {
     */
   val master: String = "local[*]"
 
-  val useAws = false
-
   /**
     * Directory path with sample data
     */
