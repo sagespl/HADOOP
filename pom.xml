@@ -16,7 +16,6 @@
 
         <module>hadoop</module>
         <module>spark</module>
-        <module>kafka</module>
 
         <module>flume</module>
         <module>hbase</module>
@@ -40,7 +39,6 @@
         <pig.version>[0.16.0]</pig.version>
         <hbase.version>[2.0.2]</hbase.version>
         <oozie.version>[4.3.1]</oozie.version>
-        <kafka.version>[2.0.0]</kafka.version>
         <nifi.version>[1.5.0]</nifi.version>
 
         <!--Other-->
@@ -247,23 +245,6 @@
                 <version>${mahout.version}</version>
             </dependency>
 
-            <!--Kafka-->
-            <dependency>
-                <groupId>org.apache.kafka</groupId>
-                <artifactId>kafka_${scala.binary.version}</artifactId>
-                <version>${kafka.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.kafka</groupId>
-                <artifactId>kafka-clients</artifactId>
-                <version>${kafka.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.kafka</groupId>
-                <artifactId>kafka-streams</artifactId>
-                <version>${kafka.version}</version>
-            </dependency>
-
             <!--Spark-->
             <dependency>
                 <groupId>org.apache.spark</groupId>
@@ -364,17 +345,6 @@
                 <groupId>com.fasterxml.jackson.core</groupId>
                 <artifactId>jackson-annotations</artifactId>
                 <version>${jackson.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>com.twitter</groupId>
-                <artifactId>hbc-core</artifactId>
-                <version>2.2.0</version>
-            </dependency>
-            <dependency>
-                <groupId>org.json</groupId>
-                <artifactId>json</artifactId>
-                <version>20180813</version>
             </dependency>
 
             <!-- Logging -->
