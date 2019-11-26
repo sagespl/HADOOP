@@ -15,7 +15,6 @@
         <module>data-model</module>
 
         <module>hadoop</module>
-        <module>spark</module>
 
         <module>flume</module>
         <module>hbase</module>
