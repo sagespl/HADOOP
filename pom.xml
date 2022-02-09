@@ -32,7 +32,7 @@
         <!--HDP 3.1.0 & HDF 3.3.1-->
         <!--https://docs.hortonworks.com/HDPDocuments/HDP3/HDP-3.1.0/release-notes/content/comp_versions.html-->
         <!--https://docs.hortonworks.com/HDPDocuments/HDF3/HDF-3.1.1/bk_release-notes/content/ch_hdf_relnotes.html-->
-        <hadoop.version>[3.1.1]</hadoop.version>
+        <hadoop.version>[3.1.4]</hadoop.version>
         <spark.version>[2.3.2]</spark.version>
         <hive.version>[3.1.0]</hive.version>
         <pig.version>[0.16.0]</pig.version>
